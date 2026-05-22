@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Work — Enduro Construction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ─── FONTS ─────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Countach';
+  src: url('../FONTS/CountachLTStd-Bold.woff') format('woff');
+  font-weight: 700; font-style: normal;
+}
+
+/* ─── RESET & TOKENS ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --red:       #C8211A;
+  --black:     #0D0D0D;
+  --surface:   #141414;
+  --off-white: #F2F0ED;
+  --white:     #FFFFFF;
+  --w70:       rgba(255,255,255,0.70);
+  --w50:       rgba(255,255,255,0.50);
+  --w25:       rgba(255,255,255,0.25);
+  --w10:       rgba(255,255,255,0.10);
+  --max:       1440px;
+  --gutter:    80px;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--off-white);
+  color: var(--black);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+img { display: block; width: 100%; height: 100%; object-fit: cover; }
+a { text-decoration: none; color: inherit; }
+
+/* ─── CONTAINER ──────────────────────────────────────────── */
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ─── BUTTONS ────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  padding: 14px 28px; border-radius: 8px;
+  cursor: pointer; border: none;
+  transition: transform 0.18s cubic-bezier(0.22,1,0.36,1), background 0.18s ease;
+  white-space: nowrap;
+}
+.btn:hover { transform: translateX(4px); }
+.btn .btn-arrow { display: inline-flex; align-items: center; transition: transform 0.18s cubic-bezier(0.22,1,0.36,1); }
+.btn:hover .btn-arrow { transform: translateX(2px); }
+.btn-red   { background: var(--red); color: var(--white); }
+.btn-dark  { background: var(--black); color: var(--white); }
+.btn-ghost { background: rgba(0,0,0,0.06); color: var(--black); border: 1.5px solid rgba(0,0,0,0.12); }
+
+/* ─── NAV ────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 80px;
+  background: rgba(13,13,13,0.96);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+}
+.nav-inner {
+  max-width: var(--max); margin: 0 auto;
+  padding: 0 var(--gutter);
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+.nav-logo { justify-self: start; }
+.nav-logo svg { height: 28px; width: auto; }
+.nav-links {
+  display: flex; align-items: center; gap: 32px;
+}
+.nav-links a {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--w50);
+  transition: color 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--white); }
+.nav-right { justify-self: end; display: flex; align-items: center; gap: 20px; }
+.nav-socials { display: flex; gap: 16px; }
+.nav-socials a {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--w50); transition: color 0.2s;
+}
+.nav-socials a:hover { color: var(--white); }
+
+/* ─── PAGE HERO ──────────────────────────────────────────── */
+.page-hero {
+  padding-top: 80px; /* nav height */
+  background: var(--black);
+  padding-bottom: 80px;
+}
+.page-hero-inner {
+  max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter);
+  padding-top: 80px;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 40px;
+}
+.page-hero-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(56px, 6vw, 96px);
+  font-weight: 900;
+  line-height: 0.88; letter-spacing: -0.04em;
+  text-transform: uppercase; color: var(--white);
+}
+.page-hero-sub {
+  font-size: 15px; line-height: 1.7;
+  color: rgba(255,255,255,0.45);
+  max-width: 380px;
+}
+.section-tag {
+  display: block;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--red); margin-bottom: 14px;
+}
+
+/* ─── FILTER BAR ─────────────────────────────────────────── */
+.filter-bar {
+  background: var(--off-white);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  position: sticky; top: 80px; z-index: 100;
+  padding: 0;
+}
+.filter-bar-inner {
+  max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter);
+  display: flex; gap: 0; overflow-x: auto;
+}
+.filter-btn {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(0,0,0,0.35);
+  padding: 18px 24px; border: none; background: none;
+  cursor: pointer; transition: color 0.2s;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.filter-btn:hover { color: var(--black); }
+.filter-btn.active { color: var(--black); border-bottom-color: var(--red); }
+
+/* ─── PROJECT GRID ───────────────────────────────────────── */
+.projects-section {
+  padding: 64px 0 120px;
+}
+.projects-masonry {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 4px;
+}
+/* Layout patterns for cards */
+.proj { position: relative; overflow: hidden; background: var(--surface); cursor: pointer; }
+.proj-img { position: absolute; inset: 0; transition: transform 0.65s ease; }
+.proj:hover .proj-img { transform: scale(1.04); }
+.proj-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 55%);
+}
+.proj-content {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 28px 32px;
+}
+.proj-cat {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--red); margin-bottom: 8px;
+}
+.proj-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 22px; font-weight: 800;
+  line-height: 0.95; letter-spacing: -0.02em;
+  text-transform: uppercase; color: var(--white);
+}
+.proj-meta {
+  font-size: 12px; color: rgba(255,255,255,0.45);
+  margin-top: 8px; letter-spacing: 0.04em;
+}
+
+/* Grid placements — 12-col */
+.proj-a { grid-column: span 8; min-height: 560px; }
+.proj-b { grid-column: span 4; min-height: 560px; }
+.proj-c { grid-column: span 4; min-height: 400px; }
+.proj-d { grid-column: span 4; min-height: 400px; }
+.proj-e { grid-column: span 4; min-height: 400px; }
+.proj-f { grid-column: span 6; min-height: 440px; }
+.proj-g { grid-column: span 6; min-height: 440px; }
+.proj-h { grid-column: span 5; min-height: 400px; }
+.proj-i { grid-column: span 7; min-height: 400px; }
+
+/* Large card gets bigger title */
+.proj-a .proj-title { font-size: 36px; }
+
+/* ─── REVEAL ─────────────────────────────────────────────── */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+              transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal.d1 { transition-delay: 0.06s; }
+.reveal.d2 { transition-delay: 0.12s; }
+.reveal.d3 { transition-delay: 0.18s; }
+
+/* ─── CTA BAND ───────────────────────────────────────────── */
+.cta-band {
+  background: var(--black);
+  padding: 96px 0;
+}
+.cta-band-inner {
+  max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter);
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 40px;
+}
+.cta-band-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(36px, 4vw, 60px);
+  font-weight: 900; text-transform: uppercase;
+  line-height: 0.9; letter-spacing: -0.035em;
+  color: var(--white);
+}
+.cta-band-sub {
+  font-size: 15px; color: rgba(255,255,255,0.45);
+  max-width: 360px; margin-top: 16px; line-height: 1.65;
+}
+
+/* ─── FOOTER ─────────────────────────────────────────────── */
+footer {
+  background: var(--black);
+  padding: 72px 0 36px;
+  color: var(--white);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-inner { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.footer-top {
+  display: grid;
+  grid-template-columns: 260px 1fr 1fr 1fr;
+  gap: 64px; padding-bottom: 56px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 32px;
+}
+.footer-logo { margin-bottom: 16px; }
+.footer-logo svg { height: 26px; width: auto; opacity: 0.8; }
+.footer-tagline { font-size: 13px; line-height: 1.5; color: rgba(255,255,255,0.35); margin-bottom: 24px; }
+.footer-socials { display: flex; gap: 20px; }
+.footer-socials a {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: rgba(255,255,255,0.35); transition: color 0.2s;
+}
+.footer-socials a:hover { color: var(--white); }
+.footer-col-title { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 20px; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.footer-links a { font-size: 13px; color: rgba(255,255,255,0.5); transition: color 0.2s; }
+.footer-links a:hover { color: var(--white); }
+.footer-contact { display: flex; flex-direction: column; gap: 10px; }
+.footer-contact a, .footer-contact span { font-size: 13px; color: rgba(255,255,255,0.5); transition: color 0.2s; display: block; }
+.footer-contact a:hover { color: var(--white); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+.footer-copy { font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 0.04em; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════ NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="enduro_concept-MASTER_v3.html">
+      <svg viewBox="0 0 294 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59ZM85.85 33.11L74.77 85.79H57L71.32 18.31H89.09L87.98 23.05L93.83 18.31H104.49C109.54 19.5 112.41 25.42 111.14 31.34L99.65 85.79H81.88L92.8 34.3L91.77 33.11H85.85ZM127.66 71H133.59L141.54 33.11H135.62L134.27 34.3L126.76 69.81L127.66 71ZM131.74 79.87L124.54 85.79H114.47C109.7 83.42 107.14 78.69 108.29 72.89L117.08 31.34C118.63 24.23 122.59 19.5 129.38 18.31H140.04L143.67 23.05L148.48.56H166.25L148.23 85.79H130.46L131.74 79.87ZM211.14 18.31L199.8 71.59C197.94 80.58 194.39 83.9 187.58 85.79H163.41C158.62 83.9 155.46 79.4 157.16 71.59L168.49 18.31H186.26L175.06 71L175.97 72.18H180.71L182.17 71L193.37 18.31H211.14ZM228.76 46.73L220.52 85.79H202.76L217.08 18.31H234.84L233.73 23.17C235.95 20.68 238.72 19.26 241.72 18.31H249.3L245.34 36.66H232.07L230.61 37.85L228.76 46.73ZM283.2 71.59C281.35 80.58 277.8 83.9 270.98 85.79H246.81C242.02 83.9 238.86 79.4 240.56 71.59L248.79 32.52C250.77 23.52 254.32 20.21 261.13 18.31H285.3C290.09 20.21 293.13 24.71 291.44 32.52L283.2 71.59ZM266.42 33.11L258.47 71L259.37 72.18H264.11L265.57 71L273.53 33.11L272.62 31.93H267.88L266.42 33.11Z" fill="white"/>
+      </svg>
+    </a>
+    <nav class="nav-links">
+      <a href="/construction-services">Services</a>
+      <a href="enduro_projects-MASTER_v1.html" class="active">Our Work</a>
+      <a href="/about-us">About Us</a>
+      <a href="/blog">Insights</a>
+      <a href="/contact-us">Contact Us</a>
+    </nav>
+    <div class="nav-right">
+      <div class="nav-socials">
+        <a href="https://www.instagram.com/enduro.construction/" target="_blank">IG</a>
+        <a href="https://linkedin.com/company/enduro-construction" target="_blank">LI</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════ PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div>
+      <span class="section-tag reveal">Selected Work</span>
+      <h1 class="page-hero-heading reveal d1">Our<br>Projects</h1>
+    </div>
+    <p class="page-hero-sub reveal d2">Commercial interiors, institutional facilities, and tenant improvements across Metro Vancouver. Built to spec, delivered on schedule.</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-bar-inner">
+    <button class="filter-btn active" data-filter="all">All Projects</button>
+    <button class="filter-btn" data-filter="gc">General Contracting</button>
+    <button class="filter-btn" data-filter="cm">Construction Management</button>
+    <button class="filter-btn" data-filter="lab">Lab &amp; Research</button>
+    <button class="filter-btn" data-filter="office">Office TI</button>
+    <button class="filter-btn" data-filter="civic">Civic &amp; Institutional</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ PROJECT GRID -->
+<section class="projects-section">
+  <div class="container">
+    <div class="projects-masonry">
+
+      <!-- Row 1: Large (8) + Tall (4) -->
+      <div class="proj proj-a reveal" data-cat="lab">
+        <div class="proj-img">
+          <img src="photos/Dawson Lab/Pro/Photos/Insta Selection/LL_02637.jpg" alt="Dawson Lab">
+        </div>
+        <div class="proj-overlay"></div>
+        <div class="proj-content">
+          <p class="proj-cat">Lab &amp; Research · UBC</p>
+          <h2 class="proj-title">Dawson Lab</h2>
+          <p class="proj-meta">General Contracting · 2024</p>
+        </div>
+      </div>
+      <div class="proj proj-b reveal d1" data-cat="office">
+        <div class="proj-img">
+          <img src="photos/Dawson Lab/Pro/Photos/Insta Selection/LL_02650.jpg" alt="One Alexander">
+        </div>
+        <div class="proj-overlay"></div>
+        <div class="proj-content">
+          <p class="proj-cat">Office TI · Downtown Vancouver</p>
+          <h2 class="proj-title">One Alexander</h2>
+          <p class="proj-meta">General Contracting · 2025</p>
+        </div>
+      </div>
+
+      <!-- Row 2: 3 equal cards -->
+      <div class="proj proj-c reveal" data-cat="civic">
+        <div class="proj-img">
+          <img src="photos/UBC Henry Angus Classrooms/INSTAGRAM SELECTION/2053-Main-Mall-Vancouver-001.JPG" alt="Henry Angus">
+        </div>
+        <div class="proj-overlay"></div>
+        <div class="proj-content">
+          <p class="proj-cat">Education · UBC</p>
+          <h2 class="proj-title">Henry Angus<br>Classrooms</h2>
+          <p class="proj-meta">Construction Management · 2024</p>
+        </div>
+      </div>
+      <div class="proj proj-d reveal d1" data-cat="civic">
+        <div class="proj-img">
+          <img src="photos/Ray Perrault Fieldhouse/Hi-res/TM208935.jpg" alt="Ray Perrault">
+        </div>
+        <div class="proj-overlay"></div>
+        <div class="proj-content">
+          <p class="proj-cat">Civic &amp; Recreation</p>
+          <h2 class="proj-title">Ray Perrault<br>Fieldhouse</h2>
+          <p class="proj-meta">General Contracting · 2024</p>
+        </div>
+      </div>
+      <div class="proj proj-e reveal d2" data-cat="lab">
+        <div class="proj-img">
+          <img src="photos/Dawson Lab/Pro/Photos/LL_02621.jpg" alt="SPPH Lab">
+        </div>
+        <div class="proj-overlay"></div>
+        <div class="proj-content">
+          <p class="proj-cat">Research · UBC</p>
+          <h2 class="proj-title">SPPH<br>Research Lab</h2>
+          <p class="proj-meta">General Contracting · 2023</p>
+        </div>
+      </div>
+
+      <!-- Row 3: 6 + 6 -->
+      <div class="proj proj-f reveal" data-cat="office">
+        <div class="proj-img">
+          <img src="photos/Norgate Cannabis Store/Pro/Photos/IMG_001.jpg" alt="Norgate Cannabis">
+        </div>
+        <div class="proj-overlay"></div>
+        <div class="proj-content">
+          <p class="proj-cat">Retail · North Vancouver</p>
+          <h2 class="proj-title">Norgate<br>Cannabis</h2>
+          <p class="proj-meta">General Contracting · 2023</p>
+        </div>
+      </div>
+      <div class="proj proj-g reveal d1" data-cat="lab">
+        <div class="proj-img">
+          <img src="photos/Dawson Lab/Pro/Photos/LL_02663.jpg" alt="Dawson Lab Interior">
+        </div>
+        <div class="proj-overlay"></div>
+        <div class="proj-content">
+          <p class="proj-cat">Lab · UBC</p>
+          <h2 class="proj-title">Dawson Lab<br>Phase 2</h2>
+          <p class="proj-meta">Construction Management · 2024</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════════════════════════ CTA BAND -->
+<section class="cta-band">
+  <div class="cta-band-inner">
+    <div>
+      <h2 class="cta-band-heading reveal">Have a project<br>in mind?</h2>
+      <p class="cta-band-sub reveal d1">Tell us what you're building. We'll tell you if we're the right fit — and if not, we'll point you toward someone who is.</p>
+    </div>
+    <a href="/contact-us" class="btn btn-red reveal d2">Start a Conversation <span class="btn-arrow">→</span></a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <svg viewBox="0 0 294 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59ZM85.85 33.11L74.77 85.79H57L71.32 18.31H89.09L87.98 23.05L93.83 18.31H104.49C109.54 19.5 112.41 25.42 111.14 31.34L99.65 85.79H81.88L92.8 34.3L91.77 33.11H85.85ZM127.66 71H133.59L141.54 33.11H135.62L134.27 34.3L126.76 69.81L127.66 71ZM131.74 79.87L124.54 85.79H114.47C109.7 83.42 107.14 78.69 108.29 72.89L117.08 31.34C118.63 24.23 122.59 19.5 129.38 18.31H140.04L143.67 23.05L148.48.56H166.25L148.23 85.79H130.46L131.74 79.87ZM211.14 18.31L199.8 71.59C197.94 80.58 194.39 83.9 187.58 85.79H163.41C158.62 83.9 155.46 79.4 157.16 71.59L168.49 18.31H186.26L175.06 71L175.97 72.18H180.71L182.17 71L193.37 18.31H211.14ZM228.76 46.73L220.52 85.79H202.76L217.08 18.31H234.84L233.73 23.17C235.95 20.68 238.72 19.26 241.72 18.31H249.3L245.34 36.66H232.07L230.61 37.85L228.76 46.73ZM283.2 71.59C281.35 80.58 277.8 83.9 270.98 85.79H246.81C242.02 83.9 238.86 79.4 240.56 71.59L248.79 32.52C250.77 23.52 254.32 20.21 261.13 18.31H285.3C290.09 20.21 293.13 24.71 291.44 32.52L283.2 71.59ZM266.42 33.11L258.47 71L259.37 72.18H264.11L265.57 71L273.53 33.11L272.62 31.93H267.88L266.42 33.11Z" fill="white" opacity="0.6"/>
+          </svg>
+        </div>
+        <p class="footer-tagline">Enduro Construction Ltd.</p>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/enduro.construction/" target="_blank">Instagram</a>
+          <a href="https://www.facebook.com/enduroconstructionltd/" target="_blank">Facebook</a>
+          <a href="https://linkedin.com/company/enduro-construction" target="_blank">LinkedIn</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-title">What We Do</p>
+        <ul class="footer-links">
+          <li><a href="/general-contracting-services">General Contracting</a></li>
+          <li><a href="/construction-management-services">Project Management</a></li>
+          <li><a href="/commercial-tenant-improvements">Commercial TI</a></li>
+          <li><a href="/commercial-institutions">Industrial &amp; Institutional</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Company</p>
+        <ul class="footer-links">
+          <li><a href="/about-us">About Us</a></li>
+          <li><a href="enduro_projects-MASTER_v1.html">Our Work</a></li>
+          <li><a href="/blog">Insights</a></li>
+          <li><a href="/contact-us">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Contact</p>
+        <div class="footer-contact">
+          <a href="tel:6049686578">T.: 604.968.6578</a>
+          <a href="mailto:info@enduroconstruction.ca">E.: info@enduroconstruction.ca</a>
+          <span>#170 – 422 Richards Street</span>
+          <span>Vancouver, BC V6B 2Z4</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Enduro Construction Ltd. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ─── SCROLL REVEAL ────────────────────────────────────── */
+const revealEls = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.10, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObs.observe(el));
+
+/* ─── FILTER BAR ───────────────────────────────────────── */
+const filterBtns = document.querySelectorAll('.filter-btn');
+const projCards  = document.querySelectorAll('.proj');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    projCards.forEach(card => {
+      const match = f === 'all' || card.dataset.cat === f;
+      card.style.display = match ? '' : 'none';
+    });
+  });
+});
+</script>
+</body>
+</html>
