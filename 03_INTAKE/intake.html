@@ -655,7 +655,6 @@
 
   /* Remove old inline nav bars */
   .step-nav { display: none; }
-  .form-step.active .step-nav { display: flex; justify-content: flex-end; gap: 12px; margin-top: 32px; }
 
   /* ── STEP RAIL (fixed left) ── */
   .step-rail {
@@ -2163,9 +2162,17 @@
     if (n === currentStep) return;
 
     if (!allEverCompleted) {
-      // Sequential mode: only allow going back, or forward to the immediately next unlocked step
-      if (n > currentStep) return; // dot clicks forward are blocked — use Next button
-      showStep(n);
+      // Sequential mode: allow going back freely
+      if (n < currentStep) { showStep(n); return; }
+      // Forward: only allow one step at a time, and only if current step is valid
+      if (n === currentStep + 1 && isStepValid(currentStep)) {
+        stepDone.add(currentStep);
+        showStep(n);
+      } else if (n > currentStep + 1) {
+        return; // can't skip ahead
+      } else {
+        validateStep(currentStep); // focus first missing field
+      }
       return;
     }
 
