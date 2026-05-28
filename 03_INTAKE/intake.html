@@ -1,0 +1,2220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enduro Construction — Proposal Intake Form</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red:       #C8211A;
+    --black:     #0D0D0D;
+    --offwhite:  #F2F0ED;
+    --white:     #ffffff;
+    --border:    rgba(0,0,0,0.10);
+    --border-focus: #C8211A;
+    --text:      #0D0D0D;
+    --text-dim:  rgba(13,13,13,0.45);
+    --text-mid:  rgba(13,13,13,0.65);
+    --tag-bg:    #F2F0ED;
+    --radius:    8px;
+    --section-gap: 48px;
+  }
+
+  html, body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: var(--white);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── LAYOUT ── */
+  .page-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 56px 32px 80px;
+  }
+
+  /* ── HEADER ── */
+  .form-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    padding-bottom: 32px;
+    border-bottom: 1.5px solid var(--border);
+  }
+
+  .logo-mark {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-mark svg {
+    height: 28px;
+    width: auto;
+    display: block;
+  }
+
+  .header-divider {
+    width: 1.5px;
+    height: 28px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  .header-text h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    color: var(--black);
+    line-height: 1.2;
+  }
+
+  .header-text p {
+    font-size: 13px;
+    color: var(--text-mid);
+    margin-top: 4px;
+  }
+
+  /* ── SECTION ── */
+  .form-section {
+    margin-bottom: var(--section-gap);
+  }
+
+  .section-label {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1.5px;
+    background: var(--border);
+  }
+
+  .section-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background: var(--tag-bg);
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text);
+    flex-shrink: 0;
+  }
+
+  /* ── FIELD GROUPS ── */
+  .field-row {
+    display: grid;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .field-row.cols-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .field-row.cols-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.1px;
+  }
+
+  label .optional {
+    font-weight: 400;
+    color: var(--text-dim);
+    margin-left: 4px;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="number"],
+  input[type="email"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--text-dim);
+    background: var(--white);
+    transition: border-color 0.15s;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  input[type="text"]:focus,
+  input[type="date"]:focus,
+  input[type="number"]:focus,
+  input[type="email"]:focus,
+  textarea:focus,
+  select:focus {
+    border-color: var(--border-focus);
+  }
+  select:not([value=""]):valid,
+  select.has-value {
+    color: var(--text);
+  }
+  select option {
+    color: var(--text);
+  }
+  select option[value=""] {
+    color: var(--text-dim);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--text-dim);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 88px;
+    line-height: 1.55;
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230D0D0D' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+
+  /* ── CHECKBOX GRID ── */
+  .check-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px 12px;
+    margin-top: 4px;
+  }
+
+  .check-grid.cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    cursor: pointer;
+    padding: 8px 10px;
+    border-radius: 6px;
+    transition: background 0.1s;
+    border: 1.5px solid transparent;
+    user-select: none;
+  }
+
+  .check-item:hover {
+    background: var(--offwhite);
+  }
+
+  .check-item input[type="checkbox"],
+  .check-item input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    accent-color: var(--red);
+    cursor: pointer;
+    border-radius: 3px;
+    appearance: none;
+    -webkit-appearance: none;
+    border: 2px solid rgba(0,0,0,0.22);
+    background: var(--white);
+    transition: background 0.12s, border-color 0.12s;
+    position: relative;
+  }
+
+  .check-item input[type="checkbox"]:checked,
+  .check-item input[type="radio"]:checked {
+    background: var(--red);
+    border-color: var(--red);
+  }
+
+  .check-item input[type="checkbox"]:checked::after,
+  .check-item input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 4px;
+    width: 5px;
+    height: 9px;
+    border: 2px solid #fff;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+  }
+
+  .check-item span {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .check-item span small {
+    display: block;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 1px;
+  }
+
+  .check-item.checked {
+    background: #FFF5F5;
+    border-color: rgba(200,33,26,0.18);
+  }
+
+  /* ── TEAM BLOCK ── */
+  .team-block {
+    background: var(--offwhite);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 0;
+  }
+
+  .team-block-title {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+  }
+
+  .team-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .team-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .team-row:first-of-type {
+    padding-top: 0;
+  }
+
+  .team-row-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-mid);
+    margin-bottom: 6px;
+    letter-spacing: 0.2px;
+  }
+
+  /* Plus button for dynamic rows */
+  .btn-add {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 7px 13px;
+    background: none;
+    border: 1.5px dashed rgba(0,0,0,0.18);
+    border-radius: 6px;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-mid);
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .btn-add.confirmed {
+    border-color: #2a9d5c;
+    color: #2a9d5c;
+    background: rgba(42,157,92,0.06);
+  }
+
+  .btn-add:hover {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  .dynamic-row {
+    display: grid;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 12px;
+    background: var(--offwhite);
+    border-radius: 6px;
+    position: relative;
+  }
+
+  .dynamic-row .btn-remove {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: var(--text-dim);
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px 4px;
+  }
+
+  .dynamic-row .btn-remove:hover { color: var(--red); }
+  .dynamic-row .btn-remove:focus { outline: none; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 10px 0 18px;
+  }
+
+  /* ── HELPER TEXT ── */
+  .helper {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  /* ── SECTION NOTES TEXTAREA ── */
+  .notes-area {
+    background: #FAFAFA;
+    border: 1.5px dashed rgba(0,0,0,0.13);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+  }
+
+  .notes-area textarea {
+    border: none;
+    background: transparent;
+    padding: 0;
+    font-size: 13px;
+    min-height: 72px;
+  }
+
+  .notes-area textarea:focus {
+    border: none;
+  }
+
+  .notes-area textarea::placeholder {
+    color: rgba(13,13,13,0.55);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* ── EXPAND ICON (plus → ×) ── */
+  .expand-icon {
+    display: inline-block;
+    margin-right: 6px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text-dim);
+    line-height: 1;
+    transition: transform 0.2s ease;
+    transform-origin: 50% 50%;
+    user-select: none;
+  }
+  .expand-icon.is-open {
+    transform: rotate(45deg);
+  }
+
+  /* ── OTHER TYPE INPUT ── */
+  #other-type-wrap {
+    display: none;
+    margin-top: 8px;
+  }
+
+  /* ── SUBMIT ZONE ── */
+  .submit-zone {
+    margin-top: 48px;
+    padding-top: 28px;
+    border-top: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-submit {
+    background: var(--red);
+    color: #fff;
+    border: none;
+    padding: 11px 28px;
+    border-radius: var(--radius);
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.1px;
+    transition: opacity 0.15s;
+  }
+
+  .btn-submit:hover {
+    opacity: 0.88;
+  }
+
+  .btn-reset {
+    background: none;
+    border: 1.5px solid var(--border);
+    color: var(--text-mid);
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+
+  .btn-reset:hover {
+    border-color: rgba(0,0,0,0.25);
+  }
+
+  .submit-note {
+    font-size: 12px;
+    color: var(--text-dim);
+    flex: 1;
+    min-width: 200px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 580px) {
+    .page-wrap { padding: 32px 20px 60px; }
+    .field-row.cols-2,
+    .field-row.cols-3 { grid-template-columns: 1fr; }
+    .check-grid.cols-2 { grid-template-columns: 1fr; }
+  }
+
+  /* ── DRAG HANDLE (6-dot grip) ── */
+  .drag-handle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    flex-shrink: 0;
+    cursor: grab;
+    padding: 4px 3px;
+    opacity: 0.28;
+    transition: opacity 0.15s;
+    align-self: center;
+    user-select: none;
+  }
+  .drag-handle:hover { opacity: 0.65; }
+  .drag-handle:active { cursor: grabbing; }
+  .drag-handle span {
+    display: block;
+    width: 3px;
+    height: 3px;
+    background: var(--text);
+    border-radius: 50%;
+  }
+
+  /* dragging state */
+  .drag-over-above { border-top: 2px solid var(--red) !important; }
+  .drag-over-below { border-bottom: 2px solid var(--red) !important; }
+
+  /* ── PHASING ROWS ── */
+  .phase-row-wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .phase-row-wrap > .drag-handle {
+    margin-top: 4px;
+  }
+
+  .phase-row-wrap > button {
+    margin-top: 2px;
+  }
+
+  .phase-row {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .phase-row .phase-name {
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    padding: 0;
+    width: 100%;
+    outline: none;
+    cursor: text;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .phase-row .phase-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    border: none;
+    background: transparent;
+    padding: 0;
+    width: 100%;
+    outline: none;
+    resize: none;
+    line-height: 1.5;
+    overflow: hidden;
+    height: auto;
+    min-height: 20px;
+    max-height: 120px;
+    cursor: text;
+  }
+
+  /* ── CONTRACT TYPE PILL BUTTONS ── */
+  .contract-btns {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .contract-btn {
+    display: block;
+    padding: 9px 12px;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    background: rgba(255,255,255,0.04);
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 13.5px;
+    line-height: 1.4;
+    font-weight: 500;
+    color: var(--text-mid);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.12s, border-color 0.12s, color 0.12s;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .contract-btn:hover {
+    background: rgba(0,0,0,0.05);
+    border-color: rgba(0,0,0,0.20);
+    color: var(--text);
+  }
+
+  .contract-btn.selected {
+    background: var(--black);
+    border-color: var(--black);
+    color: #fff;
+  }
+
+  .contract-btn input[type="radio"] {
+    display: none;
+  }
+
+  /* contract Other expand */
+  #contract-other-wrap {
+    margin-top: 8px;
+  }
+
+  /* ── MULTI-STEP ── */
+  .form-step { display: none; }
+  .form-step.active { display: block; }
+
+  /* Remove old inline nav bars */
+  .step-nav { display: none; }
+
+  /* ── STEP RAIL (fixed left) ── */
+  .step-rail {
+    position: fixed;
+    left: max(16px, calc(50% - 460px));
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    z-index: 100;
+  }
+
+  .step-rail-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    position: relative;
+  }
+
+  /* connector line between steps */
+  .step-rail-item:not(:last-child)::after {
+    content: '';
+    display: block;
+    width: 1.5px;
+    height: 20px;
+    background: var(--border);
+    transition: background 0.2s;
+  }
+  .step-dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--text-dim);
+    cursor: default;
+    transition: background 0.18s, border-color 0.18s, color 0.18s, box-shadow 0.18s,
+                width 0.2s ease, height 0.2s ease, font-size 0.2s ease;
+    user-select: none;
+    flex-shrink: 0;
+  }
+
+  /* locked = default grey */
+  .step-rail-item.locked .step-dot {
+    color: var(--text-dim);
+    border-color: var(--border);
+    background: var(--white);
+    cursor: default;
+  }
+
+  /* unlocked but not yet visited */
+  .step-rail-item.unlocked .step-dot {
+    color: var(--text);
+    border-color: rgba(0,0,0,0.22);
+    cursor: pointer;
+  }
+  .step-rail-item.unlocked .step-dot:hover {
+    border-color: var(--red);
+    color: var(--red);
+    box-shadow: 0 0 0 3px rgba(200,33,26,0.10);
+  }
+
+  /* done (completed) — black */
+  .step-rail-item.done .step-dot {
+    background: var(--black);
+    border-color: var(--black);
+    color: #fff;
+    cursor: pointer;
+  }
+  .step-rail-item.done .step-dot:hover {
+    background: var(--red);
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(200,33,26,0.15);
+  }
+
+  /* connector line turns black when step is done */
+  .step-rail-item.done:not(:last-child)::after {
+    background: var(--black);
+  }
+
+  /* done-faded — kept for legacy, unused */
+  .step-rail-item.done-faded .step-dot {
+    background: var(--white);
+    border-color: rgba(0,0,0,0.22);
+    color: var(--text-mid);
+    cursor: pointer;
+  }
+  .step-rail-item.done-faded .step-dot:hover {
+    border-color: rgba(0,0,0,0.40);
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+  }
+  .step-rail-item.done-faded:not(:last-child)::after {
+    background: var(--border);
+  }
+
+  /* warning — step has a missing required field: #FECC02 yellow dot */
+  .step-rail-item.warning .step-dot {
+    background: #FECC02;
+    border-color: #FECC02;
+    color: #0D0D0D;
+    cursor: pointer;
+    box-shadow: 0 0 0 3px rgba(254,204,2,0.20);
+  }
+  .step-rail-item.warning .step-dot:hover {
+    box-shadow: 0 0 0 5px rgba(254,204,2,0.30);
+  }
+  .step-rail-item.warning:not(:last-child)::after {
+    background: rgba(254,204,2,0.40);
+  }
+
+  /* form-frozen — all inputs disabled while browsing away from a broken step */
+  .form-step.frozen input,
+  .form-step.frozen textarea,
+  .form-step.frozen select,
+  .form-step.frozen button:not(.btn-nav) {
+    pointer-events: none;
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .form-step.frozen .frozen-notice {
+    display: flex;
+  }
+  .frozen-notice {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    background: #FECC02;
+    border: 1px solid rgba(0,0,0,0.12);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #0D0D0D;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  /* pulse animation — fires when a dot becomes newly unlocked */
+  @keyframes dot-unlock-pulse {
+    0%   { box-shadow: 0 0 0 0px rgba(13,13,13,0.45); transform: scale(1); }
+    40%  { box-shadow: 0 0 0 6px rgba(13,13,13,0.12); transform: scale(1.12); }
+    100% { box-shadow: 0 0 0 0px rgba(13,13,13,0); transform: scale(1); }
+  }
+  .step-dot.pulse-unlock {
+    animation: dot-unlock-pulse 0.45s ease-out forwards;
+  }
+
+  /* active — larger pill (+10% vs base 30px = 33px) */
+  .step-rail-item.active .step-dot {
+    width: 33px;
+    height: 33px;
+    font-size: 12.5px;
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+    cursor: default;
+    box-shadow: 0 0 0 3px rgba(200,33,26,0.15);
+  }
+
+  /* Send button at the bottom of rail */
+  .step-rail-send {
+    margin-top: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: default;
+    color: var(--text-dim);
+    transition: background 0.18s, border-color 0.18s, box-shadow 0.18s;
+    flex-shrink: 0;
+  }
+  .step-rail-send.ready {
+    background: #2a9d5c !important;
+    border-color: #2a9d5c !important;
+    color: #fff !important;
+    cursor: pointer;
+    box-shadow: 0 0 0 3px rgba(42,157,92,0.15);
+  }
+  @keyframes send-ready-pulse {
+    0%   { box-shadow: 0 0 0 0px rgba(42,157,92,0.55); transform: scale(1); }
+    40%  { box-shadow: 0 0 0 7px rgba(42,157,92,0.18); transform: scale(1.13); }
+    100% { box-shadow: 0 0 0 3px rgba(42,157,92,0.15); transform: scale(1); }
+  }
+  .step-rail-send.pulse-ready {
+    animation: send-ready-pulse 0.45s ease-out forwards;
+  }
+  .step-rail-send.ready:hover {
+    opacity: 0.88;
+    box-shadow: 0 0 0 4px rgba(42,157,92,0.22);
+  }
+
+  /* tooltip labels */
+  .step-dot,
+  .step-rail-send {
+    position: relative;
+  }
+  .step-dot[data-label]:hover::after,
+  .step-rail-send[data-label]:hover::after {
+    content: attr(data-label);
+    position: absolute;
+    left: calc(100% + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--black);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 4px 9px;
+    border-radius: 5px;
+    pointer-events: none;
+    z-index: 200;
+  }
+
+  /* hide rail on very narrow viewports */
+  @media (max-width: 860px) {
+    .step-rail { display: none; }
+  }
+
+  /* ── DEV MODE ── */
+  #devModeBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 200;
+    padding: 6px 13px;
+    border-radius: 20px;
+    border: 1.5px solid rgba(0,0,0,0.12);
+    background: var(--white);
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  #devModeBtn:hover {
+    border-color: rgba(0,0,0,0.25);
+    color: var(--text);
+  }
+  #devModeBtn.on {
+    background: #1a1a1a;
+    border-color: #1a1a1a;
+    color: #fff;
+  }
+  #devModeBadge {
+    display: none;
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 200;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: #1a1a1a;
+    color: #fff;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+  body.dev-mode #devModeBadge { display: block; }
+  body.dev-mode input[required],
+  body.dev-mode select[required],
+  body.dev-mode textarea[required] {
+    border-color: rgba(0,0,0,0.06) !important;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: white; }
+    .btn-submit, .btn-reset { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <div class="form-header">
+    <div class="logo-mark">
+      <svg width="260" height="78" viewBox="0 0 260 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M25.3695 29.7298L23.153 40.5405H29.6434L31.8599 29.7298L31.0322 28.6487H26.7053L25.3695 29.7298ZM40.693 64.8647C38.9999 73.0809 35.7571 76.1079 29.5309 77.8376H7.4635C3.08879 76.1079 0.203396 71.9998 1.75064 64.8647L9.27051 29.1892C11.0719 20.9731 14.3146 17.9461 20.5409 16.2163H42.6082C46.9829 17.9461 49.7602 22.0542 48.2129 29.1892L43.6718 50.8107H20.9554L18.1037 64.3242L18.9313 65.4052H23.2583L24.5941 64.3242L26.4143 55.5675H42.6403L40.693 64.8647ZM69.7374 29.7298L59.62 77.8376H43.3939L56.4713 16.2163H72.6973L71.6809 20.5406L77.0243 16.2163H86.7599C91.3736 17.2974 93.9973 22.7028 92.835 28.1082L82.3364 77.8376H66.1104L76.0819 30.8109L75.1461 29.7298H69.7374ZM107.921 64.3242H113.33L120.596 29.7298H115.187L113.959 30.8109L107.094 63.2431L107.921 64.3242ZM111.641 72.4322L105.07 77.8376H95.8749C91.5153 75.6755 89.1783 71.3512 90.2287 66.0539L98.2606 28.1082C99.677 21.6217 103.29 17.2974 109.493 16.2163H119.229L122.539 20.5406L126.934 0.000230512H143.16L126.704 77.8376H110.478L111.641 72.4322ZM184.15 16.2163L173.797 64.8647C172.104 73.0809 168.861 76.1079 162.635 77.8376H140.567C136.193 76.1079 133.307 71.9998 134.855 64.8647L145.207 16.2163H161.433L151.208 64.3242L152.035 65.4052H156.362L157.698 64.3242L167.924 16.2163H184.15ZM200.244 42.1621L192.724 77.8376H176.498L189.575 16.2163H205.801L204.781 20.6488C206.807 18.3785 209.341 17.0812 212.075 16.2163H218.998L215.384 32.973H203.269L201.933 34.0541L200.244 42.1621ZM249.962 64.8647C248.269 73.0809 245.026 76.1079 238.8 77.8376H216.732C212.358 76.1079 209.472 71.9998 211.02 64.8647L218.539 29.1892C220.341 20.9731 223.584 17.9461 229.81 16.2163H251.877C256.252 17.9461 259.029 22.0542 257.482 29.1892L249.962 64.8647ZM234.638 29.7298L227.373 64.3242L228.2 65.4052H232.527L233.863 64.3242L241.129 29.7298L240.301 28.6487H235.974L234.638 29.7298Z" fill="#E43338"/>
+      </svg>
+    </div>
+    <div class="header-divider"></div>
+    <div class="header-text">
+      <h1>Proposal Intake Form</h1>
+    </div>
+  </div>
+
+  <!-- Step rail -->
+  <nav class="step-rail" id="stepRail" aria-label="Form steps">
+    <div class="step-rail-item active" id="rail-1" data-step="1">
+      <div class="step-dot" data-label="Project Basics" onclick="railGo(1)">1</div>
+    </div>
+    <div class="step-rail-item locked" id="rail-2" data-step="2">
+      <div class="step-dot" data-label="Prepared For" onclick="railGo(2)">2</div>
+    </div>
+    <div class="step-rail-item locked" id="rail-3" data-step="3">
+      <div class="step-dot" data-label="Project Team" onclick="railGo(3)">3</div>
+    </div>
+    <div class="step-rail-item locked" id="rail-4" data-step="4">
+      <div class="step-dot" data-label="Proposal Pages" onclick="railGo(4)">4</div>
+    </div>
+    <div class="step-rail-item locked" id="rail-5" data-step="5">
+      <div class="step-dot" data-label="Additional Notes" onclick="railGo(5)">5</div>
+    </div>
+    <button type="button" class="step-rail-send" id="railSendBtn" data-label="Send intake" onclick="document.getElementById('intakeForm').dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}))" style="margin-top:10px;">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;pointer-events:none;">
+        <path d="M2 7H12M12 7L7.5 2.5M12 7L7.5 11.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </nav>
+
+  <form id="intakeForm" novalidate>
+
+    <!-- ══ STEP 1 ══ -->
+    <div class="form-step active" data-step="1">
+    <div class="frozen-notice">⚠️ Complete the highlighted step before editing here.</div>
+    <!-- ══════════════════════════════════════
+         SECTION 1 — PROJECT BASICS
+    ══════════════════════════════════════ -->
+    <div class="form-section">
+      <div class="section-label">
+        <span class="section-num">1</span>
+        Project Basics
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>OneDrive / SharePoint Link <span style="color:var(--text-dim);margin-left:4px;font-weight:400;font-size:12px;">(optional)</span></label>
+          <input type="text" name="onedrive_link" placeholder="Paste the shared folder link from OneDrive or SharePoint">
+        </div>
+      </div>
+
+      <div class="field-row" style="grid-template-columns:1fr 140px;">
+        <div class="field">
+          <label>Project Name <span style="color:var(--red);margin-left:2px;">*</span></label>
+          <input type="text" name="project_name" placeholder="Project name" required>
+        </div>
+        <div class="field">
+          <label>Approx. SF</label>
+          <input type="text" name="sqft" placeholder="3,500 SF">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Brief Scope <span style="color:var(--red);margin-left:2px;">*</span></label>
+          <input type="text" name="brief_scope" placeholder="One-liner description of scope" required>
+        </div>
+      </div>
+
+      <div class="field-row cols-2">
+        <div class="field">
+          <label>Client / Owner <span style="color:var(--red);margin-left:2px;">*</span></label>
+          <input type="text" name="client" placeholder="Client or owner name" required>
+        </div>
+        <div class="field">
+          <label>Consultant / Architect</label>
+          <input type="text" name="consultant" placeholder="Consulting firm or architect">
+        </div>
+      </div>
+
+      <div class="field-row" style="grid-template-columns:1fr;">
+        <div class="field">
+          <label>Project Address</label>
+          <input type="text" name="project_address" placeholder="Street address, City, BC">
+        </div>
+      </div>
+
+      <!-- Contract Info (merged from old Section 2) -->
+      <div class="field-row" style="margin-top:16px;">
+        <div class="field">
+          <label>Contract Type <span style="color:var(--red);margin-left:2px;">*</span></label>
+          <div class="contract-btns">
+            <label class="contract-btn" onclick="selectContractType(this, 'GC')">
+              <input type="radio" name="contract_type" value="GC"> GC
+            </label>
+            <label class="contract-btn" onclick="selectContractType(this, 'CM')">
+              <input type="radio" name="contract_type" value="CM"> CM
+            </label>
+            <label class="contract-btn" onclick="selectContractType(this, 'RFSQ')">
+              <input type="radio" name="contract_type" value="RFSQ"> RFSQ
+            </label>
+            <label class="contract-btn" onclick="selectContractType(this, 'Design-Build')">
+              <input type="radio" name="contract_type" value="Design-Build"> Design-Build
+            </label>
+            <label class="contract-btn" onclick="selectContractType(this, 'Other')">
+              <input type="radio" name="contract_type" value="Other"> Other
+            </label>
+          </div>
+          <div id="contract-other-wrap" style="display:none;">
+            <input type="text" name="contract_type_other" placeholder="Specify contract type…">
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row" style="grid-template-columns:1fr 195px 140px; margin-top:20px;">
+        <div class="field">
+          <label>Project Type <span style="color:var(--red);margin-left:2px;">*</span></label>
+          <select name="project_type" id="project_type_select" onchange="toggleOtherType(this)" required>
+            <option value="">Select…</option>
+            <option>Tenant Improvement (TI)</option>
+            <option>Lab Renovation</option>
+            <option>Office Fit-Out</option>
+            <option>Institutional Renovation</option>
+            <option>HVAC / Mechanical Upgrade</option>
+            <option>Infrastructure / Site</option>
+            <option>Multi-Residential</option>
+            <option value="Other">Other</option>
+          </select>
+          <div id="other-type-wrap">
+            <input type="text" name="project_type_other" placeholder="Describe project type…">
+          </div>
+        </div>
+        <div class="field">
+          <label>Draft Deadline <span style="color:var(--red);margin-left:2px;">*</span></label>
+          <input type="date" name="deadline_draft" required
+            onclick="this.showPicker()"
+            style="cursor:pointer;color:var(--text-dim);"
+            onchange="this.style.color='var(--text)'">
+        </div>
+        <div class="field">
+          <label>Effort Level <span style="color:var(--red);margin-left:2px;">*</span></label>
+          <select name="effort_level" required>
+            <option value="">Select…</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+
+      <div class="step-nav">
+        <button type="button" class="btn-back" onclick="stepNav(-1)" style="display:none;">← Back</button>
+        <button type="button" class="btn-next" onclick="stepNav(1)">Next →</button>
+        <span class="step-error"></span>
+      </div>
+    </div><!-- /step 1 -->
+
+    <!-- ══ STEP 2 ══ -->
+    <div class="form-step" data-step="2">
+    <div class="frozen-notice">⚠️ Complete the highlighted step before editing here.</div>
+    <!-- ══════════════════════════════════════
+         SECTION 2 — PREPARED FOR
+    ══════════════════════════════════════ -->
+    <div class="form-section">
+      <div class="section-label">
+        <span class="section-num">2</span>
+        Prepared For
+      </div>
+
+      <div class="field-row cols-2">
+        <div class="field">
+          <label>Name <span style="color:var(--red);margin-left:2px;">*</span></label>
+          <input type="text" name="prepared_name" placeholder="First Name Last Name" required>
+        </div>
+        <div class="field">
+          <label>Title <span style="color:var(--red);margin-left:2px;">*</span></label>
+          <input type="text" name="prepared_title" placeholder="Project Manager" required>
+        </div>
+      </div>
+
+      <div class="field-row" style="grid-template-columns:1fr 1fr 1fr;">
+        <div class="field">
+          <label>Company <span style="color:var(--red);margin-left:2px;">*</span></label>
+          <input type="text" name="prepared_company" placeholder="BC Housing" required>
+        </div>
+        <div class="field">
+          <label>Phone</label>
+          <input type="text" name="prepared_phone" placeholder="">
+        </div>
+        <div class="field">
+          <label>Email <span style="color:var(--red);margin-left:2px;">*</span></label>
+          <input type="email" name="prepared_email" placeholder="" required>
+        </div>
+      </div>
+
+    </div>
+
+      <div class="step-nav">
+        <button type="button" class="btn-back" onclick="stepNav(-1)">← Back</button>
+        <button type="button" class="btn-next" onclick="stepNav(1)">Next →</button>
+        <span class="step-error"></span>
+      </div>
+    </div><!-- /step 2 -->
+
+    <!-- ══ STEP 3 ══ -->
+    <div class="form-step" data-step="3">
+    <div class="frozen-notice">⚠️ Complete the highlighted step before editing here.</div>
+    <!-- ══════════════════════════════════════
+         SECTION 3 — PROJECT TEAM
+    ══════════════════════════════════════ -->
+    <div class="form-section">
+      <div class="section-label">
+        <span class="section-num">3</span>
+        Project Team
+      </div>
+
+      <div class="field-row cols-3">
+        <div class="field">
+          <label>Principal <span style="color:var(--red);margin-left:2px;">*</span></label>
+          <input type="text" name="principal_name" placeholder="Name" required>
+        </div>
+        <div class="field">
+          <label>Project Manager <span style="color:var(--red);margin-left:2px;">*</span></label>
+          <input type="text" name="pm_name" placeholder="Name" required>
+        </div>
+        <div class="field">
+          <label>Site Superintendent <span style="color:var(--red);margin-left:2px;">*</span></label>
+          <input type="text" name="super_name" placeholder="Name" required>
+        </div>
+      </div>
+
+      <div id="extra-team-rows"></div>
+      <button type="button" class="btn-add" style="margin-top:4px;" onclick="addTeamRow()">+ Add member</button>
+    </div>
+
+      <div class="step-nav">
+        <button type="button" class="btn-back" onclick="stepNav(-1)">← Back</button>
+        <button type="button" class="btn-next" onclick="stepNav(1)">Next →</button>
+        <span class="step-error"></span>
+      </div>
+    </div><!-- /step 3 -->
+
+    <!-- ══ STEP 4 ══ -->
+    <div class="form-step" data-step="4">
+    <div class="frozen-notice">⚠️ Complete the highlighted step before editing here.</div>
+    <!-- ══════════════════════════════════════
+         SECTION 4 — PROPOSAL PAGES
+    ══════════════════════════════════════ -->
+    <div class="form-section">
+      <div class="section-label">
+        <span class="section-num">4</span>
+        Proposal Pages
+      </div>
+
+      <p class="helper" style="margin-bottom:16px;">Check every page that belongs in this proposal. <span id="pages-counter" style="font-weight:600;color:var(--text-dim);">0 / 4 minimum</span></p>
+
+      <div class="check-grid" style="grid-template-columns:1fr;">
+
+        <!-- ─ Project Delivery ─ -->
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.9px;text-transform:uppercase;color:var(--text-dim);padding-top:4px;">Project Delivery</div>
+
+        <label class="check-item">
+          <input type="checkbox" name="pages" value="Exec. Summary">
+          <span>Exec. Summary
+            <small>High-level project overview</small>
+          </span>
+        </label>
+
+        <label class="check-item" id="phasing-toggle">
+          <input type="checkbox" name="pages" value="Typical Project Phasing" id="phasing-cb" onchange="togglePhasing(this)">
+          <span><span class="expand-icon">+</span> Typical Project Phasing
+            <small>Pre-con through closeout phases</small>
+          </span>
+        </label>
+
+        <!-- Phasing sub-panel -->
+        <div id="phasing-panel" style="display:none; margin-left:28px; margin-top:6px; margin-bottom:4px;">
+          <div style="font-size:11px; color:var(--text-dim); margin-bottom:8px;">You can edit each title and subtext. Place in preferred order when done.</div>
+          <div id="phasing-rows"></div>
+          <div style="display:flex; align-items:center; gap:10px; margin-top:8px;">
+            <button type="button" class="btn-add" onclick="addPhaseRow()">+ Add phase</button>
+            <button type="button" class="btn-add" id="phase-confirm-btn" onclick="togglePhaseConfirm()" style="border-color:rgba(0,0,0,0.15);">Confirm order</button>
+          </div>
+          <input type="hidden" name="phase_order_confirmed" id="phase_order_confirmed" value="">
+        </div>
+
+        <label class="check-item">
+          <input type="checkbox" name="pages" value="Project Schedule">
+          <span>Project Schedule
+            <small>Gantt / milestone plan — attach externally</small>
+          </span>
+        </label>
+
+        <!-- ─ About Enduro ─ -->
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.9px;text-transform:uppercase;color:var(--text-dim);padding-top:12px;">About Enduro</div>
+
+        <label class="check-item">
+          <input type="checkbox" name="pages" value="Meet Fred &amp; Joel">
+          <span>Meet Fred &amp; Joel
+            <small>Principals intro + company philosophy</small>
+          </span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" name="pages" value="A GC You Can Stand Behind">
+          <span>A GC You Can Stand Behind
+            <small>Who we are / how we operate</small>
+          </span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" name="pages" value="Scope of Services">
+          <span>Scope of Services
+            <small>CM proposals only</small>
+          </span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" name="pages" value="Corporate Overview">
+          <span>Corporate Overview
+            <small>Bonding, insurance, claims-free record</small>
+          </span>
+        </label>
+
+        <!-- ─ Project Team ─ -->
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.9px;text-transform:uppercase;color:var(--text-dim);padding-top:12px;">Project Team</div>
+
+        <label class="check-item">
+          <input type="checkbox" name="pages" value="Corp. Structure">
+          <span>Corp. Structure
+            <small>Client → Principal → trades org chart</small>
+          </span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" name="pages" value="Resumes">
+          <span>Resumes
+            <small>Bios for selected team members</small>
+          </span>
+        </label>
+
+        <!-- ─ Content Pages ─ -->
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.9px;text-transform:uppercase;color:var(--text-dim);padding-top:12px;">Content Pages</div>
+
+        <label class="check-item">
+          <input type="checkbox" name="pages" value="Relevant Experience" id="exp-cb" onchange="toggleExpPanel(this)">
+          <span>Relevant Experience
+            <small>Select at least 3 projects</small>
+          </span>
+        </label>
+
+        <!-- Experience sub-panel -->
+        <div id="exp-panel" style="display:none; margin-left:28px; margin-top:2px; margin-bottom:4px;">
+          <p class="helper" style="margin-bottom:10px;">Check the projects to feature. Select at least 3.</p>
+          <div class="check-grid" style="grid-template-columns:1fr;">
+
+            <label class="check-item">
+              <input type="checkbox" name="exp" value="Abdera Therapeutics Office Renovation">
+              <span>Abdera Therapeutics Office Renovation
+                <small>$270K — 270 W 3rd Ave, Vancouver</small>
+              </span>
+            </label>
+
+            <label class="check-item">
+              <input type="checkbox" name="exp" value="UBC CEME Office Reno">
+              <span>UBC CEME Office Reno
+                <small>$559K — 6250 Applied Science Lane</small>
+              </span>
+            </label>
+
+            <label class="check-item">
+              <input type="checkbox" name="exp" value="UBC Nursing Program Expansion — Surrey CC">
+              <span>UBC Nursing Program Expansion
+                <small>$900K — Surrey Campus</small>
+              </span>
+            </label>
+
+            <label class="check-item">
+              <input type="checkbox" name="exp" value="Surrey SSLC Childminding Room Renovation">
+              <span>Surrey SSLC Childminding Renovation
+                <small>$590K — 16555 Fraser Hwy</small>
+              </span>
+            </label>
+
+            <label class="check-item">
+              <input type="checkbox" name="exp" value="UBC Henry Angus Washrooms">
+              <span>UBC Henry Angus Washrooms
+                <small>$500K — 2053 Main Mall</small>
+              </span>
+            </label>
+
+            <label class="check-item">
+              <input type="checkbox" name="exp" value="UFV Nursing Simulation Lab">
+              <span>UFV Nursing Simulation Lab
+                <small>$950K — Chilliwack</small>
+              </span>
+            </label>
+
+            <label class="check-item">
+              <input type="checkbox" name="exp" value="UBC Chemistry Lab">
+              <span>UBC Chemistry Lab
+                <small>$1.4M — 6221 University Blvd</small>
+              </span>
+            </label>
+
+            <label class="check-item">
+              <input type="checkbox" name="exp" value="UBC FSIAP Lab">
+              <span>UBC FSIAP Lab
+                <small>$400K — 6270 University Blvd</small>
+              </span>
+            </label>
+
+          </div>
+          <div id="exp-extra-rows" style="margin-top:4px;"></div>
+          <button type="button" class="btn-add" style="margin-top:10px;" onclick="addExpRow()">+ Add unlisted project</button>
+        </div>
+
+        <label class="check-item">
+          <input type="checkbox" name="pages" value="Risk Assessment">
+          <span>Risk Assessment
+            <small>Named risks + mitigations</small>
+          </span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" name="pages" value="Sustainability">
+          <span>Sustainability
+            <small>Environmental + social responsibility</small>
+          </span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" name="pages" value="References">
+          <span>References
+            <small>Client reference letters</small>
+          </span>
+        </label>
+
+        <!-- ─ Appendices ─ -->
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.9px;text-transform:uppercase;color:var(--text-dim);padding-top:12px;">Appendices</div>
+
+        <label class="check-item">
+          <input type="checkbox" name="pages" value="Financial Submission">
+          <span>Financial Submission
+            <small>Hourly rates + general requirements</small>
+          </span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" name="pages" value="COI">
+          <span>COI<small>Certificate of Insurance</small></span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" name="pages" value="WCB">
+          <span>WCB<small>WorkSafeBC clearance letter</small></span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" name="pages" value="Bid Bond">
+          <span>Bid Bond<small>Surety bid bond document</small></span>
+        </label>
+
+        <label class="check-item">
+          <input type="checkbox" name="pages" value="Other Admin" id="other-admin-cb" onchange="toggleOtherAdmin(this)">
+          <span><span class="expand-icon">+</span> Other<small>Specify below when checked</small></span>
+        </label>
+        <div id="other-admin-panel" style="display:none; margin-left:28px; margin-top:4px; margin-bottom:8px;">
+          <div style="font-size:12px; margin-bottom:2px;">Specify <span style="color:var(--red);">*</span></div>
+          <div style="font-size:11px; color:var(--text-dim); margin-bottom:8px;">Place in preferred order</div>
+          <div id="other-admin-rows"></div>
+          <button type="button" class="btn-add" style="margin-top:4px;" onclick="addOtherAdminRow()">+ Add another</button>
+        </div>
+
+        <label class="check-item">
+          <input type="checkbox" name="pages" value="FAQ">
+          <span>FAQ
+            <small>Standard FAQ — same across all proposals</small>
+          </span>
+        </label>
+
+      </div>
+
+      <div id="opt-extra-rows" style="margin-top:4px;"></div>
+      <button type="button" class="btn-add" style="margin-top:12px;" onclick="addOptRow()">+ Add page</button>
+    </div>
+
+      <div class="step-nav">
+        <button type="button" class="btn-back" onclick="stepNav(-1)">← Back</button>
+        <button type="button" class="btn-next" onclick="stepNav(1)">Next →</button>
+        <span class="step-error"></span>
+      </div>
+    </div><!-- /step 4 -->
+
+    <!-- ══ STEP 5 ══ -->
+    <div class="form-step" data-step="5">
+    <div class="frozen-notice">⚠️ Complete the highlighted step before editing here.</div>
+    <!-- ══════════════════════════════════════
+         SECTION 5 — ADDITIONAL NOTES
+    ══════════════════════════════════════ -->
+    <div class="form-section">
+      <div class="section-label">
+        <span class="section-num">5</span>
+        Additional Notes
+      </div>
+
+      <div class="notes-area">
+        <textarea name="additional_notes" style="min-height:110px;" placeholder="Anything else worth knowing — project, client, context." required></textarea>
+        <div style="margin-top:8px; font-size:12px; color:rgba(200,33,26,0.65); font-style:italic;">Suggestions to make this form better — what do you find annoying about it?</div>
+      </div>
+    </div>
+
+      <div class="step-nav">
+        <button type="button" class="btn-back" onclick="stepNav(-1)">← Back</button>
+        <button type="button" class="btn-next" onclick="stepNav(1)">Send →</button>
+        <span class="step-error"></span>
+      </div>
+    </div><!-- /step 5 -->
+
+  </form>
+</div>
+
+<!-- Submit success overlay -->
+<div id="submit-overlay" style="display:none;position:fixed;inset:0;background:rgba(255,255,255,0.96);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:16px;">
+  <div style="font-size:40px;">✅</div>
+  <div style="font-size:18px;font-weight:700;color:#0D0D0D;">Email ready to send</div>
+  <div style="font-size:14px;color:#666;text-align:center;max-width:380px;line-height:1.6;">
+    The formatted intake summary has been <strong>copied to your clipboard</strong>.<br>
+    Paste it into the Outlook compose window that just opened.
+  </div>
+  <button onclick="document.getElementById('submit-overlay').style.display='none'" style="margin-top:8px;padding:10px 24px;background:#C8211A;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">Got it</button>
+</div>
+
+<div id="devModeBadge">Dev Mode</div>
+<button id="devModeBtn" onclick="toggleDevMode()">DEV</button>
+
+<script>
+  // ── Phasing panel
+  const DEFAULT_PHASES = [
+    { name: 'Pre-Construction',          desc: 'Project scope validated, consultant team engaged, procurement strategy and master schedule established.' },
+    { name: 'Site Readiness',            desc: 'Site logistics coordinated with the architect, hoarding installed, laydown zones and safety written and approved.' },
+    { name: 'Demolition',               desc: 'Existing systems isolated per engineer direction, structure opened, debris removed without disrupting adjacencies.' },
+    { name: 'Framing & Structure',       desc: 'Framing erected to structural drawings, connections verified by engineer, rough openings confirmed with architect.' },
+    { name: 'Mech., Elect., & Plumbing', desc: 'Rough-in systems installed per engineer specifications, pressure-tested, and approved for concealment.' },
+    { name: 'Inspections & Hold Points', desc: 'Regulatory hold points cleared, consultant field reviews completed, deficiencies logged and resolved before advancing.' },
+    { name: 'Finishes',                 desc: 'Boarding, taping, paint, flooring, and ceiling systems installed per architect specifications in sequence.' },
+    { name: 'Fixtures, Equip. & Specialties', desc: 'Trade contractors set and connect all fixtures and equipment per engineer-approved shop drawings.' },
+    { name: 'Commissioning',            desc: 'Systems energized and balanced by trade contractors, performance verified by mechanical and electrical engineers.' },
+    { name: 'Closeout & Handover',      desc: 'Deficiencies resolved, authority sign-offs obtained, as-builts issued to consultant team, warranties transferred.' },
+  ];
+
+  // Tracks whether phases have been modified from the default
+  let phasesChanged = false;
+
+  function markPhasesChanged() {
+    if (phasesChanged) return;
+    phasesChanged = true;
+    const btn = document.getElementById('phase-confirm-btn');
+    if (btn && !btn.classList.contains('confirmed')) {
+      btn.style.borderColor = 'var(--red)';
+      btn.style.color = 'var(--red)';
+      btn.textContent = 'Confirm order *';
+    }
+  }
+
+  function togglePhasing(cb) {
+    const panel = document.getElementById('phasing-panel');
+    panel.style.display = cb.checked ? 'block' : 'none';
+    const icon = cb.closest('label').querySelector('.expand-icon');
+    if (icon) icon.classList.toggle('is-open', cb.checked);
+    if (cb.checked && document.getElementById('phasing-rows').children.length === 0) {
+      phasesChanged = false; // fresh build = no changes yet
+      buildPhasingRows();
+    }
+  }
+
+  function makeDragHandle() {
+    const h = document.createElement('div');
+    h.className = 'drag-handle';
+    h.innerHTML = '<span></span><span></span><span></span><span></span><span></span><span></span>';
+    return h;
+  }
+
+  // ── Shared drag-to-reorder for a container
+  function enableDragReorder(container) {
+    let dragging = null;
+    container.addEventListener('dragstart', e => {
+      dragging = e.target.closest('[draggable]');
+      if (dragging) { setTimeout(() => dragging.style.opacity = '0.4', 0); }
+    });
+    container.addEventListener('dragend', e => {
+      if (dragging) { dragging.style.opacity = ''; dragging = null; }
+      container.querySelectorAll('[draggable]').forEach(el => {
+        el.classList.remove('drag-over-above', 'drag-over-below');
+      });
+    });
+    container.addEventListener('dragover', e => {
+      e.preventDefault();
+      const target = e.target.closest('[draggable]');
+      if (!target || target === dragging) return;
+      container.querySelectorAll('[draggable]').forEach(el => {
+        el.classList.remove('drag-over-above', 'drag-over-below');
+      });
+      const rect = target.getBoundingClientRect();
+      const mid = rect.top + rect.height / 2;
+      if (e.clientY < mid) {
+        target.classList.add('drag-over-above');
+      } else {
+        target.classList.add('drag-over-below');
+      }
+    });
+    container.addEventListener('drop', e => {
+      e.preventDefault();
+      const target = e.target.closest('[draggable]');
+      if (!target || target === dragging || !dragging) return;
+      const above = target.classList.contains('drag-over-above');
+      container.insertBefore(dragging, above ? target : target.nextSibling);
+      container.querySelectorAll('[draggable]').forEach(el => {
+        el.classList.remove('drag-over-above', 'drag-over-below');
+      });
+      if (container.id === 'phasing-rows') markPhasesChanged();
+    });
+  }
+
+  function makePhaseRow(name, desc) {
+    const container = document.getElementById('phasing-rows');
+    const idx = container.children.length;
+    const wrap = document.createElement('div');
+    wrap.className = 'phase-row-wrap';
+    wrap.draggable = true;
+
+    // Drag handle
+    wrap.appendChild(makeDragHandle());
+
+    // Fields
+    const row = document.createElement('div');
+    row.className = 'phase-row';
+    const nameInp = document.createElement('input');
+    nameInp.type = 'text';
+    nameInp.className = 'phase-name';
+    nameInp.name = 'phase_name_' + idx;
+    nameInp.value = name;
+    nameInp.maxLength = 60;
+    nameInp.placeholder = 'Phase name…';
+    const descTa = document.createElement('textarea');
+    descTa.className = 'phase-desc';
+    descTa.name = 'phase_desc_' + idx;
+    descTa.rows = 1;
+    descTa.value = desc;
+    descTa.placeholder = 'Brief description…';
+    row.appendChild(nameInp);
+    row.appendChild(descTa);
+    wrap.appendChild(row);
+
+    // × remove button
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = '×';
+    btn.style.cssText = 'background:none; border:none; outline:none; font-size:16px; color:var(--text-dim); cursor:pointer; line-height:1; padding:2px 4px; flex-shrink:0;';
+    btn.onmouseenter = () => btn.style.color = 'var(--red)';
+    btn.onmouseleave = () => btn.style.color = 'var(--text-dim)';
+    btn.onclick = () => { markPhasesChanged(); wrap.remove(); };
+    wrap.appendChild(btn);
+
+    container.appendChild(wrap);
+
+    // Auto-resize textarea + mark changed on edit
+    const resize = () => { descTa.style.height = '0'; descTa.style.height = Math.min(descTa.scrollHeight, 120) + 'px'; };
+    resize();
+    descTa.addEventListener('input', () => { markPhasesChanged(); resize(); });
+    nameInp.addEventListener('input', markPhasesChanged);
+  }
+
+  function buildPhasingRows() {
+    const container = document.getElementById('phasing-rows');
+    container.innerHTML = '';
+    enableDragReorder(container);
+    DEFAULT_PHASES.forEach((phase) => {
+      makePhaseRow(phase.name, phase.desc);
+    });
+  }
+
+  function addPhaseRow() {
+    markPhasesChanged();
+    makePhaseRow('', '');
+  }
+
+  function togglePhaseConfirm() {
+    const btn = document.getElementById('phase-confirm-btn');
+    const field = document.getElementById('phase_order_confirmed');
+    const confirmed = !btn.classList.contains('confirmed');
+    btn.classList.toggle('confirmed', confirmed);
+    // Clear any red "dirty" state when confirming
+    btn.style.borderColor = confirmed ? '' : 'rgba(0,0,0,0.15)';
+    btn.style.color = '';
+    btn.textContent = confirmed ? '✓ Order confirmed' : (phasesChanged ? 'Confirm order *' : 'Confirm order');
+    field.value = confirmed ? 'Yes' : '';
+  }
+
+  // ── Other Admin sub-panel
+  let otherAdminDragReady = false;
+
+  function makeOtherAdminRow(required) {
+    const rows = document.getElementById('other-admin-rows');
+    const idx = rows.children.length;
+    const wrap = document.createElement('div');
+    wrap.draggable = true;
+    wrap.style.cssText = 'display:flex; align-items:center; gap:8px; max-width:400px; margin-bottom:6px;';
+    const handle = makeDragHandle();
+    handle.style.cssText += '; align-self:center;';
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.name = 'other_admin_specify_' + idx;
+    inp.className = 'other-admin-entry';
+    inp.placeholder = 'Specify document…';
+    inp.style.cssText = 'flex:1; margin:0;';
+    if (required) inp.required = true;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = '×';
+    btn.style.cssText = 'background:none; border:none; outline:none; font-size:16px; color:var(--text-dim); cursor:pointer; line-height:1; padding:2px 4px; flex-shrink:0;';
+    btn.onmouseenter = () => btn.style.color = 'var(--red)';
+    btn.onmouseleave = () => btn.style.color = 'var(--text-dim)';
+    btn.onclick = () => wrap.remove();
+    wrap.appendChild(handle);
+    wrap.appendChild(inp);
+    wrap.appendChild(btn);
+    rows.appendChild(wrap);
+  }
+
+  function toggleOtherAdmin(cb) {
+    const panel = document.getElementById('other-admin-panel');
+    const rows = document.getElementById('other-admin-rows');
+    const icon = cb.closest('label').querySelector('.expand-icon');
+    if (icon) icon.classList.toggle('is-open', cb.checked);
+    if (cb.checked) {
+      panel.style.display = 'block';
+      rows.innerHTML = '';
+      makeOtherAdminRow(true);
+      if (!otherAdminDragReady) {
+        enableDragReorder(rows);
+        otherAdminDragReady = true;
+      }
+    } else {
+      panel.style.display = 'none';
+      rows.innerHTML = '';
+      otherAdminDragReady = false;
+    }
+  }
+
+  function addOtherAdminRow() {
+    makeOtherAdminRow(false);
+  }
+
+  // ── Experience sub-panel
+  function toggleExpPanel(cb) {
+    const panel = document.getElementById('exp-panel');
+    panel.style.display = cb.checked ? 'block' : 'none';
+  }
+
+  // ── Show/hide "Other" project type field + gray/dark state
+  function toggleOtherType(select) {
+    const wrap = document.getElementById('other-type-wrap');
+    wrap.style.display = select.value === 'Other' ? 'block' : 'none';
+    select.classList.toggle('has-value', select.value !== '');
+  }
+
+  // ── Contract type pill buttons
+  function selectContractType(label, value) {
+    document.querySelectorAll('.contract-btn').forEach(el => el.classList.remove('selected'));
+    label.classList.add('selected');
+    label.querySelector('input[type="radio"]').checked = true;
+    document.getElementById('contract-other-wrap').style.display = value === 'Other' ? 'block' : 'none';
+  }
+
+
+  // ── Checkbox + radio highlight toggle
+  function initCheckHighlight(root) {
+    root.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', () => {
+        cb.closest('.check-item').classList.toggle('checked', cb.checked);
+      });
+    });
+    // Radio: clear all siblings first, then highlight selected
+    root.querySelectorAll('.check-item input[type="radio"]').forEach(rb => {
+      rb.addEventListener('change', () => {
+        document.querySelectorAll(`input[type="radio"][name="${rb.name}"]`).forEach(r => {
+          r.closest('.check-item').classList.toggle('checked', r.checked);
+        });
+      });
+    });
+  }
+  initCheckHighlight(document);
+
+  // ── Dynamic row helpers
+  let teamCount = 0, expCount = 0, refCount = 0, optCount = 0, attachCount = 0;
+
+  function makeRemoveBtn(container) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn-remove';
+    btn.textContent = '×';
+    btn.onclick = () => container.remove();
+    return btn;
+  }
+
+  function addTeamRow() {
+    teamCount++;
+    const row = document.createElement('div');
+    row.className = 'dynamic-row';
+    row.style.gridTemplateColumns = '1fr 1fr';
+    row.innerHTML = `
+      <div class="field"><label>Name</label><input type="text" name="extra_team_name_${teamCount}" placeholder="Name"></div>
+      <div class="field"><label>Role</label><input type="text" name="extra_team_role_${teamCount}" placeholder="Role / Title"></div>`;
+    row.appendChild(makeRemoveBtn(row));
+    document.getElementById('extra-team-rows').appendChild(row);
+  }
+
+  function addExpRow() {
+    expCount++;
+    const row = document.createElement('div');
+    row.className = 'dynamic-row';
+    row.style.cssText = 'grid-template-columns:2fr 1fr 1fr;';
+    row.innerHTML = `
+      <div class="field"><label>Project Name</label><input type="text" name="exp_extra_name_${expCount}" placeholder="Project name"></div>
+      <div class="field"><label>Value</label><input type="text" name="exp_extra_value_${expCount}" placeholder="$800K"></div>
+      <div class="field"><label>Completion</label><input type="text" name="exp_extra_date_${expCount}" placeholder="2024"></div>`;
+    row.appendChild(makeRemoveBtn(row));
+    document.getElementById('exp-extra-rows').appendChild(row);
+  }
+
+  function addRefRow() {
+    refCount++;
+    const row = document.createElement('div');
+    row.className = 'dynamic-row';
+    row.style.gridTemplateColumns = '1fr 1fr 1fr';
+    row.innerHTML = `
+      <div class="field"><label>Name</label><input type="text" name="ref_extra_name_${refCount}" placeholder="Full name"></div>
+      <div class="field"><label>Company / Project</label><input type="text" name="ref_extra_co_${refCount}" placeholder="Company or project"></div>
+      <div class="field"><label>Email / Phone</label><input type="text" name="ref_extra_contact_${refCount}" placeholder="email or phone"></div>`;
+    row.appendChild(makeRemoveBtn(row));
+    document.getElementById('ref-extra-rows').appendChild(row);
+  }
+
+  function addOptRow() {
+    optCount++;
+    const row = document.createElement('div');
+    row.className = 'dynamic-row';
+    row.innerHTML = `<div class="field"><label>Section name / description</label><input type="text" name="opt_extra_${optCount}" placeholder="Section name or description"></div>`;
+    row.appendChild(makeRemoveBtn(row));
+    document.getElementById('opt-extra-rows').appendChild(row);
+  }
+
+  function addAttachRow() {
+    attachCount++;
+    const row = document.createElement('div');
+    row.className = 'dynamic-row';
+    row.innerHTML = `<div class="field"><label>Attachment name</label><input type="text" name="attach_extra_${attachCount}" placeholder="Attachment name"></div>`;
+    row.appendChild(makeRemoveBtn(row));
+    document.getElementById('attach-extra-rows').appendChild(row);
+  }
+
+  // ── Form submit → mailto plain text
+  document.getElementById('intakeForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Block submit if any step is incomplete
+    if (!devMode) {
+      for (let n = 1; n <= TOTAL_STEPS; n++) {
+        if (!isStepValid(n)) {
+          // Navigate to the first broken step
+          showStep(n);
+          return;
+        }
+      }
+    }
+
+    // Block submit if phasing was modified but order hasn't been confirmed
+    const phasingChecked = document.getElementById('phasing-cb')?.checked;
+    if (!devMode && phasingChecked && phasesChanged && document.getElementById('phase_order_confirmed')?.value !== 'Yes') {
+      const btn = document.getElementById('phase-confirm-btn');
+      btn.style.borderColor = 'var(--red)';
+      btn.style.color = 'var(--red)';
+      btn.textContent = 'Confirm order *';
+      btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      btn.focus();
+      return;
+    }
+
+    const data = new FormData(this);
+
+    const onedriveLink  = data.get('onedrive_link') || '—';
+    const projectName   = data.get('project_name') || '—';
+    const projectAddr   = data.get('project_address') || '—';
+    const briefScope    = data.get('brief_scope') || '—';
+    const client        = data.get('client') || '—';
+    const consultant    = data.get('consultant') || '—';
+    const prepName      = data.get('prepared_name') || '—';
+    const prepTitle     = data.get('prepared_title') || '';
+    const prepCompany   = data.get('prepared_company') || '';
+    const prepPhone     = data.get('prepared_phone') || '';
+    const prepEmail     = data.get('prepared_email') || '';
+    const contractTypeRaw   = data.get('contract_type') || '—';
+    const contractTypeOther = data.get('contract_type_other') || '';
+    const contractTypes     = contractTypeRaw === 'Other' && contractTypeOther ? `Other — ${contractTypeOther}` : contractTypeRaw;
+    const projTypeRaw   = data.get('project_type') || '—';
+    const projTypeOther = data.get('project_type_other') || '';
+    const projType      = projTypeRaw === 'Other' && projTypeOther ? `Other — ${projTypeOther}` : projTypeRaw;
+    const sqft          = data.get('sqft') || '—';
+    const deadline      = data.get('deadline_draft') || '—';
+    const effortLevel   = data.get('effort_level') || '—';
+    const principalName = data.get('principal_name') || '—';
+    const pmName        = data.get('pm_name') || '—';
+    const superName     = data.get('super_name') || '—';
+
+    const extraTeamLines = [];
+    document.querySelectorAll('[name^="extra_team_name_"]').forEach(el => {
+      const idx = el.name.split('_').pop();
+      const role = document.querySelector(`[name="extra_team_role_${idx}"]`)?.value || '';
+      if (el.value) extraTeamLines.push(`  + ${el.value}${role ? ' — ' + role : ''}`);
+    });
+
+    const expItems = data.getAll('exp');
+    const extraExpLines = [];
+    document.querySelectorAll('[name^="exp_extra_name_"]').forEach(el => {
+      const idx = el.name.split('_').pop();
+      const val  = document.querySelector(`[name="exp_extra_value_${idx}"]`)?.value || '';
+      const date = document.querySelector(`[name="exp_extra_date_${idx}"]`)?.value || '';
+      if (el.value) extraExpLines.push(`    + ${el.value}${val ? ' — ' + val : ''}${date ? ' — ' + date : ''}`);
+    });
+
+    const pageItems = data.getAll('pages');
+    const otherAdminEntries = Array.from(document.querySelectorAll('.other-admin-entry')).map(el => el.value).filter(Boolean);
+    const extraOptLines = [];
+    document.querySelectorAll('[name^="opt_extra_"]').forEach(el => {
+      if (el.value) extraOptLines.push(`  + ${el.value}`);
+    });
+
+    const phasingLines = [];
+    if (document.getElementById('phasing-cb')?.checked) {
+      document.querySelectorAll('#phasing-rows .phase-row-wrap').forEach((wrap, i) => {
+        const name = wrap.querySelector('.phase-name')?.value || '';
+        const desc = wrap.querySelector('.phase-desc')?.value || '';
+        if (name) phasingLines.push(`  ${i + 1}. ${name}${desc ? '\n     ' + desc : ''}`);
+      });
+    }
+
+    const addNotes = data.get('additional_notes') || '—';
+
+    const body = [
+      `ENDURO CONSTRUCTION — PROPOSAL INTAKE`,
+      `Submitted: ${new Date().toLocaleDateString('en-CA')}`,
+      ``,
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      `1. PROJECT BASICS`,
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      `Project:         ${projectName}`,
+      `OneDrive Link:   ${onedriveLink}`,
+      `Scope:           ${briefScope}`,
+      `Client:          ${client}`,
+      consultant !== '—' ? `Consultant:      ${consultant}` : '',
+      projectAddr !== '—' ? `Address:         ${projectAddr}` : '',
+      sqft !== '—'        ? `Square Footage:  ${sqft}` : '',
+      ``,
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      `2. PREPARED FOR`,
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      `Name:            ${prepName}`,
+      prepTitle   ? `Title:           ${prepTitle}`   : '',
+      prepCompany ? `Company:         ${prepCompany}` : '',
+      prepPhone   ? `Phone:           ${prepPhone}`   : '',
+      prepEmail   ? `Email:           ${prepEmail}`   : '',
+      ``,
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      `3. CONTRACT & TYPE`,
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      `Contract Type:   ${contractTypes}`,
+      `Project Type:    ${projType}`,
+      `Draft Deadline:  ${deadline}`,
+      `Effort Level:    ${effortLevel}`,
+      ``,
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      `4. PROJECT TEAM`,
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      `Principal:       ${principalName}`,
+      `Project Manager: ${pmName}`,
+      `Superintendent:  ${superName}`,
+      ...extraTeamLines,
+      ``,
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      `5. PROPOSAL PAGES`,
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      pageItems.length
+        ? pageItems.map(s => s === 'Other Admin' && otherAdminEntries.length
+            ? otherAdminEntries.map(e => `  ☑ Other — ${e}`).join('\n')
+            : `  ☑ ${s}`).join('\n')
+        : '  None selected',
+      ...extraOptLines,
+      expItems.length ? `\n  Relevant Experience:` : '',
+      ...expItems.map(e => `    ☑ ${e}`),
+      ...extraExpLines,
+      phasingLines.length ? `\n  Phasing:` : '',
+      ...phasingLines,
+      phasingLines.length ? `  Phase order confirmed: ${document.getElementById('phase_order_confirmed')?.value === 'Yes' ? 'Yes ✓' : 'Not confirmed'}` : '',
+      ``,
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      `6. ADDITIONAL NOTES`,
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      addNotes,
+    ].filter(l => l !== '').join('\n');
+
+    const subject = encodeURIComponent(`Proposal Intake — ${projectName}`);
+    window.location.href = `mailto:birkine.r@gmail.com?subject=${subject}&body=${encodeURIComponent(body)}`;
+  });
+
+  // ── Multi-step controller
+  const TOTAL_STEPS = 5;
+  let currentStep = 1;
+  let devMode = false;  // declared here so isStepValid/updateRail can reference it
+  // Track which steps have been completed (required fields filled)
+  const stepDone = new Set();
+
+  // Track every step the user has ever navigated to
+  const visitedSteps = new Set([1]);
+
+  // Flips to true permanently once all steps have been completed at least once
+  // Before this: strict sequential mode (forward only after valid, back always ok)
+  // After this: free navigation with warning/freeze logic
+  let allEverCompleted = false;
+
+  // Track which dots were unlocked/done last render so we can detect newly-unlocked
+  const _prevUnlocked = new Set();
+  let _prevSendReady = false;
+
+  function isStepValid(n) {
+    if (devMode) return true;
+    const step = document.querySelector(`.form-step[data-step="${n}"]`);
+    if (!step) return false;
+    const required = step.querySelectorAll('[required]');
+    for (const el of required) {
+      if (!el.value.trim()) return false;
+    }
+    if (n === 1) {
+      if (!step.querySelector('input[name="contract_type"]:checked')) return false;
+    }
+    if (n === 4) {
+      const checked = document.querySelectorAll('input[name="pages"]:checked').length;
+      if (checked < 4) return false;
+    }
+    if (n === 5) {
+      const notes = document.querySelector('textarea[name="additional_notes"]');
+      if (!notes || !notes.value.trim()) return false;
+    }
+    return true;
+  }
+
+  function updateRail() {
+    // Sync stepDone — valid visited steps
+    for (let n = 1; n <= TOTAL_STEPS; n++) {
+      if (isStepValid(n) && (stepDone.has(n) || n === currentStep)) {
+        stepDone.add(n);
+      } else if (!isStepValid(n)) {
+        stepDone.delete(n);
+      }
+    }
+
+    // Check if all steps have been completed at least once — flips permanently
+    if (!allEverCompleted && Array.from({length: TOTAL_STEPS}, (_, i) => i + 1).every(n => stepDone.has(n))) {
+      allEverCompleted = true;
+    }
+
+    // Warning steps: only relevant in free-nav mode (after allEverCompleted)
+    // In sequential mode there are no warning dots — just locked/unlocked
+    const warningSteps = new Set();
+    if (allEverCompleted) {
+      for (let n = 1; n <= TOTAL_STEPS; n++) {
+        if (n !== currentStep && visitedSteps.has(n) && !isStepValid(n)) {
+          warningSteps.add(n);
+        }
+      }
+    }
+
+    const anyWarning = warningSteps.size > 0;
+
+    // Freeze current step if in free-nav mode, a warning exists, and this step isn't the broken one
+    const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+    if (currentStepEl) {
+      const isFrozen = allEverCompleted && anyWarning && !warningSteps.has(currentStep);
+      currentStepEl.classList.toggle('frozen', isFrozen);
+      const notice = currentStepEl.querySelector('.frozen-notice');
+      if (notice && isFrozen) {
+        const nums = Array.from(warningSteps).sort((a, b) => a - b);
+        const label = nums.length === 1
+          ? `Step ${nums[0]}`
+          : `Steps ${nums.slice(0, -1).join(', ')} and ${nums[nums.length - 1]}`;
+        notice.innerHTML = `⚠️ Complete ${label} before editing here.`;
+      }
+    }
+
+    for (let n = 1; n <= TOTAL_STEPS; n++) {
+      const item = document.getElementById(`rail-${n}`);
+      if (!item) continue;
+      item.classList.remove('active', 'done', 'done-faded', 'warning', 'broken', 'unlocked', 'locked');
+
+      let newState;
+      if (n === currentStep) {
+        newState = 'active'; // always red — no exceptions
+      } else if (warningSteps.has(n)) {
+        newState = 'warning'; // gold — broken, must fix (free-nav mode only)
+      } else if (stepDone.has(n)) {
+        newState = 'done'; // black — completed
+      } else if (allEverCompleted && visitedSteps.has(n)) {
+        newState = 'unlocked'; // free-nav: visited but not currently valid
+      } else if (!allEverCompleted && n === currentStep + 1 && isStepValid(currentStep)) {
+        newState = 'unlocked'; // sequential: next step just became reachable
+      } else {
+        newState = 'locked'; // not reachable yet
+      }
+      item.classList.add(newState);
+
+      // Fire pulse on the dot if it just became unlocked (wasn't before)
+      const dot = item.querySelector('.step-dot');
+      const wasAvailable = _prevUnlocked.has(n);
+      const isNowAvailable = (newState === 'unlocked');
+      if (isNowAvailable && !wasAvailable && dot) {
+        dot.classList.remove('pulse-unlock');
+        void dot.offsetWidth;
+        dot.classList.add('pulse-unlock');
+        dot.addEventListener('animationend', () => dot.classList.remove('pulse-unlock'), { once: true });
+      }
+      if (isNowAvailable) { _prevUnlocked.add(n); } else { _prevUnlocked.delete(n); }
+    }
+
+    // Live pages counter for step 4
+    const counter = document.getElementById('pages-counter');
+    if (counter) {
+      const n = document.querySelectorAll('input[name="pages"]:checked').length;
+      const met = n >= 4;
+      counter.textContent = met ? `${n} selected ✓` : `${n} / 4 minimum`;
+      counter.style.color = met ? '#2a9d5c' : (n > 0 ? 'var(--text-mid)' : 'var(--text-dim)');
+    }
+
+    // Send button lights up when all steps are fully valid
+    const sendBtn = document.getElementById('railSendBtn');
+    if (sendBtn) {
+      const allRequired = document.querySelectorAll('#intakeForm [required]');
+      const allFilled = Array.from(allRequired).every(el => el.value.trim() !== '');
+      const contractPicked = document.querySelector('input[name="contract_type"]:checked');
+      const pagesOk = document.querySelectorAll('input[name="pages"]:checked').length >= 4;
+      const isReady = devMode || (allFilled && !!contractPicked && pagesOk);
+      sendBtn.classList.toggle('ready', isReady);
+      // Pulse on transition to ready
+      if (isReady && !_prevSendReady) {
+        sendBtn.classList.remove('pulse-ready');
+        void sendBtn.offsetWidth;
+        sendBtn.classList.add('pulse-ready');
+        sendBtn.addEventListener('animationend', () => sendBtn.classList.remove('pulse-ready'), { once: true });
+      }
+      _prevSendReady = isReady;
+    }
+  }
+
+  function showStep(n) {
+    document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active', 'frozen'));
+    document.querySelector(`.form-step[data-step="${n}"]`).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    currentStep = n;
+    visitedSteps.add(n);
+    updateRail();
+  }
+
+  function validateStep(n) {
+    if (devMode) return true;
+    const step = document.querySelector(`.form-step[data-step="${n}"]`);
+    const required = step.querySelectorAll('[required]');
+    for (const el of required) {
+      if (!el.value.trim()) { el.focus(); return false; }
+    }
+    if (n === 1) {
+      const contractPicked = step.querySelector('input[name="contract_type"]:checked');
+      if (!contractPicked) {
+        document.querySelector('.contract-btns').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return false;
+      }
+    }
+    if (n === 4) {
+      const checked = document.querySelectorAll('input[name="pages"]:checked').length;
+      if (checked < 4) {
+        document.querySelector('.check-grid').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return false;
+      }
+    }
+    if (n === 5) {
+      const notes = document.querySelector('textarea[name="additional_notes"]');
+      if (!notes || !notes.value.trim()) { notes.focus(); return false; }
+    }
+    return true;
+  }
+
+  // Rail click handler
+  function railGo(n) {
+    if (n === currentStep) return;
+
+    if (!allEverCompleted) {
+      // Sequential mode: only allow going back, or forward to the immediately next unlocked step
+      if (n > currentStep) return; // dot clicks forward are blocked — use Next button
+      showStep(n);
+      return;
+    }
+
+    // Free-nav mode: always allow
+    showStep(n);
+  }
+
+  function stepNav(dir) {
+    if (dir === 1) {
+      // Forward: require valid in sequential mode
+      if (!allEverCompleted && !isStepValid(currentStep)) {
+        validateStep(currentStep); // focuses first missing field
+        return;
+      }
+      if (isStepValid(currentStep)) stepDone.add(currentStep);
+      if (currentStep === TOTAL_STEPS) {
+        document.getElementById('intakeForm').dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));
+        return;
+      }
+      showStep(currentStep + 1);
+    } else {
+      showStep(currentStep - 1);
+    }
+  }
+
+  // ── Dev Mode — bypasses all validation
+  function toggleDevMode() {
+    devMode = !devMode;
+    document.body.classList.toggle('dev-mode', devMode);
+    const btn = document.getElementById('devModeBtn');
+    btn.classList.toggle('on', devMode);
+    btn.textContent = devMode ? 'DEV ON' : 'DEV';
+    // Unlock all steps in rail immediately
+    if (devMode) {
+      for (let n = 1; n <= TOTAL_STEPS; n++) stepDone.add(n);
+    } else {
+      stepDone.clear();
+      stepDone.add(currentStep > 1 ? currentStep - 1 : 0);
+    }
+    updateRail();
+  }
+
+  // Re-check send button readiness on any input change
+  document.getElementById('intakeForm').addEventListener('input', updateRail);
+  document.getElementById('intakeForm').addEventListener('change', updateRail);
+
+  // Init — step 2 starts unlocked (step 1 is always accessible)
+  showStep(1);
+  updateRail();
+</script>
+
+</body>
+</html>
