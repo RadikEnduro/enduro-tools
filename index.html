@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enduro Construction — Staff Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--red:#C8211A;--black:#0D0D0D;--off:#F2F0ED;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--off);color:var(--black);line-height:1.5;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:760px;margin:0 auto;padding:56px 24px 80px;}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;}
+.dot{width:10px;height:10px;background:var(--red);border-radius:2px;}
+h1{font-size:30px;font-weight:700;margin:26px 0 8px;letter-spacing:-.02em;}
+.sub{color:#555;font-size:15px;max-width:54ch;}
+.note{margin-top:18px;padding:12px 16px;background:#fff;border-left:3px solid var(--red);font-size:13.5px;color:#333;}
+.cards{margin-top:34px;display:grid;gap:14px;}
+.card{display:flex;align-items:center;justify-content:space-between;gap:16px;background:#fff;border:1px solid #e4e1dc;border-radius:12px;padding:20px 22px;text-decoration:none;color:inherit;transition:border-color .15s, transform .15s;}
+.card:hover{border-color:var(--red);transform:translateY(-1px);}
+.ci{display:flex;align-items:baseline;gap:12px;}
+.num{font-size:13px;font-weight:600;color:var(--red);font-variant-numeric:tabular-nums;}
+.cname{font-size:18px;font-weight:600;}
+.cdesc{font-size:13px;color:#666;margin-top:3px;}
+.right{display:flex;align-items:center;gap:14px;flex-shrink:0;}
+.badge{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:4px 9px;border-radius:20px;white-space:nowrap;}
+.b-live{background:#e7f4ea;color:#1c6b34;}
+.b-wip{background:#fdf1e3;color:#9a5b16;}
+.b-soon{background:#efedea;color:#777;}
+.open{font-size:14px;font-weight:600;color:var(--red);white-space:nowrap;}
+.foot{margin-top:38px;font-size:13px;color:#777;border-top:1px solid #e4e1dc;padding-top:20px;}
+.foot b{color:#333;font-weight:600;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><span class="dot"></span> Enduro Construction</div>
+  <h1>Staff Preview</h1>
+  <p class="sub">Internal preview and testing for Joel and Fred. These are work in progress tools, not the public website.</p>
+  <div class="note">Nothing here is wired to the public domain yet. The live company site at <b>enduroconstruction.ca</b> is separate and unchanged.</div>
+
+  <div class="cards">
+    <a class="card" href="/01_WEBSITE/">
+      <span class="ci"><span class="num">01</span><span><span class="cname">Website</span><span class="cdesc">New Enduro site, homepage build</span></span></span>
+      <span class="right"><span class="badge b-wip">Preview</span><span class="open">Open &rarr;</span></span>
+    </a>
+    <a class="card" href="/02_PORTAL/">
+      <span class="ci"><span class="num">02</span><span><span class="cname">Portal</span><span class="cdesc">Internal staff portal and weekly forms</span></span></span>
+      <span class="right"><span class="badge b-soon">Coming soon</span><span class="open">Open &rarr;</span></span>
+    </a>
+    <a class="card" href="/03_INTAKE/intake.html">
+      <span class="ci"><span class="num">03</span><span><span class="cname">Intake</span><span class="cdesc">Proposal intake form</span></span></span>
+      <span class="right"><span class="badge b-live">Live</span><span class="open">Open &rarr;</span></span>
+    </a>
+  </div>
+
+  <div class="foot">Preview host: <b>preview.enduroconstruction.ca</b>. Bookmark this page, it is your single reference for every tool.</div>
+</div>
+</body>
+</html>

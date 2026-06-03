@@ -1,18 +1,20 @@
 # enduro-tools
 
-GitHub repository for all Enduro Construction web tools.
+GitHub repo for Enduro Construction web tools, served via GitHub Pages on the staff preview host.
 
-## Folder structure
+## Live preview
 
-| Folder | Purpose | URL |
-|--------|---------|-----|
-| 00_WEBSITE | Main Enduro website | enduroconstruction.ca |
-| 01_PORTAL | Internal staff portal | enduroconstruction.ca/portal |
-| 02_WEEKLY_FORMS | Field report forms | enduroconstruction.ca/forms |
-| 03_INTAKE | Proposal intake form | enduroconstruction.ca/intake |
-| 04_TODO_BRAIN | Personal to-do brain (local + GitHub) | local |
-| 05_PREVIEW | Joel & Fred preview/testing | preview.enduroconstruction.ca |
+Start here: **https://preview.enduroconstruction.ca/**
+
+| Folder | Purpose | Preview URL |
+| --- | --- | --- |
+| 01_WEBSITE | New Enduro website (in progress) | preview.enduroconstruction.ca/01_WEBSITE/ |
+| 02_PORTAL | Internal staff portal (incl. weekly forms) | preview.enduroconstruction.ca/02_PORTAL/ |
+| 03_INTAKE | Proposal intake form | preview.enduroconstruction.ca/03_INTAKE/intake.html |
+| 05_PREVIEW | Legacy preview stub (kept) | - |
+
+The public site at **enduroconstruction.ca** is a separate WordPress install and is not in this repo. Nothing here is wired to the apex domain yet.
 
 ## PAT expiry
-GitHub access token (claude-cowork-push) expires: **2026-08-25**
-If Claude cannot push, regenerate the token in GitHub → Settings → Developer settings → Fine-grained tokens.
+
+GitHub token (claude-cowork-push) expires: **2026-08-25**. Regenerate in GitHub - Settings - Developer settings - Fine-grained tokens.
