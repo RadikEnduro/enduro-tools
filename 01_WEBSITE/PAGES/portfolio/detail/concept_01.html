@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enduro · Project Detail — Concept 01 · Editorial Spread</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,400;9..144,700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../../_shared/tokens.css" />
+<style>
+  body { background: var(--white); }
+  .pd-hero { position: relative; height: 88vh; overflow: hidden; }
+  .pd-hero img { width: 100%; height: 100%; object-fit: cover; }
+  .pd-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.7) 100%); }
+  .pd-hero-text { position: absolute; inset: 0; padding: 0 var(--gutter); max-width: var(--max); margin: 0 auto; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 60px; z-index: 2; color: var(--white); }
+  .pd-hero-text .crumb { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--w-75); margin-bottom: 16px; }
+  .pd-hero-text .crumb a { color: var(--red-bright); }
+  .pd-hero-text h1 { font-size: clamp(64px, 11vw, 200px); font-weight: 900; letter-spacing: -0.05em; line-height: 0.86; text-transform: uppercase; }
+  .pd-hero-meta { display: grid; grid-template-columns: repeat(4, auto); gap: 56px; margin-top: 32px; }
+  .pd-hero-meta div { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--w-50); }
+  .pd-hero-meta div b { display: block; color: var(--white); font-size: 16px; font-weight: 700; margin-top: 4px; letter-spacing: 0; text-transform: none; }
+
+  .pd-intro { padding: 100px var(--gutter); max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 80px; }
+  .pd-intro .sidebar { position: sticky; top: 100px; align-self: start; }
+  .pd-intro .sidebar h3 { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); font-weight: 700; }
+  .pd-intro .sidebar b { display: block; font-size: 22px; font-weight: 900; letter-spacing: -0.02em; text-transform: uppercase; margin-top: 8px; line-height: 1; }
+  .pd-intro .content p { font-size: 17px; line-height: 1.7; }
+  .pd-intro .content p + p { margin-top: 1.4em; }
+  .pd-intro .content p:first-child::first-letter { font-family: "Fraunces", serif; font-size: 96px; float: left; line-height: 0.85; padding-right: 14px; padding-top: 6px; color: var(--red); }
+
+  .pd-gallery { padding: 0 var(--gutter) 120px; max-width: 1600px; margin: 0 auto; display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+  .pd-gallery .g { border-radius: 6px; overflow: hidden; aspect-ratio: var(--ar, 4/3); }
+  .pd-gallery .span-7 { grid-column: span 7; }
+  .pd-gallery .span-5 { grid-column: span 5; }
+  .pd-gallery .span-12 { grid-column: span 12; aspect-ratio: 16/8; }
+  .pd-gallery .span-4 { grid-column: span 4; }
+  .pd-gallery .span-8 { grid-column: span 8; }
+  .pd-gallery .g img { transition: transform 0.6s var(--ease-out); }
+  .pd-gallery .g:hover img { transform: scale(1.04); }
+
+  .pd-quote { background: var(--black); color: var(--white); padding: 140px var(--gutter); text-align: center; }
+  .pd-quote blockquote { font-family: "Fraunces", serif; font-size: clamp(32px, 4vw, 60px); line-height: 1.15; max-width: 30ch; margin: 0 auto; font-weight: 400; }
+  .pd-quote cite { display: block; margin-top: 32px; font-style: normal; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red-bright); }
+
+  .pd-specs { padding: 120px var(--gutter); max-width: var(--max); margin: 0 auto; }
+  .pd-specs h2 { font-size: clamp(32px, 4vw, 56px); font-weight: 900; letter-spacing: -0.035em; line-height: 0.95; text-transform: uppercase; margin-bottom: 48px; }
+  .pd-specs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .pd-spec { padding: 24px 0; border-top: 2px solid var(--black); }
+  .pd-spec dt { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); font-weight: 700; margin-bottom: 12px; }
+  .pd-spec dd { font-size: 18px; color: var(--black); line-height: 1.4; }
+
+  .pd-next { padding: 100px var(--gutter); background: var(--off-white); display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: var(--max); margin: 0 auto; }
+  .pd-next a { display: block; padding: 32px; border-radius: 12px; background: var(--white); transition: transform 0.3s var(--ease-out); }
+  .pd-next a:hover { transform: translateY(-4px); }
+  .pd-next .label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); font-weight: 700; }
+  .pd-next h3 { font-size: 28px; font-weight: 900; letter-spacing: -0.025em; text-transform: uppercase; margin-top: 8px; }
+</style></head>
+<body>
+<nav class="enduro-nav on-dark" id="enduroNav"><div class="enduro-nav-inner"><a class="enduro-nav-logo" href="../../enduro_concept-MASTER.html"><svg viewBox="0 0 294 90"><path fill="#fff" d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg></a><div class="enduro-nav-links"><a href="../services/concept_01.html">Services</a><a href="../projects-index/concept_01.html" class="active">Our Work</a><a href="../about/concept_01.html">About Us</a><a href="../insights/concept_01.html">Insights</a><a href="../contact/concept_01.html">Contact Us</a></div><div class="enduro-nav-right"></div></div></nav>
+
+<section class="pd-hero">
+  <img src="../../../assets/img/ph_dawson_lab_pro_photos_insta_selection_ll_02637.jpg" alt="" />
+  <div class="pd-hero-text">
+    <div class="crumb"><a href="../projects-index/concept_01.html">Our Work</a> · Project · 01</div>
+    <h1>Dawson Lab</h1>
+    <div class="pd-hero-meta"><div>Sector<b>Research / Wet Lab</b></div><div>Client<b>UBC Faculty</b></div><div>Year<b>2024</b></div><div>Duration<b>18 weeks</b></div></div>
+  </div>
+</section>
+
+<section class="pd-intro">
+  <aside class="sidebar"><h3>Project Brief</h3><b>Convert two adjacent wet-lab spaces into a unified research environment without disrupting active ops on the floors above and below.</b></aside>
+  <div class="content">
+    <p>The brief landed mid-summer with a hard September open. Two adjacent wet labs needed unification: a shared bench-line, fume-hood integration, gas + DI water rerun, and casework that matched the building's heritage millwork standard. The complication wasn't the spec — it was that the labs above and below would remain in operation throughout.</p>
+    <p>We phased the work in four blocks, ran the heavy demo after-hours, and isolated each zone with negative-pressure barriers tied to the building's HVAC. Mechanical and electrical leads coordinated daily. The lab closed on a Friday, opened on a Monday — 18 weeks later, with permits closed and the deficiency walk done before the invoice arrived.</p>
+    <p>It's the kind of build that proves the operating standard: live-ops awareness, schedule rigor, and the discipline to keep the work invisible until handover.</p>
+  </div>
+</section>
+
+<section class="pd-gallery">
+  <div class="g span-12"><img src="../../../assets/img/ph_dawson_lab_pro_photos_insta_selection_ll_02637.jpg" alt="" /></div>
+  <div class="g span-7"><img src="../../../assets/img/ph_dawson_lab_pro_photos_insta_selection_ll_02650.jpg" alt="" /></div>
+  <div class="g span-5"><img src="../../../assets/img/ph_dawson_lab_pro_photos_ll_02621.jpg" alt="" /></div>
+  <div class="g span-4"><img src="../../../assets/img/ph_dawson_lab_pro_photos_ll_02585.jpg" alt="" /></div>
+  <div class="g span-8"><img src="../../../assets/img/ph_dawson_lab_pro_photos_ll_02633.jpg" alt="" /></div>
+  <div class="g span-5"><img src="../../../assets/img/ph_dawson_lab_pro_photos_ll_02625.jpg" alt="" /></div>
+  <div class="g span-7"><img src="../../../assets/img/ph_dawson_lab_pro_photos_ll_02653.jpg" alt="" /></div>
+</section>
+
+<section class="pd-quote">
+  <blockquote class="reveal">"They built around our research operations for four months and we never lost a workday. The schedule they sent on day one was the schedule we got at handover."</blockquote>
+  <cite>— UBC Faculty Lead, Dawson Lab</cite>
+</section>
+
+<section class="pd-specs">
+  <h2 class="reveal">Spec sheet.</h2>
+  <div class="pd-specs-grid">
+    <div class="pd-spec reveal"><dt>Type</dt><dd>Wet-lab unification + casework</dd></div>
+    <div class="pd-spec reveal d1"><dt>Square footage</dt><dd>4,200 sqft</dd></div>
+    <div class="pd-spec reveal d2"><dt>Duration</dt><dd>18 weeks, 4 phases</dd></div>
+    <div class="pd-spec reveal"><dt>Trades coordinated</dt><dd>14 (incl. mech, elec, gases, casework)</dd></div>
+    <div class="pd-spec reveal d1"><dt>Live-ops impact</dt><dd>Zero workdays lost on adjoining floors</dd></div>
+    <div class="pd-spec reveal d2"><dt>Engagement</dt><dd>General Contracting · self-performed</dd></div>
+  </div>
+</section>
+
+<section class="pd-next">
+  <a href="concept_01.html"><span class="label">← Previous</span><h3>FSIAP Lab</h3></a>
+  <a href="concept_01.html"><span class="label">Next →</span><h3>Henry Angus Classrooms</h3></a>
+</section>
+
+<footer class="enduro-footer"><div class="enduro-footer-grid"><div class="footer-brand"><svg viewBox="0 0 294 90" style="height:30px;width:auto;fill:#fff;"><path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg><p>Vancouver-based commercial general contractor.</p></div><div></div><div></div><div><h3>Contact</h3><ul><li><a href="tel:6049686578">604.968.6578</a></li></ul></div></div><div class="enduro-footer-bottom"><span>© Enduro Construction Ltd.</span><span>Built for what comes next</span></div></footer>
+<script>(function(){const obs=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle("in",e.isIntersecting)),{threshold:0.15});document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));const nav=document.getElementById("enduroNav");window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>40),{passive:true});})();</script>
+</body></html>

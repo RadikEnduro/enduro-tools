@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enduro · Insights — Concept 02 · Vertical Feed</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../_shared/tokens.css" />
+<style>
+  body { background: var(--off-white); }
+  .vf-hero { padding: 160px var(--gutter) 64px; max-width: 960px; margin: 0 auto; }
+  .vf-hero h1 { font-size: clamp(56px, 8vw, 120px); font-weight: 900; letter-spacing: -0.05em; line-height: 0.86; text-transform: uppercase; }
+  .vf-hero p { font-size: 18px; color: var(--k-65); margin-top: 28px; max-width: 56ch; }
+
+  .vf-feed { padding: 32px var(--gutter) 100px; max-width: 960px; margin: 0 auto; }
+  .vf-post { padding: 40px 0; border-top: 1px solid var(--k-25); display: grid; grid-template-columns: 120px 1fr; gap: 32px; cursor: pointer; transition: background 0.2s; }
+  .vf-post:hover { background: var(--white); }
+  .vf-post .date { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--k-65); }
+  .vf-post .date b { display: block; color: var(--red); font-size: 32px; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 4px; }
+  .vf-post .label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); font-weight: 700; }
+  .vf-post h2 { font-size: clamp(24px, 2.6vw, 36px); font-weight: 900; letter-spacing: -0.025em; line-height: 1.05; text-transform: uppercase; margin: 10px 0 12px; }
+  .vf-post p { font-size: 16px; line-height: 1.55; color: var(--k-65); max-width: 60ch; }
+  .vf-post .meta { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--k-65); margin-top: 16px; }
+</style></head>
+<body>
+<nav class="enduro-nav" id="enduroNav"><div class="enduro-nav-inner"><a class="enduro-nav-logo" href="../../enduro_concept-MASTER.html"><svg viewBox="0 0 294 90"><path fill="#fff" d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg></a><div class="enduro-nav-links"><a href="../services/concept_01.html">Services</a><a href="../projects-index/concept_01.html">Our Work</a><a href="../about/concept_01.html">About Us</a><a href="concept_01.html" class="active">Insights</a><a href="../contact/concept_01.html">Contact Us</a></div><div class="enduro-nav-right"></div></div></nav>
+
+<section class="vf-hero">
+  <span class="tag reveal">Field Notes</span>
+  <h1 class="reveal d1">Notes from the field.</h1>
+  <p class="reveal d2">Project debriefs, lessons-learned, opinions from PMs and supers. Newest first.</p>
+</section>
+
+<section class="vf-feed">
+  <a href="../insight-article/concept_01.html" class="vf-post reveal"><div class="date"><b>04</b>Mar 2026</div><div><span class="label">Process</span><h2>The schedule isn't a wish.</h2><p>How we built our practice around the idea that the version of the schedule you send is the version you ship.</p><div class="meta">By Radik Birkin · 8 min read</div></div></a>
+  <a href="../insight-article/concept_01.html" class="vf-post reveal"><div class="date"><b>21</b>Feb 2026</div><div><span class="label">Operations</span><h2>Building around live operations: a field manual.</h2><p>Phasing strategies, isolation walls, infection control, after-hours coordination — everything we wish someone had told us before our first live-ops build.</p><div class="meta">PM Notes · 6 min read</div></div></a>
+  <a href="../insight-article/concept_01.html" class="vf-post reveal d1"><div class="date"><b>09</b>Jan 2026</div><div><span class="label">Lessons</span><h2>Three things we learned from Norgate's permit cycle.</h2><p>What a tight retail TI in North Van taught us about parallel permitting, brand handovers, and after-hours work.</p><div class="meta">Retail TI · 5 min read</div></div></a>
+  <a href="../insight-article/concept_01.html" class="vf-post reveal d1"><div class="date"><b>14</b>Dec 2025</div><div><span class="label">Project</span><h2>Pre-fab walls for a 16-week civic build.</h2><p>How off-site assembly compressed the schedule for Ray Perrault Fieldhouse without sacrificing the finish.</p><div class="meta">Civic · 7 min read</div></div></a>
+  <a href="../insight-article/concept_01.html" class="vf-post reveal d2"><div class="date"><b>30</b>Nov 2025</div><div><span class="label">Opinion</span><h2>Why our deficiency walks happen before invoicing.</h2><p>A short, opinionated piece on the most underrated step in handover.</p><div class="meta">Operations · 4 min read</div></div></a>
+  <a href="../insight-article/concept_01.html" class="vf-post reveal d2"><div class="date"><b>12</b>Oct 2025</div><div><span class="label">Process</span><h2>Coordinating 17 trades in 22 weeks.</h2><p>What we learned about trade-sequencing during the FSIAP build.</p><div class="meta">Lab Fit-Out · 5 min read</div></div></a>
+</section>
+
+<footer class="enduro-footer"><div class="enduro-footer-grid"><div class="footer-brand"><svg viewBox="0 0 294 90" style="height:30px;width:auto;fill:#fff;"><path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg><p>Vancouver-based commercial general contractor.</p></div><div></div><div></div><div><h3>Contact</h3><ul><li><a href="tel:6049686578">604.968.6578</a></li></ul></div></div><div class="enduro-footer-bottom"><span>© Enduro Construction Ltd.</span><span>Built for what comes next</span></div></footer>
+<script>(function(){const obs=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle("in",e.isIntersecting)),{threshold:0.15});document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));const nav=document.getElementById("enduroNav");window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>40),{passive:true});})();</script>
+</body></html>

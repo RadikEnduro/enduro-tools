@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enduro · Concept Index · 35 page concepts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../_shared/tokens.css" />
+  <style>
+    body { background: var(--off-white); }
+    .x-hero { padding: 100px var(--gutter) 56px; max-width: var(--max); margin: 0 auto; }
+    .x-hero h1 { font-size: clamp(48px, 7vw, 112px); font-weight: 900; letter-spacing: -0.05em; line-height: 0.88; text-transform: uppercase; }
+    .x-hero p { font-size: clamp(15px, 1.3vw, 18px); color: var(--k-65); margin-top: 20px; max-width: 56ch; }
+    .x-stats { display: flex; gap: 48px; margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--k-25); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--k-65); }
+    .x-stats b { display: block; color: var(--red); font-size: 24px; font-weight: 900; letter-spacing: -0.025em; margin-bottom: 4px; }
+
+    .x-section { padding: 56px var(--gutter); max-width: var(--max); margin: 0 auto; border-top: 1px solid var(--black); }
+    .x-section-head { display: flex; justify-content: space-between; align-items: end; margin-bottom: 32px; }
+    .x-section-head h2 { font-size: clamp(28px, 3.5vw, 52px); font-weight: 900; letter-spacing: -0.035em; line-height: 1; text-transform: uppercase; }
+    .x-section-head .meta { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--k-65); }
+    .x-section-head .meta b { color: var(--red); }
+    .x-section-desc { font-size: 14px; color: var(--k-65); max-width: 60ch; margin-bottom: 32px; line-height: 1.6; }
+
+    .x-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+    @media (max-width: 1200px) { .x-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 700px) { .x-grid { grid-template-columns: repeat(2, 1fr); } }
+    .x-card {
+      background: var(--white); border-radius: 12px; overflow: hidden;
+      transition: transform 0.4s var(--ease-out), box-shadow 0.4s; display: block;
+    }
+    .x-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -20px rgba(0,0,0,0.18); }
+    .x-card .preview { aspect-ratio: 4/3; background: var(--off-white); position: relative; overflow: hidden; }
+    .x-card .preview iframe { width: 200%; height: 200%; border: 0; transform: scale(0.5); transform-origin: top left; pointer-events: none; background: var(--off-white); }
+    .x-card .label { padding: 16px 20px; }
+    .x-card .num { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); font-weight: 700; }
+    .x-card h3 { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; margin-top: 6px; }
+    .x-card .desc { font-size: 12px; color: var(--k-65); margin-top: 4px; }
+
+    .x-foot { padding: 64px var(--gutter); background: var(--black); color: var(--white); text-align: center; }
+    .x-foot h2 { font-size: clamp(32px, 4.5vw, 64px); font-weight: 900; letter-spacing: -0.04em; line-height: 0.92; text-transform: uppercase; max-width: 18ch; margin: 0 auto 16px; }
+    .x-foot p { color: var(--w-75); max-width: 56ch; margin: 0 auto; font-size: 15px; }
+  </style>
+</head>
+<body>
+  <section class="x-hero">
+    <span class="tag">Concept Sandbox · 2026-05-18</span>
+    <h1>Enduro<br>Concept Index.</h1>
+    <p>35 self-contained concept HTMLs across 7 page types — Services, About, Contact, Projects Index, Project Detail, Insights, Article. Each is fully functional with real photos, animations, and the Enduro design system. Click any tile to open the full page.</p>
+    <div class="x-stats">
+      <div>Pages<b>7</b></div>
+      <div>Live concepts<b>30</b></div>
+      <div>Rejected<b>5</b></div>
+      <div>Liked so far<b>2</b></div>
+    </div>
+    <p style="margin-top: 16px; font-size: 12px; color: var(--k-50); letter-spacing: 0.08em; text-transform: uppercase;">Liked: <b style="color: var(--red);">insight-article/concept_04 (Annotated Notes)</b> · <b style="color: var(--red);">insight-article/concept_03 (Photo Essay)</b></p>
+  </section>
+
+  <section class="x-section">
+    <div class="x-section-head"><h2>Services</h2><span class="meta">3 concepts · <b>/pages/services/</b></span></div>
+    <p class="x-section-desc">The "what we offer" page. Two-service brief, capabilities depth, engagement framing.</p>
+    <div class="x-grid">
+      <a class="x-card" href="services/concept_01.html"><div class="preview"><iframe src="services/concept_01.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 01</span><h3>Split Reveal</h3><span class="desc">Image-and-text vertical alternation with section colour shift.</span></div></a>
+      <a class="x-card" href="services/concept_02.html"><div class="preview"><iframe src="services/concept_02.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 02</span><h3>Sticky Spec Cards</h3><span class="desc">Marquee + sticky sidebar + capability grid.</span></div></a>
+      <a class="x-card" href="services/concept_04.html"><div class="preview"><iframe src="services/concept_04.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 04</span><h3>Horizontal Capabilities</h3><span class="desc">Dark hero + 6-card horizontal scroller + process strip.</span></div></a>
+    </div>
+  </section>
+
+  <section class="x-section">
+    <div class="x-section-head"><h2>About Us</h2><span class="meta">5 concepts · <b>/pages/about/</b></span></div>
+    <p class="x-section-desc">Story, principles, team, history. Five different ways to frame the operating philosophy.</p>
+    <div class="x-grid">
+      <a class="x-card" href="about/concept_01.html"><div class="preview"><iframe src="about/concept_01.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 01</span><h3>Scrollytell Narrative</h3><span class="desc">3-chapter pinned story over fixed photos.</span></div></a>
+      <a class="x-card" href="about/concept_02.html"><div class="preview"><iframe src="about/concept_02.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 02</span><h3>Stats Counter</h3><span class="desc">Animated counters, big-number grid, team strip.</span></div></a>
+      <a class="x-card" href="about/concept_03.html"><div class="preview"><iframe src="about/concept_03.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 03</span><h3>Team Bento</h3><span class="desc">Bento mosaic mixing portraits, stats, principle tiles.</span></div></a>
+      <a class="x-card" href="about/concept_04.html"><div class="preview"><iframe src="about/concept_04.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 04</span><h3>Manifesto Poster</h3><span class="desc">Red + black manifesto with numbered statements.</span></div></a>
+      <a class="x-card" href="about/concept_05.html"><div class="preview"><iframe src="about/concept_05.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 05</span><h3>Timeline</h3><span class="desc">Year-by-year company history with milestone photos.</span></div></a>
+    </div>
+  </section>
+
+  <section class="x-section">
+    <div class="x-section-head"><h2>Contact</h2><span class="meta">5 concepts · <b>/pages/contact/</b></span></div>
+    <p class="x-section-desc">Project-inquiry capture in five flavours — from traditional to conversational to typographic.</p>
+    <div class="x-grid">
+      <a class="x-card" href="contact/concept_01.html"><div class="preview"><iframe src="contact/concept_01.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 01</span><h3>Form + Map Split</h3><span class="desc">Long form on left, contact info + map on right.</span></div></a>
+      <a class="x-card" href="contact/concept_02.html"><div class="preview"><iframe src="contact/concept_02.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 02</span><h3>Conversational Form</h3><span class="desc">One question per screen, progress bar, chip selectors.</span></div></a>
+      <a class="x-card" href="contact/concept_03.html"><div class="preview"><iframe src="contact/concept_03.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 03</span><h3>Big Type Email</h3><span class="desc">Email-as-art typography. Phone band + options cards.</span></div></a>
+      <a class="x-card" href="contact/concept_04.html"><div class="preview"><iframe src="contact/concept_04.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 04</span><h3>Card Directory</h3><span class="desc">6 routing cards (inquiry, phone, walk-through, careers...)</span></div></a>
+      <a class="x-card" href="contact/concept_05.html"><div class="preview"><iframe src="contact/concept_05.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 05</span><h3>Full-Screen Form</h3><span class="desc">Dark/light split with minimal-line form fields.</span></div></a>
+    </div>
+  </section>
+
+  <section class="x-section">
+    <div class="x-section-head"><h2>Projects Index</h2><span class="meta">4 concepts · <b>/pages/projects-index/</b></span></div>
+    <p class="x-section-desc">The "our work" gallery. Four different ways to organize 12+ project cards.</p>
+    <div class="x-grid">
+      <a class="x-card" href="projects-index/concept_01.html"><div class="preview"><iframe src="projects-index/concept_01.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 01</span><h3>Filterable Mosaic</h3><span class="desc">6-column bento with category chip filters.</span></div></a>
+      <a class="x-card" href="projects-index/concept_02.html"><div class="preview"><iframe src="projects-index/concept_02.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 02</span><h3>Vertical List Preview</h3><span class="desc">Tabular row layout with cursor-tracking image preview.</span></div></a>
+      <a class="x-card" href="projects-index/concept_03.html"><div class="preview"><iframe src="projects-index/concept_03.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 03</span><h3>Year-Stacked Reels</h3><span class="desc">Horizontal scrollers grouped by year (2024 / 2023 / 2022).</span></div></a>
+      <a class="x-card" href="projects-index/concept_05.html"><div class="preview"><iframe src="projects-index/concept_05.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 05</span><h3>Map Directory</h3><span class="desc">Sticky map alongside a clickable location list.</span></div></a>
+    </div>
+  </section>
+
+  <section class="x-section">
+    <div class="x-section-head"><h2>Project Detail</h2><span class="meta">5 concepts · <b>/pages/project-detail/</b></span></div>
+    <p class="x-section-desc">Individual project case-study templates. Each emphasizes a different storytelling format.</p>
+    <div class="x-grid">
+      <a class="x-card" href="project-detail/concept_01.html"><div class="preview"><iframe src="project-detail/concept_01.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 01</span><h3>Editorial Spread</h3><span class="desc">Full-bleed hero, drop-cap intro, magazine gallery.</span></div></a>
+      <a class="x-card" href="project-detail/concept_02.html"><div class="preview"><iframe src="project-detail/concept_02.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 02</span><h3>Sticky Photo Reel</h3><span class="desc">Scroll-tied photo swap with chapter-by-chapter narrative.</span></div></a>
+      <a class="x-card" href="project-detail/concept_03.html"><div class="preview"><iframe src="project-detail/concept_03.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 03</span><h3>Spec Sheet</h3><span class="desc">Document-style with mono accents and operating-data table.</span></div></a>
+      <a class="x-card" href="project-detail/concept_04.html"><div class="preview"><iframe src="project-detail/concept_04.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 04</span><h3>Scrollytell Story</h3><span class="desc">Pinned-photo chapter narrative with brand colour overlay.</span></div></a>
+      <a class="x-card" href="project-detail/concept_05.html"><div class="preview"><iframe src="project-detail/concept_05.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 05</span><h3>Full-bleed Gallery</h3><span class="desc">Image-first 12-column mosaic with 3-column brief strip.</span></div></a>
+    </div>
+  </section>
+
+  <section class="x-section">
+    <div class="x-section-head"><h2>Insights Index</h2><span class="meta">4 concepts · <b>/pages/insights/</b></span></div>
+    <p class="x-section-desc">The blog / field-notes landing. Four different content-discovery approaches.</p>
+    <div class="x-grid">
+      <a class="x-card" href="insights/concept_01.html"><div class="preview"><iframe src="insights/concept_01.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 01</span><h3>Editorial Grid</h3><span class="desc">Featured article hero + 3-col card grid.</span></div></a>
+      <a class="x-card" href="insights/concept_02.html"><div class="preview"><iframe src="insights/concept_02.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 02</span><h3>Vertical Feed</h3><span class="desc">Narrow-column dated feed, newest-first.</span></div></a>
+      <a class="x-card" href="insights/concept_03.html"><div class="preview"><iframe src="insights/concept_03.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 03</span><h3>Tag Cloud</h3><span class="desc">Tag-driven browsing with 2-col card grid below.</span></div></a>
+      <a class="x-card" href="insights/concept_04.html"><div class="preview"><iframe src="insights/concept_04.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 04</span><h3>Numbered Index</h3><span class="desc">Dark-mode tabular archive with hover row highlight.</span></div></a>
+    </div>
+  </section>
+
+  <section class="x-section">
+    <div class="x-section-head"><h2>Insight Article <span style="font-size: 12px; color: var(--red); letter-spacing: 0.18em; margin-left: 16px;">★ LIKED DIRECTION</span></h2><span class="meta">4 concepts · <b>/pages/insight-article/</b></span></div>
+    <p class="x-section-desc">Single article / blog post templates. Liked so far: <b style="color: var(--red);">Annotated Notes</b> + <b style="color: var(--red);">Photo Essay</b>.</p>
+    <div class="x-grid">
+      <a class="x-card" href="insight-article/concept_01.html"><div class="preview"><iframe src="insight-article/concept_01.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 01</span><h3>Long-form Reader</h3><span class="desc">Serif body, drop cap, progress bar, prev/next.</span></div></a>
+      <a class="x-card" href="insight-article/concept_03.html" style="outline: 2px solid var(--red);"><div class="preview"><iframe src="insight-article/concept_03.html" loading="lazy"></iframe></div><div class="label"><span class="num" style="color: var(--red);">★ Concept 03</span><h3>Photo Essay</h3><span class="desc">Dark mode, alternating frames + text. Caption-led.</span></div></a>
+      <a class="x-card" href="insight-article/concept_04.html" style="outline: 2px solid var(--red);"><div class="preview"><iframe src="insight-article/concept_04.html" loading="lazy"></iframe></div><div class="label"><span class="num" style="color: var(--red);">★ Concept 04</span><h3>Annotated Notes</h3><span class="desc">Body + monospace margin notes sidebar.</span></div></a>
+      <a class="x-card" href="insight-article/concept_05.html"><div class="preview"><iframe src="insight-article/concept_05.html" loading="lazy"></iframe></div><div class="label"><span class="num">Concept 05</span><h3>Distraction-Free</h3><span class="desc">Centered serif, dark-mode + text-size toggle.</span></div></a>
+    </div>
+  </section>
+
+  <section class="x-foot">
+    <h2>Pick concepts. Iterate. Ship.</h2>
+    <p>Each concept is self-contained with inline CSS, the Enduro design system, and real project photos. Mark your favourites, mix-and-match, and we'll iterate from there.</p>
+  </section>
+</body>
+</html>

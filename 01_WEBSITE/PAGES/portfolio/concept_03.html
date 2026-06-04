@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enduro · Projects — Concept 03 · Year-Stacked Reels</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../_shared/tokens.css" />
+<style>
+  body { background: var(--off-white); }
+  .yr-hero { padding: 160px var(--gutter) 64px; max-width: var(--max); margin: 0 auto; }
+  .yr-hero h1 { font-size: clamp(64px, 10vw, 180px); font-weight: 900; letter-spacing: -0.055em; line-height: 0.84; text-transform: uppercase; }
+  .yr-section { position: relative; padding: 80px 0; }
+  .yr-section + .yr-section { border-top: 1px solid var(--black); }
+  .yr-section-head { padding: 0 var(--gutter); max-width: var(--max); margin: 0 auto; display: flex; justify-content: space-between; align-items: end; margin-bottom: 40px; }
+  .yr-section-head h2 { font-size: clamp(80px, 13vw, 240px); font-weight: 900; letter-spacing: -0.06em; line-height: 0.84; color: var(--red); }
+  .yr-section-head .count { font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--k-65); }
+  .yr-reel { display: flex; gap: 20px; overflow-x: auto; padding: 0 var(--gutter) 20px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .yr-reel::-webkit-scrollbar { display: none; }
+  .yr-tile { flex: 0 0 420px; height: 540px; border-radius: 12px; overflow: hidden; position: relative; background: var(--surface); scroll-snap-align: start; }
+  .yr-tile img { transition: transform 0.6s var(--ease-out); }
+  .yr-tile:hover img { transform: scale(1.04); }
+  .yr-tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.8)); }
+  .yr-tile .info { position: absolute; inset: 0; padding: 24px; color: var(--white); display: flex; flex-direction: column; justify-content: flex-end; z-index: 2; }
+  .yr-tile .info span { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--w-75); }
+  .yr-tile .info h3 { font-size: 24px; font-weight: 900; letter-spacing: -0.025em; text-transform: uppercase; margin-top: 6px; }
+  .yr-foot { background: var(--black); color: var(--white); padding: 140px var(--gutter); text-align: center; }
+  .yr-foot h2 { font-size: clamp(40px, 5vw, 80px); font-weight: 900; letter-spacing: -0.04em; line-height: 0.92; text-transform: uppercase; max-width: 16ch; margin: 0 auto 24px; }
+</style></head>
+<body>
+<nav class="enduro-nav" id="enduroNav"><div class="enduro-nav-inner"><a class="enduro-nav-logo" href="../../enduro_concept-MASTER.html"><svg viewBox="0 0 294 90"><path fill="#fff" d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg></a><div class="enduro-nav-links"><a href="../services/concept_01.html">Services</a><a href="concept_01.html" class="active">Our Work</a><a href="../about/concept_01.html">About Us</a><a href="../insights/concept_01.html">Insights</a><a href="../contact/concept_01.html">Contact Us</a></div><div class="enduro-nav-right"></div></div></nav>
+
+<section class="yr-hero">
+  <span class="tag reveal">Project Archive</span>
+  <h1 class="reveal d1">Three years.<br>Twelve builds.</h1>
+</section>
+
+<section class="yr-section">
+  <div class="yr-section-head reveal"><h2>2024</h2><span class="count">06 projects</span></div>
+  <div class="yr-reel">
+    <a href="../project-detail/concept_01.html" class="yr-tile"><img src="../../assets/img/ph_dawson_lab_pro_photos_insta_selection_ll_02637.jpg" alt="" /><div class="info"><span>UBC · Wet Lab</span><h3>Dawson Lab</h3></div></a>
+    <a href="../project-detail/concept_01.html" class="yr-tile"><img src="../../assets/img/ph_ubc_fsiap_lab_photos_unprocessed_8g7a7047.jpg" alt="" /><div class="info"><span>UBC · Research</span><h3>FSIAP Lab</h3></div></a>
+    <a href="../project-detail/concept_01.html" class="yr-tile"><img src="../../assets/img/ph_ubc_henry_angus_classrooms_2053-main-mall-vancouver-005.jpg" onerror="this.src='../../assets/img/ph_ubc_henry_angus_classrooms_instagram_selection_2053-main-mall-vancouver-001.jpg'" alt="" /><div class="info"><span>UBC · Education</span><h3>Henry Angus</h3></div></a>
+    <a href="../project-detail/concept_01.html" class="yr-tile"><img src="../../assets/img/ph_ray_perrault_fieldhouse_hi-res_tm208935.jpg" onerror="this.src='../../assets/img/ph_ray_perrault_fieldhouse_hi-res_dji_0022.jpg'" alt="" /><div class="info"><span>Civic · North Van</span><h3>Ray Perrault</h3></div></a>
+    <a href="../project-detail/concept_01.html" class="yr-tile"><img src="../../assets/img/ph_ubc_henning_lab_photos_hi-res_6224-agricultural-rd-vancouver-011.jpg" alt="" /><div class="info"><span>UBC · Research</span><h3>Henning Lab</h3></div></a>
+    <a href="../project-detail/concept_01.html" class="yr-tile"><img src="../../assets/img/ph_ubc_henning_lab_photos_hi-res_6224-agricultural-rd-vancouver-001.jpg" onerror="this.src='../../assets/img/ph_ubc_henry_angus_classrooms_2053-main-mall-vancouver-023.jpg'" alt="" /><div class="info"><span>UBC Surrey · Education</span><h3>NP Expansion CC1</h3></div></a>
+  </div>
+</section>
+
+<section class="yr-section">
+  <div class="yr-section-head reveal"><h2>2023</h2><span class="count">04 projects</span></div>
+  <div class="yr-reel">
+    <a href="../project-detail/concept_01.html" class="yr-tile"><img src="../../assets/img/ph_norgate_cannabis_store_pro_photos_img_014.jpg" alt="" /><div class="info"><span>Retail · Cannabis</span><h3>Norgate</h3></div></a>
+    <a href="../project-detail/concept_01.html" class="yr-tile"><img src="../../assets/img/ph_ceme_office_pro_dsc03936-hdr.jpg" alt="" /><div class="info"><span>UBC · Office TI</span><h3>CEME Office</h3></div></a>
+    <a href="../project-detail/concept_01.html" class="yr-tile"><img src="../../assets/img/ph_spph_research_lab_spph_photos_pro_dsc03436.jpg" onerror="this.src='../../assets/img/ph_dawson_lab_pro_photos_ll_02585.jpg'" alt="" /><div class="info"><span>UBC · SPPH</span><h3>SPPH Research</h3></div></a>
+    <a href="../project-detail/concept_01.html" class="yr-tile"><img src="../../assets/img/ph_bonsor_washrooms_hi-res_6550-bonsor-ave-burnaby-003.jpg" onerror="this.src='../../assets/img/ph_bonsor_washrooms_hi-res_6550-bonsor-ave-burnaby-003.jpg'" alt="" /><div class="info"><span>Civic · Burnaby</span><h3>Bonsor Washrooms</h3></div></a>
+  </div>
+</section>
+
+<section class="yr-section">
+  <div class="yr-section-head reveal"><h2>2022</h2><span class="count">02 projects</span></div>
+  <div class="yr-reel">
+    <a href="../project-detail/concept_01.html" class="yr-tile"><img src="../../assets/img/ph_cfia_photos_hi-res_3155-willingdon-green-burnaby-009.jpg" alt="" /><div class="info"><span>Federal · Burnaby</span><h3>CFIA Lab</h3></div></a>
+    <a href="../project-detail/concept_01.html" class="yr-tile"><img src="../../assets/img/ph_seed_stone_pitt_meadows_photos_hi-res_725-19800-lougheed-hwy-pitt-meadows-004.jpg" onerror="this.src='../../assets/img/ph_norgate_cannabis_store_pro_photos_img_014.jpg'" alt="" /><div class="info"><span>Retail · Pitt Meadows</span><h3>Seed & Stone</h3></div></a>
+  </div>
+</section>
+
+<section class="yr-foot">
+  <h2 class="reveal">Building 2026 next.</h2>
+  <a href="../contact/concept_01.html" class="btn btn-red reveal d1">Add yours to the list <span class="btn-arrow">→</span></a>
+</section>
+
+<footer class="enduro-footer"><div class="enduro-footer-grid"><div class="footer-brand"><svg viewBox="0 0 294 90" style="height:30px;width:auto;fill:#fff;"><path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg><p>Vancouver-based commercial general contractor.</p></div><div></div><div></div><div><h3>Contact</h3><ul><li><a href="tel:6049686578">604.968.6578</a></li></ul></div></div><div class="enduro-footer-bottom"><span>© Enduro Construction Ltd.</span><span>Built for what comes next</span></div></footer>
+<script>(function(){const obs=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle("in",e.isIntersecting)),{threshold:0.15});document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));const nav=document.getElementById("enduroNav");window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>40),{passive:true});})();</script>
+</body></html>

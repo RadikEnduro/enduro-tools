@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enduro · Contact — Concept 01 · Form + Map Split</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../_shared/tokens.css" />
+<style>
+  body { background: var(--off-white); }
+  .ct-hero { padding: 160px var(--gutter) 80px; max-width: var(--max); margin: 0 auto; }
+  .ct-hero h1 { font-size: clamp(72px, 11vw, 200px); font-weight: 900; letter-spacing: -0.055em; line-height: 0.84; text-transform: uppercase; }
+  .ct-hero p { font-size: clamp(18px, 1.5vw, 22px); color: var(--k-65); margin-top: 32px; max-width: 56ch; }
+
+  .ct-split { display: grid; grid-template-columns: 1.2fr 1fr; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter) 120px; gap: 80px; align-items: start; }
+
+  /* Form */
+  .ct-form { background: var(--white); border-radius: 18px; padding: 48px; box-shadow: 0 24px 48px -28px rgba(0,0,0,0.18); }
+  .ct-form h2 { font-size: 28px; font-weight: 900; letter-spacing: -0.025em; text-transform: uppercase; margin-bottom: 32px; }
+  .ct-field { margin-bottom: 24px; }
+  .ct-field label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--k-65); margin-bottom: 10px; }
+  .ct-field input, .ct-field textarea, .ct-field select {
+    width: 100%; padding: 16px 18px; border: 1px solid var(--k-25); border-radius: 10px;
+    background: var(--off-white); font-family: inherit; font-size: 15px; color: var(--black);
+    transition: border-color 0.2s, background 0.2s; resize: vertical;
+  }
+  .ct-field input:focus, .ct-field textarea:focus, .ct-field select:focus { outline: none; border-color: var(--red); background: var(--white); }
+  .ct-field .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .ct-submit { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; }
+  .ct-submit .privacy { font-size: 11px; color: var(--k-50); max-width: 26ch; line-height: 1.4; }
+  .ct-submit button {
+    background: var(--red); color: var(--white);
+    padding: 16px 28px; border-radius: 10px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 12px;
+    transition: transform 0.3s var(--ease-out), background 0.2s;
+  }
+  .ct-submit button:hover { transform: translateX(4px); background: var(--red-bright); }
+
+  /* Info sidebar */
+  .ct-info { padding: 24px 0; }
+  .ct-info h3 { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); font-weight: 700; margin-bottom: 14px; }
+  .ct-info .block { padding: 28px 0; border-bottom: 1px solid var(--k-25); }
+  .ct-info .block:first-of-type { border-top: 1px solid var(--k-25); }
+  .ct-info .block b { display: block; font-size: 24px; font-weight: 900; letter-spacing: -0.02em; }
+  .ct-info .block a { color: var(--black); }
+  .ct-info .block a:hover { color: var(--red); }
+  .ct-info .block span { display: block; font-size: 14px; color: var(--k-65); margin-top: 6px; }
+  .ct-map { aspect-ratio: 4/3; border-radius: 18px; overflow: hidden; background: var(--black); position: relative; margin-top: 24px; }
+  .ct-map iframe { width: 100%; height: 100%; border: 0; filter: grayscale(0.6) contrast(1.05); }
+
+  .ct-bottom { background: var(--black); color: var(--white); padding: 120px var(--gutter); text-align: center; }
+  .ct-bottom h2 { font-size: clamp(40px, 5vw, 88px); font-weight: 900; letter-spacing: -0.04em; line-height: 0.9; text-transform: uppercase; margin-bottom: 24px; max-width: 16ch; margin-left: auto; margin-right: auto; }
+  .ct-bottom p { color: var(--w-75); max-width: 56ch; margin: 0 auto 28px; }
+</style></head>
+<body>
+<nav class="enduro-nav" id="enduroNav"><div class="enduro-nav-inner"><a class="enduro-nav-logo" href="../../enduro_concept-MASTER.html"><svg viewBox="0 0 294 90"><path fill="#fff" d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg></a><div class="enduro-nav-links"><a href="../services/concept_01.html">Services</a><a href="../projects-index/concept_01.html">Our Work</a><a href="../about/concept_01.html">About Us</a><a href="../insights/concept_01.html">Insights</a><a href="concept_01.html" class="active">Contact Us</a></div><div class="enduro-nav-right"></div></div></nav>
+
+<section class="ct-hero">
+  <span class="tag reveal">Let's talk</span>
+  <h1 class="reveal d1">Send us the drawings.</h1>
+  <p class="reveal d2">Walk-throughs and ballparks are free. We respond within one business day with feasibility notes, timeline ranges, and a path to a real quote.</p>
+</section>
+
+<section class="ct-split">
+  <form class="ct-form reveal">
+    <h2>Project inquiry</h2>
+    <div class="ct-field grid-2 reveal d1" style="display:grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div><label>First name</label><input type="text" placeholder="Jordan" /></div>
+      <div><label>Last name</label><input type="text" placeholder="Lee" /></div>
+    </div>
+    <div class="ct-field reveal d1"><label>Email</label><input type="email" placeholder="jordan@firm.com" /></div>
+    <div class="ct-field reveal d2"><label>Phone</label><input type="tel" placeholder="604.555.0123" /></div>
+    <div class="ct-field reveal d2"><label>Project type</label>
+      <select>
+        <option>General Contracting — full GC</option>
+        <option>Construction Management</option>
+        <option>Lab fit-out (research / BSL)</option>
+        <option>Office TI</option>
+        <option>Retail TI</option>
+        <option>Institutional / Healthcare</option>
+        <option>Not sure — let's talk</option>
+      </select>
+    </div>
+    <div class="ct-field reveal d3"><label>Tell us about the build</label>
+      <textarea rows="5" placeholder="Square footage, location, target start date, scope notes, drawings status…"></textarea>
+    </div>
+    <div class="ct-submit reveal d3">
+      <span class="privacy">We respond within 1 business day. Your info stays with us.</span>
+      <button type="submit">Send inquiry <span class="btn-arrow">→</span></button>
+    </div>
+  </form>
+
+  <aside class="ct-info">
+    <div class="block reveal"><h3>Phone</h3><b><a href="tel:6049686578">604.968.6578</a></b><span>Mon–Fri · 7am to 6pm PT</span></div>
+    <div class="block reveal d1"><h3>Email</h3><b><a href="mailto:info@enduroconstruction.ca">info@enduroconstruction.ca</a></b><span>One-business-day response</span></div>
+    <div class="block reveal d2"><h3>Office</h3><b>#170 – 422 Richards St</b><span>Vancouver, BC V6B 2Z4</span></div>
+    <div class="ct-map reveal d3"><iframe loading="lazy" allowfullscreen src="https://www.openstreetmap.org/export/embed.html?bbox=-123.1142%2C49.2824%2C-123.1078%2C49.2858&layer=mapnik&marker=49.2841%2C-123.1110"></iframe></div>
+  </aside>
+</section>
+
+<section class="ct-bottom">
+  <h2 class="reveal">Prefer to meet in person?</h2>
+  <p class="reveal d1">We host site visits at our office or at your project location. Bring drawings, bring questions — we'll bring coffee and an honest assessment.</p>
+  <a href="tel:6049686578" class="btn btn-red reveal d2">Call to book a visit <span class="btn-arrow">→</span></a>
+</section>
+
+<footer class="enduro-footer"><div class="enduro-footer-grid"><div class="footer-brand"><svg viewBox="0 0 294 90" style="height:30px;width:auto;fill:#fff;"><path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg><p>Vancouver-based commercial general contractor.</p></div><div><h3>What We Do</h3><ul><li><a href="#">General Contracting</a></li></ul></div><div><h3>Company</h3><ul><li><a href="../about/concept_01.html">About</a></li></ul></div><div><h3>Contact</h3><ul><li><a href="tel:6049686578">604.968.6578</a></li></ul></div></div><div class="enduro-footer-bottom"><span>© Enduro Construction Ltd.</span><span>Built for what comes next</span></div></footer>
+<script>(function(){const obs=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle("in",e.isIntersecting)),{threshold:0.15});document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));const nav=document.getElementById("enduroNav");window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>40),{passive:true});})();</script>
+</body></html>

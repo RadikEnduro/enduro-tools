@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enduro · Contact — Concept 03 · Big Type Email</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../_shared/tokens.css" />
+<style>
+  body { background: var(--white); }
+  .bt-stage { min-height: 100vh; padding: 200px var(--gutter) 100px; display: flex; flex-direction: column; justify-content: center; max-width: var(--max); margin: 0 auto; }
+  .bt-stage .label { font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 40px; }
+  .bt-email {
+    font-size: clamp(48px, 9vw, 180px); font-weight: 900;
+    letter-spacing: -0.05em; line-height: 0.9; color: var(--black);
+    text-transform: none;
+    word-break: break-all;
+  }
+  .bt-email .at { color: var(--red); }
+  .bt-email a { color: inherit; }
+  .bt-sub { margin-top: 64px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 56px; }
+  .bt-sub .col h3 { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); font-weight: 700; margin-bottom: 14px; }
+  .bt-sub .col p { font-size: 16px; color: var(--k-65); line-height: 1.6; }
+  .bt-sub .col a { color: var(--black); border-bottom: 1px solid var(--black); }
+
+  .bt-call-row { background: var(--black); color: var(--white); padding: 100px var(--gutter); }
+  .bt-call-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .bt-call-inner h2 { font-size: clamp(40px, 5vw, 80px); font-weight: 900; letter-spacing: -0.04em; line-height: 0.9; text-transform: uppercase; }
+  .bt-call-num { font-size: clamp(48px, 7vw, 120px); font-weight: 900; letter-spacing: -0.045em; line-height: 0.95; color: var(--red-bright); }
+  .bt-call-inner p { color: var(--w-75); margin-top: 16px; }
+
+  .bt-options { padding: 140px var(--gutter); }
+  .bt-options-inner { max-width: var(--max); margin: 0 auto; }
+  .bt-options h2 { font-size: clamp(40px, 5vw, 76px); font-weight: 900; letter-spacing: -0.04em; line-height: 0.92; text-transform: uppercase; margin-bottom: 56px; max-width: 18ch; }
+  .bt-options-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .bt-opt { padding: 40px; border-radius: 18px; background: var(--off-white); position: relative; transition: transform 0.4s var(--ease-out); }
+  .bt-opt:hover { transform: translateY(-6px); }
+  .bt-opt .icon { width: 48px; height: 48px; margin-bottom: 24px; color: var(--red); }
+  .bt-opt h3 { font-size: 22px; font-weight: 900; letter-spacing: -0.02em; text-transform: uppercase; margin-bottom: 12px; }
+  .bt-opt p { font-size: 14px; color: var(--k-65); line-height: 1.55; margin-bottom: 20px; }
+  .bt-opt a { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); display: inline-flex; align-items: center; gap: 8px; }
+</style></head>
+<body>
+<nav class="enduro-nav" id="enduroNav"><div class="enduro-nav-inner"><a class="enduro-nav-logo" href="../../enduro_concept-MASTER.html"><svg viewBox="0 0 294 90"><path fill="#fff" d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg></a><div class="enduro-nav-links"><a href="../services/concept_01.html">Services</a><a href="../projects-index/concept_01.html">Our Work</a><a href="../about/concept_01.html">About Us</a><a href="../insights/concept_01.html">Insights</a><a href="concept_01.html" class="active">Contact Us</a></div><div class="enduro-nav-right"></div></div></nav>
+
+<section class="bt-stage">
+  <span class="label reveal">The most direct way</span>
+  <div class="bt-email reveal d1"><a href="mailto:info@enduroconstruction.ca">info<span class="at">@</span>enduroconstruction.ca</a></div>
+  <div class="bt-sub">
+    <div class="col reveal d2"><h3>Response time</h3><p>We reply within one business day with feasibility notes, a timeline range, and a path to a real quote. No marketing autoresponders.</p></div>
+    <div class="col reveal d3"><h3>What to include</h3><p>Project type, square footage, target open date, drawings status, and any live-operations constraints we should know about up front.</p></div>
+    <div class="col reveal d4"><h3>What happens next</h3><p>Same-day acknowledgement. <a href="tel:6049686578">A call</a> within 24h. A walk-through within 5 business days if the fit looks right.</p></div>
+  </div>
+</section>
+
+<section class="bt-call-row">
+  <div class="bt-call-inner">
+    <div><h2 class="reveal">Prefer to call?</h2><p class="reveal d1">Mon–Fri, 7am to 6pm PT. Ask for the PM on duty — they're empowered to discuss any project on file.</p></div>
+    <div class="bt-call-num reveal d2"><a href="tel:6049686578">604.968.6578</a></div>
+  </div>
+</section>
+
+<section class="bt-options">
+  <div class="bt-options-inner">
+    <h2 class="reveal">Other ways to reach us.</h2>
+    <div class="bt-options-grid">
+      <div class="bt-opt reveal"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><h3>Walk-throughs</h3><p>We host project walk-throughs at your space or ours. Bring drawings, bring questions.</p><a href="tel:6049686578">Book a visit →</a></div>
+      <div class="bt-opt reveal d1"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7h-3V4a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2v3H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM9 4h6v3H9z"/></svg><h3>Careers</h3><p>Always hiring PMs, supers, and trade leads who fit the throughline.</p><a href="mailto:careers@enduroconstruction.ca">careers@…ca →</a></div>
+      <div class="bt-opt reveal d2"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><h3>Press / Insights</h3><p>Inquiries about the team, our process, or upcoming projects.</p><a href="mailto:press@enduroconstruction.ca">press@…ca →</a></div>
+    </div>
+  </div>
+</section>
+
+<footer class="enduro-footer"><div class="enduro-footer-grid"><div class="footer-brand"><svg viewBox="0 0 294 90" style="height:30px;width:auto;fill:#fff;"><path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg><p>Vancouver-based commercial general contractor.</p></div><div><h3>Contact</h3><ul><li><a href="tel:6049686578">604.968.6578</a></li><li><a href="mailto:info@enduroconstruction.ca">info@enduroconstruction.ca</a></li></ul></div><div></div><div></div></div><div class="enduro-footer-bottom"><span>© Enduro Construction Ltd.</span><span>Built for what comes next</span></div></footer>
+<script>(function(){const obs=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle("in",e.isIntersecting)),{threshold:0.15});document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));const nav=document.getElementById("enduroNav");window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>40),{passive:true});})();</script>
+</body></html>

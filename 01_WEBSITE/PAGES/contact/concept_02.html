@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enduro · Contact — Concept 02 · Conversational Step Form</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../_shared/tokens.css" />
+<style>
+  body { background: var(--black); color: var(--white); min-height: 100vh; }
+  .cv-stage { min-height: 100vh; display: flex; align-items: center; padding: 100px var(--gutter); position: relative; }
+  .cv-stage-inner { max-width: 880px; margin: 0 auto; width: 100%; }
+  .cv-step { display: none; opacity: 0; transition: opacity 0.4s; }
+  .cv-step.active { display: block; opacity: 1; }
+  .cv-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: rgba(255,255,255,0.1); z-index: 250; }
+  .cv-progress .fill { height: 100%; background: var(--red); transition: width 0.6s var(--ease-out); }
+  .cv-label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red-bright); margin-bottom: 20px; }
+  .cv-step h2 { font-size: clamp(40px, 5vw, 80px); font-weight: 900; letter-spacing: -0.04em; line-height: 0.95; text-transform: uppercase; margin-bottom: 16px; }
+  .cv-step p.sub { font-size: 18px; color: var(--w-75); max-width: 56ch; margin-bottom: 48px; }
+  .cv-step input, .cv-step textarea {
+    width: 100%; background: transparent; color: var(--white);
+    border: 0; border-bottom: 2px solid var(--w-25);
+    padding: 20px 0; font-family: inherit;
+    font-size: clamp(24px, 2.4vw, 36px); font-weight: 600;
+    transition: border-color 0.2s;
+  }
+  .cv-step input:focus, .cv-step textarea:focus { outline: none; border-color: var(--red-bright); }
+  .cv-step input::placeholder, .cv-step textarea::placeholder { color: var(--w-50); }
+  .cv-step .chips { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 32px; }
+  .cv-step .chip {
+    padding: 14px 24px; border-radius: 999px; border: 1px solid var(--w-25);
+    color: var(--white); font-size: 14px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .cv-step .chip:hover { background: var(--w-25); }
+  .cv-step .chip.selected { background: var(--red); border-color: var(--red); }
+  .cv-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 48px; }
+  .cv-actions .back { color: var(--w-50); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; }
+  .cv-actions .next {
+    background: var(--red); color: var(--white);
+    padding: 18px 32px; border-radius: 10px;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 12px;
+    transition: transform 0.3s var(--ease-out), background 0.2s;
+  }
+  .cv-actions .next:hover { transform: translateX(4px); }
+  .cv-stepnum { position: fixed; top: 100px; right: var(--gutter); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--w-50); }
+  .cv-stepnum b { color: var(--red-bright); }
+</style></head>
+<body>
+<nav class="enduro-nav on-dark" id="enduroNav"><div class="enduro-nav-inner"><a class="enduro-nav-logo" href="../../enduro_concept-MASTER.html"><svg viewBox="0 0 294 90"><path fill="#fff" d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg></a><div class="enduro-nav-links"><a href="../services/concept_01.html">Services</a><a href="../projects-index/concept_01.html">Our Work</a><a href="../about/concept_01.html">About Us</a><a href="../insights/concept_01.html">Insights</a><a href="concept_01.html" class="active">Contact Us</a></div><div class="enduro-nav-right"></div></div></nav>
+
+<div class="cv-progress"><div class="fill" id="cvFill" style="width: 16%;"></div></div>
+<div class="cv-stepnum">Step <b id="cvStep">01</b> / 06</div>
+
+<section class="cv-stage">
+  <div class="cv-stage-inner">
+
+    <div class="cv-step active" data-step="1">
+      <span class="cv-label">Question 01 / 06</span>
+      <h2>What kind of build are you planning?</h2>
+      <p class="sub">Pick the closest match. If it's a hybrid, pick the dominant one — we'll cover the rest in the conversation.</p>
+      <div class="chips">
+        <div class="chip">Lab fit-out</div><div class="chip">Office TI</div><div class="chip">Retail TI</div><div class="chip">Institutional</div><div class="chip">Healthcare</div><div class="chip">Industrial</div><div class="chip">Other</div>
+      </div>
+      <div class="cv-actions"><span></span><button class="next" onclick="cvNext()">Next <span class="btn-arrow">→</span></button></div>
+    </div>
+
+    <div class="cv-step" data-step="2">
+      <span class="cv-label">Question 02 / 06</span>
+      <h2>How big, approximately?</h2>
+      <p class="sub">Square footage. A range is fine.</p>
+      <input type="text" placeholder="e.g. 8,000–12,000 sqft" />
+      <div class="cv-actions"><button class="back" onclick="cvBack()">← Back</button><button class="next" onclick="cvNext()">Next <span class="btn-arrow">→</span></button></div>
+    </div>
+
+    <div class="cv-step" data-step="3">
+      <span class="cv-label">Question 03 / 06</span>
+      <h2>When do you want to be operating in the space?</h2>
+      <p class="sub">Target open date or a month. We'll walk back from there.</p>
+      <input type="text" placeholder="e.g. Q3 2026 / September" />
+      <div class="cv-actions"><button class="back" onclick="cvBack()">← Back</button><button class="next" onclick="cvNext()">Next <span class="btn-arrow">→</span></button></div>
+    </div>
+
+    <div class="cv-step" data-step="4">
+      <span class="cv-label">Question 04 / 06</span>
+      <h2>Where's the project?</h2>
+      <p class="sub">City + neighbourhood is plenty.</p>
+      <input type="text" placeholder="e.g. Vancouver, Mount Pleasant" />
+      <div class="cv-actions"><button class="back" onclick="cvBack()">← Back</button><button class="next" onclick="cvNext()">Next <span class="btn-arrow">→</span></button></div>
+    </div>
+
+    <div class="cv-step" data-step="5">
+      <span class="cv-label">Question 05 / 06</span>
+      <h2>Anything we should know up front?</h2>
+      <p class="sub">Drawings status, live-ops constraints, budget guidance, anything weird.</p>
+      <textarea rows="3" placeholder="e.g. SD drawings ready, building stays operational, $1.2M target…"></textarea>
+      <div class="cv-actions"><button class="back" onclick="cvBack()">← Back</button><button class="next" onclick="cvNext()">Next <span class="btn-arrow">→</span></button></div>
+    </div>
+
+    <div class="cv-step" data-step="6">
+      <span class="cv-label">Question 06 / 06</span>
+      <h2>How do we reach you?</h2>
+      <p class="sub">One contact is plenty. We'll respond within one business day.</p>
+      <input type="text" placeholder="Name" />
+      <input type="email" placeholder="Email" style="margin-top: 16px;" />
+      <input type="tel" placeholder="Phone (optional)" style="margin-top: 16px;" />
+      <div class="cv-actions"><button class="back" onclick="cvBack()">← Back</button><button class="next">Send inquiry <span class="btn-arrow">→</span></button></div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="enduro-footer"><div class="enduro-footer-grid"><div class="footer-brand"><svg viewBox="0 0 294 90" style="height:30px;width:auto;fill:#fff;"><path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg><p>Vancouver-based commercial general contractor.</p></div><div><h3>Contact</h3><ul><li><a href="tel:6049686578">604.968.6578</a></li><li><a href="mailto:info@enduroconstruction.ca">info@enduroconstruction.ca</a></li></ul></div><div></div><div></div></div><div class="enduro-footer-bottom"><span>© Enduro Construction Ltd.</span><span>Built for what comes next</span></div></footer>
+
+<script>
+  let curStep = 1;
+  const steps = document.querySelectorAll(".cv-step");
+  const fill = document.getElementById("cvFill");
+  const stepNum = document.getElementById("cvStep");
+  function showStep(n) {
+    steps.forEach(s => s.classList.toggle("active", parseInt(s.dataset.step,10) === n));
+    fill.style.width = ((n / 6) * 100) + "%";
+    stepNum.textContent = "0" + n;
+    curStep = n;
+  }
+  function cvNext() { if (curStep < 6) showStep(curStep + 1); }
+  function cvBack() { if (curStep > 1) showStep(curStep - 1); }
+  document.querySelectorAll(".chip").forEach(c => c.onclick = () => c.classList.toggle("selected"));
+  const nav = document.getElementById("enduroNav");
+  window.addEventListener("scroll", () => nav.classList.toggle("scrolled", window.scrollY > 40), { passive: true });
+</script>
+</body></html>

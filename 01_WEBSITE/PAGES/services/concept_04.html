@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enduro · Services — Concept 04 · Horizontal Scroll Capabilities</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../_shared/tokens.css" />
+  <style>
+    body { background: var(--black); color: var(--white); }
+    .h4-hero { min-height: 95vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 var(--gutter) 80px; max-width: var(--max); margin: 0 auto; }
+    .h4-eyebrow { display: inline-flex; align-items: center; gap: 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red-bright); margin-bottom: 40px; }
+    .h4-eyebrow .line { width: 36px; height: 1px; background: var(--red-bright); }
+    .h4-hero h1 { font-size: clamp(80px, 13vw, 240px); font-weight: 900; line-height: 0.84; letter-spacing: -0.055em; text-transform: uppercase; }
+    .h4-hero h1 .accent { color: transparent; -webkit-text-stroke: 2px var(--red-bright); }
+    .h4-hero-row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: end; margin-top: 56px; }
+    .h4-hero-row p { font-size: clamp(17px, 1.5vw, 22px); line-height: 1.5; color: var(--w-75); max-width: 56ch; }
+    .h4-hero-row .scroll-cue { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--w-50); }
+    .h4-hero-row .scroll-cue::after { content: " ↓"; color: var(--red-bright); animation: cuebump 1.4s ease-in-out infinite; display: inline-block; }
+    @keyframes cuebump { 0%, 100% { transform: translateY(0);} 50% { transform: translateY(4px);} }
+
+    /* Horizontal scroll capabilities track */
+    .h4-track { padding: 120px 0; }
+    .h4-track-head { padding: 0 var(--gutter); max-width: var(--max); margin: 0 auto 56px; display: flex; justify-content: space-between; align-items: end; }
+    .h4-track-head h2 { font-size: clamp(40px, 5vw, 80px); font-weight: 900; letter-spacing: -0.04em; line-height: 0.9; text-transform: uppercase; max-width: 18ch; }
+    .h4-track-head .nav-arrows { display: flex; gap: 12px; }
+    .h4-track-head .nav-arrows button { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--w-25); color: var(--white); transition: all 0.2s; }
+    .h4-track-head .nav-arrows button:hover { background: var(--red); border-color: var(--red); }
+    .h4-scroller {
+      display: flex; gap: 24px; overflow-x: auto; padding: 0 var(--gutter) 24px;
+      scroll-snap-type: x mandatory; scrollbar-width: none;
+    }
+    .h4-scroller::-webkit-scrollbar { display: none; }
+    .h4-card {
+      flex: 0 0 460px; height: 580px; background: var(--surface); border-radius: 18px; overflow: hidden;
+      scroll-snap-align: start; position: relative;
+    }
+    .h4-card img { transform: scale(1.08); transition: transform 0.8s var(--ease-out); height: 60%; width: 100%; }
+    .h4-card:hover img { transform: scale(1); }
+    .h4-card-body { padding: 32px; height: 40%; display: flex; flex-direction: column; justify-content: space-between; }
+    .h4-card-body h3 { font-size: 26px; font-weight: 900; letter-spacing: -0.02em; text-transform: uppercase; }
+    .h4-card-body p { font-size: 14px; color: var(--w-75); line-height: 1.5; margin-top: 10px; }
+    .h4-card-body .meta { display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--w-25); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--w-50); }
+    .h4-card-body .meta b { color: var(--red-bright); }
+
+    /* Process strip */
+    .h4-process { padding: 120px var(--gutter); background: var(--off-white); color: var(--black); }
+    .h4-process-inner { max-width: var(--max); margin: 0 auto; }
+    .h4-process h2 { font-size: clamp(40px, 5vw, 80px); font-weight: 900; line-height: 0.9; letter-spacing: -0.04em; text-transform: uppercase; max-width: 14ch; margin-bottom: 64px; }
+    .h4-process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .h4-step { padding: 24px 0; border-top: 2px solid var(--black); position: relative; }
+    .h4-step .n { display: block; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; color: var(--red); text-transform: uppercase; margin-bottom: 20px; }
+    .h4-step h3 { font-size: 22px; font-weight: 900; letter-spacing: -0.02em; text-transform: uppercase; line-height: 1; margin-bottom: 14px; }
+    .h4-step p { font-size: 14px; color: var(--k-65); line-height: 1.55; }
+
+    .h4-cta { padding: 160px var(--gutter); background: var(--red); color: var(--white); }
+    .h4-cta-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: end; }
+    .h4-cta h2 { font-size: clamp(56px, 8vw, 132px); font-weight: 900; line-height: 0.86; letter-spacing: -0.045em; text-transform: uppercase; }
+    .h4-cta .right { font-size: 18px; }
+    .h4-cta .right p { margin-bottom: 28px; }
+    .h4-cta a { display: inline-flex; align-items: center; gap: 16px; font-size: 18px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 22px 32px; background: var(--black); color: var(--white); border-radius: 12px; transition: transform 0.3s var(--ease-out); }
+    .h4-cta a:hover { transform: translateX(6px); }
+  </style>
+</head>
+<body>
+  <nav class="enduro-nav on-dark" id="enduroNav">
+    <div class="enduro-nav-inner">
+      <a class="enduro-nav-logo" href="../../enduro_concept-MASTER.html"><svg viewBox="0 0 294 90"><path fill="#fff" d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg></a>
+      <div class="enduro-nav-links"><a href="concept_01.html" class="active">Services</a><a href="../projects-index/concept_01.html">Our Work</a><a href="../about/concept_01.html">About Us</a><a href="../insights/concept_01.html">Insights</a><a href="../contact/concept_01.html">Contact Us</a></div>
+      <div class="enduro-nav-right"></div>
+    </div>
+  </nav>
+
+  <section class="h4-hero">
+    <span class="h4-eyebrow reveal"><span class="line"></span> Capabilities · 2026</span>
+    <h1 class="reveal d1">Builders<br>who <span class="accent">deliver.</span></h1>
+    <div class="h4-hero-row">
+      <p class="reveal d2">Two engagement models, six core capabilities, one operating standard. We don't sell construction services — we deliver finished spaces around the kind of complexity most teams call "phase 2."</p>
+      <div class="scroll-cue reveal d3">Scroll to explore</div>
+    </div>
+  </section>
+
+  <section class="h4-track">
+    <div class="h4-track-head">
+      <h2 class="reveal">What we can build for you.</h2>
+      <div class="nav-arrows">
+        <button id="scrollPrev" aria-label="Previous">←</button>
+        <button id="scrollNext" aria-label="Next">→</button>
+      </div>
+    </div>
+    <div class="h4-scroller" id="hscroll">
+      <article class="h4-card"><img src="../../assets/img/ph_dawson_lab_pro_photos_insta_selection_ll_02637.jpg" alt="Dawson Lab" /><div class="h4-card-body"><div><h3>Lab Fit-Outs</h3><p>Research, wet-lab, BSL-2. Casework, fume integration, lab gases — coordinated with live operations.</p></div><div class="meta"><span>Capability · 01</span><b>Explore →</b></div></div></article>
+      <article class="h4-card"><img src="../../assets/img/ph_ubc_henry_angus_classrooms_2053-main-mall-vancouver-005.jpg" alt="Henry Angus" onerror="this.src='../../assets/img/ph_ubc_henry_angus_classrooms_instagram_selection_2053-main-mall-vancouver-001.jpg'"/><div class="h4-card-body"><div><h3>Institutional Builds</h3><p>UBC, healthcare, government. Compliance-aware delivery with active-operations sensitivity.</p></div><div class="meta"><span>Capability · 02</span><b>Explore →</b></div></div></article>
+      <article class="h4-card"><img src="../../assets/img/ph_norgate_cannabis_store_pro_photos_img_014.jpg" alt="Norgate" /><div class="h4-card-body"><div><h3>Retail TIs</h3><p>Permit-coordinated turnkey. Branded fit-outs, store openings on schedule.</p></div><div class="meta"><span>Capability · 03</span><b>Explore →</b></div></div></article>
+      <article class="h4-card"><img src="../../assets/img/ph_ceme_office_pro_dsc03936-hdr.jpg" alt="CEME Office" /><div class="h4-card-body"><div><h3>Office TIs</h3><p>Workplace fit-outs from drawings to keys. Coordinated with IT, security, branding.</p></div><div class="meta"><span>Capability · 04</span><b>Explore →</b></div></div></article>
+      <article class="h4-card"><img src="../../assets/img/ph_ray_perrault_fieldhouse_hi-res_tm208935.jpg" alt="Ray Perrault" onerror="this.src='../../assets/img/ph_ray_perrault_fieldhouse_hi-res_dji_0022.jpg'"/><div class="h4-card-body"><div><h3>Civic Buildings</h3><p>Community-facing builds. Park amenities, fieldhouses, civic infrastructure.</p></div><div class="meta"><span>Capability · 05</span><b>Explore →</b></div></div></article>
+      <article class="h4-card"><img src="../../assets/img/ph_bonsor_washrooms_hi-res_6550-bonsor-ave-burnaby-003.jpg" alt="Bonsor" onerror="this.src='../../assets/img/ph_bonsor_washrooms_hi-res_6550-bonsor-ave-burnaby-003.jpg'"/><div class="h4-card-body"><div><h3>Specialty Finishes</h3><p>Custom millwork, integrated services, premium tile + stone. Where craft shows.</p></div><div class="meta"><span>Capability · 06</span><b>Explore →</b></div></div></article>
+    </div>
+  </section>
+
+  <section class="h4-process">
+    <div class="h4-process-inner">
+      <h2 class="reveal">How a build with us actually goes.</h2>
+      <div class="h4-process-grid">
+        <div class="h4-step reveal"><span class="n">Step 01</span><h3>Walk the space</h3><p>Drawings in hand. Questions before quotes. Honest answers about feasibility.</p></div>
+        <div class="h4-step reveal d1"><span class="n">Step 02</span><h3>Design + plan</h3><p>Schedule, budget, sequencing, trade coordination. Decisions on paper first.</p></div>
+        <div class="h4-step reveal d2"><span class="n">Step 03</span><h3>Build</h3><p>Tight crews, single PM, weekly look-aheads. Live updates without the noise.</p></div>
+        <div class="h4-step reveal d3"><span class="n">Step 04</span><h3>Hand over</h3><p>Clean keys, closed permits, deficiency walks before invoicing.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="h4-cta">
+    <div class="h4-cta-inner">
+      <h2 class="reveal">Send us the drawings.</h2>
+      <div class="right reveal d1">
+        <p>We respond within one business day with feasibility notes, timeline ranges, and a path to a real quote. No-cost. No commitment.</p>
+        <a href="../contact/concept_01.html">Submit a project →</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="enduro-footer">
+    <div class="enduro-footer-grid">
+      <div class="footer-brand"><svg viewBox="0 0 294 90" style="height:30px;width:auto;fill:#fff;"><path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg><p>Vancouver-based commercial general contractor.</p></div>
+      <div><h3>What We Do</h3><ul><li><a href="#">General Contracting</a></li><li><a href="#">Construction Management</a></li></ul></div>
+      <div><h3>Company</h3><ul><li><a href="../about/concept_01.html">About</a></li><li><a href="../projects-index/concept_01.html">Our Work</a></li></ul></div>
+      <div><h3>Contact</h3><ul><li><a href="tel:6049686578">604.968.6578</a></li><li><a href="mailto:info@enduroconstruction.ca">info@enduroconstruction.ca</a></li></ul></div>
+    </div>
+    <div class="enduro-footer-bottom"><span>© Enduro Construction Ltd.</span><span>Built for what comes next</span></div>
+  </footer>
+
+  <script>
+    (function(){
+      const obs = new IntersectionObserver((es) => es.forEach(e => e.target.classList.toggle("in", e.isIntersecting)), { threshold: 0.15 });
+      document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+      const nav = document.getElementById("enduroNav");
+      window.addEventListener("scroll", () => nav.classList.toggle("scrolled", window.scrollY > 40), { passive: true });
+
+      const scroller = document.getElementById("hscroll");
+      document.getElementById("scrollPrev").onclick = () => scroller.scrollBy({ left: -500, behavior: "smooth" });
+      document.getElementById("scrollNext").onclick = () => scroller.scrollBy({ left: 500, behavior: "smooth" });
+    })();
+  </script>
+</body>
+</html>

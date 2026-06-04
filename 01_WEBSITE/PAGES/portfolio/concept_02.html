@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enduro · Projects — Concept 02 · Vertical List Hover Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../_shared/tokens.css" />
+<style>
+  body { background: var(--off-white); }
+  .vl-hero { padding: 160px var(--gutter) 64px; max-width: var(--max); margin: 0 auto; }
+  .vl-hero h1 { font-size: clamp(80px, 13vw, 240px); font-weight: 900; letter-spacing: -0.06em; line-height: 0.84; text-transform: uppercase; }
+  .vl-hero p { font-size: 18px; color: var(--k-65); max-width: 56ch; margin-top: 32px; }
+  .vl-list { padding: 80px var(--gutter) 140px; max-width: var(--max); margin: 0 auto; position: relative; }
+  .vl-row { display: grid; grid-template-columns: 80px 1.4fr 1fr 1fr 64px; gap: 32px; padding: 36px 0; border-top: 1px solid var(--black); align-items: center; cursor: pointer; position: relative; transition: background 0.2s; }
+  .vl-row:last-child { border-bottom: 1px solid var(--black); }
+  .vl-row:hover { background: var(--black); color: var(--white); }
+  .vl-row:hover .num { color: var(--red-bright); }
+  .vl-row:hover .arr { color: var(--red-bright); }
+  .vl-row .num { font-size: 13px; font-weight: 700; letter-spacing: 0.16em; color: var(--k-65); }
+  .vl-row .title { font-size: clamp(28px, 3.4vw, 56px); font-weight: 900; letter-spacing: -0.035em; text-transform: uppercase; line-height: 1; }
+  .vl-row .meta { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--k-65); }
+  .vl-row:hover .meta { color: var(--w-75); }
+  .vl-row .year { font-size: 14px; font-weight: 600; color: var(--k-65); }
+  .vl-row:hover .year { color: var(--w-75); }
+  .vl-row .arr { font-size: 24px; color: var(--k-25); text-align: right; }
+  .vl-preview {
+    position: fixed; pointer-events: none; opacity: 0;
+    width: 360px; height: 270px; border-radius: 8px; overflow: hidden;
+    transition: opacity 0.25s ease;
+    z-index: 50; box-shadow: 0 24px 64px -20px rgba(0,0,0,0.35);
+  }
+  .vl-preview img { width: 100%; height: 100%; object-fit: cover; }
+  .vl-preview.show { opacity: 1; }
+  .vl-foot { background: var(--black); color: var(--white); padding: 120px var(--gutter); text-align: center; }
+  .vl-foot h2 { font-size: clamp(40px, 5vw, 80px); font-weight: 900; letter-spacing: -0.04em; line-height: 0.92; text-transform: uppercase; margin: 0 auto 28px; max-width: 18ch; }
+</style></head>
+<body>
+<nav class="enduro-nav" id="enduroNav"><div class="enduro-nav-inner"><a class="enduro-nav-logo" href="../../enduro_concept-MASTER.html"><svg viewBox="0 0 294 90"><path fill="#fff" d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg></a><div class="enduro-nav-links"><a href="../services/concept_01.html">Services</a><a href="concept_01.html" class="active">Our Work</a><a href="../about/concept_01.html">About Us</a><a href="../insights/concept_01.html">Insights</a><a href="../contact/concept_01.html">Contact Us</a></div><div class="enduro-nav-right"></div></div></nav>
+
+<section class="vl-hero">
+  <span class="tag reveal">Project Archive</span>
+  <h1 class="reveal d1">Our Work.</h1>
+  <p class="reveal d2">Hover any row to preview. Click to open the full case study.</p>
+</section>
+
+<div class="vl-preview" id="vlPreview"><img id="vlImg" src="" alt="" /></div>
+
+<section class="vl-list">
+  <a href="../project-detail/concept_01.html" class="vl-row" data-img="../../assets/img/ph_dawson_lab_pro_photos_insta_selection_ll_02637.jpg"><span class="num">01</span><h3 class="title">Dawson Lab</h3><span class="meta">UBC · Wet Lab</span><span class="year">2024</span><span class="arr">→</span></a>
+  <a href="../project-detail/concept_01.html" class="vl-row" data-img="../../assets/img/ph_ubc_henry_angus_classrooms_2053-main-mall-vancouver-005.jpg"><span class="num">02</span><h3 class="title">Henry Angus Classrooms</h3><span class="meta">UBC · Education</span><span class="year">2024</span><span class="arr">→</span></a>
+  <a href="../project-detail/concept_01.html" class="vl-row" data-img="../../assets/img/ph_ubc_fsiap_lab_photos_unprocessed_8g7a7047.jpg"><span class="num">03</span><h3 class="title">FSIAP Lab</h3><span class="meta">UBC · Research</span><span class="year">2024</span><span class="arr">→</span></a>
+  <a href="../project-detail/concept_01.html" class="vl-row" data-img="../../assets/img/ph_norgate_cannabis_store_pro_photos_img_014.jpg"><span class="num">04</span><h3 class="title">Norgate</h3><span class="meta">Retail · Cannabis</span><span class="year">2023</span><span class="arr">→</span></a>
+  <a href="../project-detail/concept_01.html" class="vl-row" data-img="../../assets/img/ph_ceme_office_pro_dsc03936-hdr.jpg"><span class="num">05</span><h3 class="title">CEME Office</h3><span class="meta">UBC · Office TI</span><span class="year">2023</span><span class="arr">→</span></a>
+  <a href="../project-detail/concept_01.html" class="vl-row" data-img="../../assets/img/ph_ray_perrault_fieldhouse_hi-res_dji_0022.jpg"><span class="num">06</span><h3 class="title">Ray Perrault Fieldhouse</h3><span class="meta">Civic · North Van</span><span class="year">2024</span><span class="arr">→</span></a>
+  <a href="../project-detail/concept_01.html" class="vl-row" data-img="../../assets/img/ph_ubc_henning_lab_photos_hi-res_6224-agricultural-rd-vancouver-011.jpg"><span class="num">07</span><h3 class="title">Henning Lab</h3><span class="meta">UBC · Research</span><span class="year">2024</span><span class="arr">→</span></a>
+  <a href="../project-detail/concept_01.html" class="vl-row" data-img="../../assets/img/ph_cfia_photos_hi-res_3155-willingdon-green-burnaby-009.jpg"><span class="num">08</span><h3 class="title">CFIA Lab</h3><span class="meta">Federal · Burnaby</span><span class="year">2022</span><span class="arr">→</span></a>
+  <a href="../project-detail/concept_01.html" class="vl-row" data-img="../../assets/img/ph_bonsor_washrooms_hi-res_6550-bonsor-ave-burnaby-003.jpg"><span class="num">09</span><h3 class="title">Bonsor Washrooms</h3><span class="meta">Civic · Burnaby</span><span class="year">2023</span><span class="arr">→</span></a>
+  <a href="../project-detail/concept_01.html" class="vl-row" data-img="../../assets/img/ph_ubc_henning_lab_photos_hi-res_6224-agricultural-rd-vancouver-001.jpg"><span class="num">10</span><h3 class="title">NP Expansion CC1</h3><span class="meta">UBC Surrey · Education</span><span class="year">2024</span><span class="arr">→</span></a>
+</section>
+
+<section class="vl-foot">
+  <h2 class="reveal">Want the full case study brief?</h2>
+  <a href="../contact/concept_01.html" class="btn btn-red reveal d1">Email us <span class="btn-arrow">→</span></a>
+</section>
+
+<footer class="enduro-footer"><div class="enduro-footer-grid"><div class="footer-brand"><svg viewBox="0 0 294 90" style="height:30px;width:auto;fill:#fff;"><path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg><p>Vancouver-based commercial general contractor.</p></div><div></div><div></div><div><h3>Contact</h3><ul><li><a href="tel:6049686578">604.968.6578</a></li></ul></div></div><div class="enduro-footer-bottom"><span>© Enduro Construction Ltd.</span><span>Built for what comes next</span></div></footer>
+
+<script>
+(function(){
+  const obs=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle("in",e.isIntersecting)),{threshold:0.15});
+  document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+  const nav=document.getElementById("enduroNav");
+  window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>40),{passive:true});
+  const prev = document.getElementById("vlPreview");
+  const img = document.getElementById("vlImg");
+  document.querySelectorAll(".vl-row").forEach(row => {
+    row.addEventListener("mouseenter", () => {
+      img.src = row.dataset.img;
+      prev.classList.add("show");
+    });
+    row.addEventListener("mouseleave", () => prev.classList.remove("show"));
+    row.addEventListener("mousemove", (e) => {
+      prev.style.left = (e.clientX + 30) + "px";
+      prev.style.top = (e.clientY - 130) + "px";
+    });
+  });
+})();
+</script>
+</body></html>

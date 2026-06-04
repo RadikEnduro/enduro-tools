@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enduro · Project Detail — Concept 03 · Spec Sheet Layout</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../../_shared/tokens.css" />
+<style>
+  body { background: var(--white); }
+  .ss-hero { padding: 140px var(--gutter) 32px; max-width: var(--max); margin: 0 auto; border-bottom: 1px solid var(--black); }
+  .ss-doc { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; display: flex; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid var(--black); margin-bottom: 48px; color: var(--k-65); }
+  .ss-doc b { color: var(--red); }
+  .ss-hero h1 { font-size: clamp(80px, 13vw, 240px); font-weight: 900; letter-spacing: -0.06em; line-height: 0.84; text-transform: uppercase; }
+  .ss-hero-row { display: grid; grid-template-columns: 2fr 1fr; gap: 64px; margin-top: 56px; }
+  .ss-hero-row p { font-size: 18px; color: var(--k-65); line-height: 1.6; max-width: 60ch; }
+  .ss-hero-row dl { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; display: grid; gap: 8px; }
+  .ss-hero-row dt { color: var(--k-65); }
+  .ss-hero-row dd { color: var(--black); font-weight: 600; }
+  .ss-hero-row dd + dt { margin-top: 14px; }
+
+  .ss-band { padding: 80px var(--gutter); max-width: var(--max); margin: 0 auto; }
+  .ss-band-cover { aspect-ratio: 16/8; border-radius: 4px; overflow: hidden; }
+
+  .ss-grid-photos { padding: 0 var(--gutter) 80px; max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .ss-grid-photos .g { aspect-ratio: 4/3; border-radius: 4px; overflow: hidden; }
+
+  .ss-table { padding: 80px var(--gutter); max-width: var(--max); margin: 0 auto; }
+  .ss-table h2 { font-size: clamp(28px, 3vw, 44px); font-weight: 900; letter-spacing: -0.025em; text-transform: uppercase; margin-bottom: 32px; }
+  .ss-table table { width: 100%; border-collapse: collapse; font-family: "JetBrains Mono", monospace; font-size: 13px; }
+  .ss-table th, .ss-table td { padding: 18px 0; border-top: 1px solid var(--black); text-align: left; }
+  .ss-table th { font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; font-size: 11px; color: var(--red); width: 28%; }
+  .ss-table td { font-family: "Inter", sans-serif; font-size: 16px; color: var(--black); }
+
+  .ss-cta { padding: 100px var(--gutter); background: var(--black); color: var(--white); text-align: center; }
+  .ss-cta h2 { font-size: clamp(36px, 5vw, 80px); font-weight: 900; letter-spacing: -0.04em; line-height: 0.92; text-transform: uppercase; max-width: 16ch; margin: 0 auto 24px; }
+</style></head>
+<body>
+<nav class="enduro-nav" id="enduroNav"><div class="enduro-nav-inner"><a class="enduro-nav-logo" href="../../enduro_concept-MASTER.html"><svg viewBox="0 0 294 90"><path fill="#fff" d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg></a><div class="enduro-nav-links"><a href="../services/concept_01.html">Services</a><a href="../projects-index/concept_01.html" class="active">Our Work</a><a href="../about/concept_01.html">About Us</a><a href="../insights/concept_01.html">Insights</a><a href="../contact/concept_01.html">Contact Us</a></div><div class="enduro-nav-right"></div></div></nav>
+
+<section class="ss-hero">
+  <div class="ss-doc"><span>Project Spec Sheet</span><span>Doc / PROJ-2024-007 · <b>R.02</b></span><span>UBC Vancouver</span></div>
+  <h1 class="reveal">FSIAP Lab.</h1>
+  <div class="ss-hero-row">
+    <p class="reveal d1">A research environment for UBC's Food Safety + Innovation lab. Specialty gases, high-spec casework, fume-hood integration, and live-ops awareness on the floors above.</p>
+    <dl class="reveal d2">
+      <dt>Sector</dt><dd>Research / Lab</dd>
+      <dt>Client</dt><dd>UBC FSIAP</dd>
+      <dt>Year</dt><dd>2024</dd>
+      <dt>Duration</dt><dd>22 weeks · 5 phases</dd>
+      <dt>Engagement</dt><dd>General Contracting</dd>
+    </dl>
+  </div>
+</section>
+
+<section class="ss-band">
+  <div class="ss-band-cover"><img src="../../../assets/img/ph_ubc_fsiap_lab_photos_unprocessed_8g7a7047.jpg" alt="" /></div>
+</section>
+
+<section class="ss-grid-photos">
+  <div class="g"><img src="../../../assets/img/ph_ubc_fsiap_lab_photos_unprocessed_8g7a7047.jpg" alt="" /></div>
+  <div class="g"><img src="../../../assets/img/ph_ubc_fsiap_lab_photos_unprocessed_8g7a7047.jpg" alt="" /></div>
+  <div class="g"><img src="../../../assets/img/ph_dawson_lab_pro_photos_ll_02585.jpg" alt="" /></div>
+</section>
+
+<section class="ss-table">
+  <h2>Operating data.</h2>
+  <table>
+    <tr><th>Sector</th><td>Research / Wet-lab (BSL-2 compatible)</td></tr>
+    <tr><th>Square footage</th><td>5,800 sqft</td></tr>
+    <tr><th>Trades coordinated</th><td>17 (incl. specialty gases, fume integration, casework, AV)</td></tr>
+    <tr><th>Live-ops impact</th><td>Zero workdays lost on adjoining floors</td></tr>
+    <tr><th>Permit closures</th><td>Single inspection, deficiency walk pre-invoice</td></tr>
+    <tr><th>On-time delivery</th><td>Yes · 22 weeks as quoted</td></tr>
+    <tr><th>Engagement model</th><td>General Contracting · self-performed</td></tr>
+    <tr><th>Key challenge</th><td>Phased delivery around active research operations</td></tr>
+  </table>
+</section>
+
+<section class="ss-cta">
+  <h2 class="reveal">Got a brief like this?</h2>
+  <a href="../contact/concept_01.html" class="btn btn-red reveal d1">Start a project <span class="btn-arrow">→</span></a>
+</section>
+
+<footer class="enduro-footer"><div class="enduro-footer-grid"><div class="footer-brand"><svg viewBox="0 0 294 90" style="height:30px;width:auto;fill:#fff;"><path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg><p>Vancouver-based commercial general contractor.</p></div><div></div><div></div><div><h3>Contact</h3><ul><li><a href="tel:6049686578">604.968.6578</a></li></ul></div></div><div class="enduro-footer-bottom"><span>© Enduro Construction Ltd.</span><span>Built for what comes next</span></div></footer>
+<script>(function(){const obs=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle("in",e.isIntersecting)),{threshold:0.15});document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));const nav=document.getElementById("enduroNav");window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>40),{passive:true});})();</script>
+</body></html>

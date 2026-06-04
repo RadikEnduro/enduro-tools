@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enduro · Project Detail — Concept 04 · Scrollytell Story</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../../_shared/tokens.css" />
+<style>
+  body { background: var(--off-white); }
+  .st-hero { height: 100vh; position: relative; overflow: hidden; }
+  .st-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .st-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.7)); }
+  .st-hero-text { position: absolute; inset: 0; padding: 0 var(--gutter); max-width: var(--max); margin: 0 auto; display: flex; flex-direction: column; justify-content: center; color: var(--white); z-index: 2; }
+  .st-hero-text h1 { font-size: clamp(64px, 11vw, 200px); font-weight: 900; letter-spacing: -0.05em; line-height: 0.86; text-transform: uppercase; max-width: 14ch; }
+  .st-hero-text p { font-size: clamp(18px, 1.5vw, 24px); color: var(--w-75); max-width: 56ch; margin-top: 32px; }
+
+  .st-pin { position: relative; }
+  .st-pin-photo { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+  .st-pin-photo img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.6s ease, transform 8s ease-out; }
+  .st-pin-photo img + img { position: absolute; inset: 0; opacity: 0; }
+  .st-pin-photo img.active { opacity: 1; }
+  .st-pin-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,0.7), rgba(0,0,0,0.15)); }
+
+  .st-chapters { position: relative; z-index: 2; }
+  .st-ch { min-height: 100vh; display: flex; align-items: center; padding: 0 var(--gutter); max-width: var(--max); margin: 0 auto; color: var(--white); position: relative; z-index: 3; }
+  .st-ch-inner { max-width: 56ch; }
+  .st-ch .n { font-size: 12px; font-weight: 700; letter-spacing: 0.22em; color: var(--red-bright); text-transform: uppercase; margin-bottom: 16px; }
+  .st-ch h2 { font-size: clamp(40px, 5vw, 76px); font-weight: 900; letter-spacing: -0.04em; line-height: 0.92; text-transform: uppercase; margin-bottom: 20px; }
+  .st-ch p { font-size: 19px; line-height: 1.55; color: var(--w-75); }
+
+  .st-end { padding: 140px var(--gutter); background: var(--off-white); color: var(--black); text-align: center; }
+  .st-end h2 { font-size: clamp(40px, 5vw, 88px); font-weight: 900; letter-spacing: -0.04em; line-height: 0.92; text-transform: uppercase; max-width: 16ch; margin: 0 auto 28px; }
+</style></head>
+<body>
+<nav class="enduro-nav on-dark" id="enduroNav"><div class="enduro-nav-inner"><a class="enduro-nav-logo" href="../../enduro_concept-MASTER.html"><svg viewBox="0 0 294 90"><path fill="#fff" d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg></a><div class="enduro-nav-links"><a href="../services/concept_01.html">Services</a><a href="../projects-index/concept_01.html" class="active">Our Work</a><a href="../about/concept_01.html">About Us</a><a href="../insights/concept_01.html">Insights</a><a href="../contact/concept_01.html">Contact Us</a></div><div class="enduro-nav-right"></div></div></nav>
+
+<section class="st-hero">
+  <img src="../../../assets/img/ph_maison_margiela_photos_hi-res_maisonmargiela-oakridgepark-003.jpg" alt="" />
+  <div class="st-hero-text"><span class="tag" style="color: var(--red-bright);">Story · 2024</span><h1>Ray Perrault<br>Fieldhouse.</h1><p>A civic fieldhouse that took a public park from "okay" to "destination" over 16 weeks.</p></div>
+</section>
+
+<div class="st-pin">
+  <div class="st-pin-photo">
+    <img src="../../../assets/img/ph_dawson_lab_pro_photos_insta_selection_ll_02650.jpg" alt="" data-i="0" class="active" />
+    <img src="../../../assets/img/ph_seed_stone_pitt_meadows_photos_hi-res_725-19800-lougheed-hwy-pitt-meadows-004.jpg" alt="" data-i="1" />
+    <img src="../../../assets/img/ph_ubc_henry_angus_classrooms_instagram_selection_2053-main-mall-vancouver-002.jpg" alt="" data-i="2" />
+  </div>
+  <div class="st-chapters">
+    <article class="st-ch" data-chapter="0"><div class="st-ch-inner reveal"><span class="n">Chapter 01</span><h2>The brief.</h2><p>The City wanted a fieldhouse that would last 30 years and read modern. Public-facing, durable finishes, washrooms and changerooms, a covered gathering space. Budget tight, schedule tighter.</p></div></article>
+    <article class="st-ch" data-chapter="1"><div class="st-ch-inner reveal"><span class="n">Chapter 02</span><h2>The build.</h2><p>16 weeks. We pre-fabricated wall assemblies off-site to compress the on-park schedule, then phased the install around the soccer league. The park stayed open the whole time.</p></div></article>
+    <article class="st-ch" data-chapter="2"><div class="st-ch-inner reveal"><span class="n">Chapter 03</span><h2>The opening.</h2><p>Opened on the booked date. The park hosted its first community event a week later — a soccer tournament, with families clustered under the covered gathering space. The fieldhouse did its job.</p></div></article>
+  </div>
+</div>
+
+<section class="st-end">
+  <h2 class="reveal">Civic builds, treated like research labs.</h2>
+  <a href="../contact/concept_01.html" class="btn btn-red reveal d1">Start a project <span class="btn-arrow">→</span></a>
+</section>
+
+<footer class="enduro-footer"><div class="enduro-footer-grid"><div class="footer-brand"><svg viewBox="0 0 294 90" style="height:30px;width:auto;fill:#fff;"><path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg><p>Vancouver-based commercial general contractor.</p></div><div></div><div></div><div><h3>Contact</h3><ul><li><a href="tel:6049686578">604.968.6578</a></li></ul></div></div><div class="enduro-footer-bottom"><span>© Enduro Construction Ltd.</span><span>Built for what comes next</span></div></footer>
+<script>
+(function(){
+  const obs=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle("in",e.isIntersecting)),{threshold:0.15});
+  document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+  const nav=document.getElementById("enduroNav");
+  window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>40),{passive:true});
+  const imgs = document.querySelectorAll(".st-pin-photo img");
+  const aObs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { const i = e.target.dataset.chapter; imgs.forEach(im => im.classList.toggle("active", im.dataset.i === i)); } }), { threshold: 0.5 });
+  document.querySelectorAll("[data-chapter]").forEach(a => aObs.observe(a));
+})();
+</script>
+</body></html>

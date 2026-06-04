@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enduro · Project Detail — Concept 02 · Sticky Photo Reel</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../../_shared/tokens.css" />
+<style>
+  body { background: var(--off-white); }
+  .pd2-top { padding: 160px var(--gutter) 80px; max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: end; }
+  .pd2-top h1 { font-size: clamp(64px, 9vw, 160px); font-weight: 900; letter-spacing: -0.05em; line-height: 0.86; text-transform: uppercase; }
+  .pd2-top .meta { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--k-65); }
+  .pd2-top .meta b { color: var(--black); font-weight: 700; letter-spacing: 0; text-transform: none; font-size: 16px; }
+  .pd2-top dl { display: grid; gap: 16px; }
+  .pd2-top dl > div { padding-top: 12px; border-top: 1px solid var(--k-25); }
+
+  .pd2-split { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; padding: 0 var(--gutter) 160px; max-width: var(--max); margin: 0 auto; }
+  .pd2-sticky-photo { position: sticky; top: 100px; aspect-ratio: 4/5; border-radius: 12px; overflow: hidden; background: var(--surface); height: fit-content; align-self: start; }
+  .pd2-sticky-photo img { transition: opacity 0.5s ease; }
+  .pd2-sticky-photo img + img { position: absolute; inset: 0; opacity: 0; }
+  .pd2-sticky-photo img.active { opacity: 1; }
+
+  .pd2-story { padding: 32px 0; }
+  .pd2-story article { padding: 80px 0; border-top: 1px solid var(--k-25); cursor: pointer; }
+  .pd2-story article:first-child { border-top: 0; padding-top: 0; }
+  .pd2-story article .label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); font-weight: 700; }
+  .pd2-story article h2 { font-size: clamp(28px, 3vw, 44px); font-weight: 900; letter-spacing: -0.025em; line-height: 1; text-transform: uppercase; margin: 14px 0 18px; }
+  .pd2-story article p { font-size: 17px; line-height: 1.6; color: var(--k-65); }
+
+  .pd2-stats { padding: 100px var(--gutter); background: var(--black); color: var(--white); }
+  .pd2-stats-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px; }
+  .pd2-stat b { display: block; font-size: clamp(48px, 6vw, 96px); font-weight: 900; letter-spacing: -0.04em; line-height: 0.9; color: var(--red-bright); }
+  .pd2-stat span { display: block; margin-top: 12px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--w-75); }
+</style></head>
+<body>
+<nav class="enduro-nav" id="enduroNav"><div class="enduro-nav-inner"><a class="enduro-nav-logo" href="../../enduro_concept-MASTER.html"><svg viewBox="0 0 294 90"><path fill="#fff" d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg></a><div class="enduro-nav-links"><a href="../services/concept_01.html">Services</a><a href="../projects-index/concept_01.html" class="active">Our Work</a><a href="../about/concept_01.html">About Us</a><a href="../insights/concept_01.html">Insights</a><a href="../contact/concept_01.html">Contact Us</a></div><div class="enduro-nav-right"></div></div></nav>
+
+<section class="pd2-top">
+  <div><span class="tag reveal">Project · 01</span><h1 class="reveal d1">Norgate.</h1></div>
+  <dl class="reveal d2">
+    <div class="meta">Sector<b>Retail · Cannabis</b></div>
+    <div class="meta">Location<b>North Vancouver</b></div>
+    <div class="meta">Year<b>2023</b></div>
+    <div class="meta">Engagement<b>General Contracting</b></div>
+  </dl>
+</section>
+
+<section class="pd2-split">
+  <div class="pd2-sticky-photo" id="photoStack">
+    <img src="../../../assets/img/ph_norgate_cannabis_store_pro_photos_img_014.jpg" alt="" data-i="0" class="active" />
+    <img src="../../../assets/img/ph_norgate_cannabis_store_pro_photos_img_014.jpg" alt="" data-i="1" />
+    <img src="../../../assets/img/ph_norgate_cannabis_store_pro_photos_img_014.jpg" alt="" data-i="2" />
+    <img src="../../../assets/img/ph_norgate_cannabis_store_pro_photos_img_014.jpg" alt="" data-i="3" />
+  </div>
+  <div class="pd2-story">
+    <article data-photo="0">
+      <span class="label">Chapter 01 · Brief</span>
+      <h2>A storefront with brand on its mind.</h2>
+      <p>Norgate came to us with a strong brand and a tight schedule. The build had to read like the brand, open on the booked date, and pass health-authority inspection without a return visit. The previous tenant left a complicated demo problem behind the drywall.</p>
+    </article>
+    <article data-photo="1">
+      <span class="label">Chapter 02 · Approach</span>
+      <h2>Permit-aware, brand-loyal.</h2>
+      <p>We coordinated permitting in parallel with demo, brought the architect's millwork specs in-house, and held a Wednesday standup with the brand team for 10 weeks straight. Every finish sample was approved twice — once on paper, once in the room.</p>
+    </article>
+    <article data-photo="2">
+      <span class="label">Chapter 03 · Build</span>
+      <h2>Quiet work in a noisy neighbourhood.</h2>
+      <p>The store sits on a busy retail strip. We ran the heavy work between 9pm and 4am for the first three weeks, then transitioned to standard hours once the loud trades were done. The neighbours never complained.</p>
+    </article>
+    <article data-photo="3">
+      <span class="label">Chapter 04 · Handover</span>
+      <h2>Open on time. Inspection clean.</h2>
+      <p>One inspection. One deficiency walk before the invoice. The store opened on the day they posted the launch on social, with a punch list closed to zero.</p>
+    </article>
+  </div>
+</section>
+
+<section class="pd2-stats">
+  <div class="pd2-stats-inner">
+    <div class="pd2-stat"><b>10</b><span>Weeks, brief to keys</span></div>
+    <div class="pd2-stat"><b>1</b><span>Inspection</span></div>
+    <div class="pd2-stat"><b>0</b><span>Punch items at handover</span></div>
+    <div class="pd2-stat"><b>2,400</b><span>sqft</span></div>
+  </div>
+</section>
+
+<footer class="enduro-footer"><div class="enduro-footer-grid"><div class="footer-brand"><svg viewBox="0 0 294 90" style="height:30px;width:auto;fill:#fff;"><path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg><p>Vancouver-based commercial general contractor.</p></div><div></div><div></div><div><h3>Contact</h3><ul><li><a href="tel:6049686578">604.968.6578</a></li></ul></div></div><div class="enduro-footer-bottom"><span>© Enduro Construction Ltd.</span><span>Built for what comes next</span></div></footer>
+<script>
+(function(){
+  const obs=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle("in",e.isIntersecting)),{threshold:0.15});
+  document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+  const nav=document.getElementById("enduroNav");
+  window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>40),{passive:true});
+  const imgs = document.querySelectorAll("#photoStack img");
+  const articles = document.querySelectorAll("[data-photo]");
+  const aObs = new IntersectionObserver(es => {
+    es.forEach(e => {
+      if (e.isIntersecting) {
+        const i = e.target.dataset.photo;
+        imgs.forEach(im => im.classList.toggle("active", im.dataset.i === i));
+      }
+    });
+  }, { threshold: 0.5 });
+  articles.forEach(a => aObs.observe(a));
+})();
+</script>
+</body></html>

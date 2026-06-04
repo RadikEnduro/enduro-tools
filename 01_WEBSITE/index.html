@@ -21,17 +21,17 @@
          photo appears — same on the live site, not a dev quirk.
          Real cost is ~negligible bytes-vs-paint perceived perf,
          since these are already in the FP HTML below. -->
-    <link rel="preload" as="image" href="photos/Dawson Lab/Pro/Photos/Insta Selection/LL_02637.jpg" />
-    <link rel="preload" as="image" href="photos/UBC Henry Angus Classrooms/INSTAGRAM SELECTION/2053-Main-Mall-Vancouver-001.JPG" />
-    <link rel="preload" as="image" href="photos/SPPH Research Lab/SPPH Photos/Pro/DSC03436.jpg" />
-    <link rel="preload" as="image" href="photos/Ray Perrault Fieldhouse/Hi-res/TM208935.jpg" />
-    <link rel="preload" as="image" href="photos/Norgate Cannabis Store/Pro/Photos/IMG_014.jpg" />
-    <link rel="preload" as="image" href="photos/Bonsor Washrooms/Lo-Res/6550-Bonsor-Ave-Burnaby-003_LoRes.jpg" />
-    <link rel="preload" as="image" href="photos/CEME Office/Pro/DSC03936-HDR.jpg" />
-    <link rel="preload" as="image" href="photos/Maison Margiela/Photos/Lo-Res/MaisonMargiela-OakridgePark-001_LoRes.jpg" />
-    <link rel="preload" as="image" href="photos/UBC FSIAP Lab/Photos/Unprocessed/8G7A7047.JPG" />
-    <link rel="preload" as="image" href="photos/Seed &amp; Stone Pitt Meadows/Phone/IMG_4895.jpg" />
-    <link rel="preload" as="image" href="photos/CFIA/Photos/Lo-Res/3155-Willingdon-Green-Burnaby-009.JPG" />
+    <link rel="preload" as="image" href="assets/img/ph_insta_selection_ll_02637.jpg" />
+    <link rel="preload" as="image" href="assets/img/ph_ubc_henry_angus_classrooms_instagram_selection_2053-main-mall-vancouver-001.jpg" />
+    <link rel="preload" as="image" href="assets/img/ph_pro_dsc03436.jpg" />
+    <link rel="preload" as="image" href="assets/img/ph_ray_perrault_fieldhouse_hi-res_tm208935.jpg" />
+    <link rel="preload" as="image" href="assets/img/ph_img_014.jpg" />
+    <link rel="preload" as="image" href="assets/img/ph_bonsor_washrooms_hi-res_6550-bonsor-ave-burnaby-003.jpg" />
+    <link rel="preload" as="image" href="assets/img/ph_ceme_office_pro_dsc03936-hdr.jpg" />
+    <link rel="preload" as="image" href="assets/img/ph_maison_margiela_photos_hi-res_maisonmargiela-oakridgepark-001.jpg" />
+    <link rel="preload" as="image" href="assets/img/ph_unprocessed_8g7a7047.jpg" />
+    <link rel="preload" as="image" href="assets/img/ph_seed_stone_pitt_meadows_phone_img_4895.jpg" />
+    <link rel="preload" as="image" href="assets/img/ph_cfia_photos_hi-res_3155-willingdon-green-burnaby-009.jpg" />
 
     <style>
       /* ─── RESET & TOKENS ─────────────────────────────────────── */
@@ -113,6 +113,10 @@
         position: relative;
         z-index: 2;
         background: var(--white);
+        /* PERF-BONUS contain:paint was removed — it caused a white fill to
+           appear behind the hero photo during the curtain animation. The hero
+           frame is fixed/behind page-content; contain:paint clipped the
+           background flood and broke the wipe reveal. Not safe here. */
       }
       /* Transparent scroll buffer below page-content — its height equals
          the footer's so the page can travel up enough to fully reveal it. */
@@ -257,7 +261,7 @@
         pointer-events: none;
       }
       /* Glass bar visible at full opacity once body.scrolled is set —
-         that flag is now flipped only when the hero photo finishes its
+         that flag is flipped only when the hero photo finishes its
          shrink (see applyHeroPhotoState). No early fade-in during the
          photo's animation. */
       body.scrolled #main-nav::before {
@@ -267,6 +271,9 @@
       #main-nav.scrolled::before {
         opacity: 1;
       }
+      /* PERF-BONUS removed (Radik 2026-05-28): backdrop-filter stays on
+         during scroll so the glass renders continuously and the 1.8s
+         opacity transition can fade in smoothly rather than snapping. */
       /* (Radik 2026-05-21 rev21.2) — explicit fade-out range. When the
          user is scrolling through the Process state 5 → Team handoff
          (≈ Y4026 → Y4156), the glass bg lerps from 1 → 0 so the dark
@@ -401,12 +408,15 @@
         overflow: hidden;
         z-index: 1;
         pointer-events: none;
-        will-change: width, height, top, left, border-radius;
+        /* PERF-BONUS: Only transform+opacity get GPU compositor layers.
+           width/height/top/left cause layout recalc every frame — removed.
+           Full transform refactor (PERF-2) is a separate deferred task. */
+        will-change: transform, opacity;
       }
       .hero-bg {
         position: absolute;
         inset: 0;
-        background-image: url("photos/live-site-hero.png");
+        background-image: url("assets/img/ph_live-site-hero.png");
         background-size: cover;
         background-position: center right;
       }
@@ -570,6 +580,13 @@
       .reveal.d2 { transition-delay: 0.26s; }
       .reveal.d3 { transition-delay: 0.42s; }
       .reveal.d4 { transition-delay: 0.58s; }
+      /* PERF-BONUS: Fast exit when .in is removed (scrolling back up).
+         Prevents simultaneous long entry+exit transitions running on 12+
+         cards at once. Entry delays stay intact; exit snaps in 0.15s. */
+      .reveal:not(.in) {
+        transition-duration: 0.15s;
+        transition-delay: 0s;
+      }
 
       /* SERVICE CARDS — start hidden off-screen at different vertical offsets.
          Animation is triggered by .services-grid.trigger (added by the JS
@@ -750,10 +767,10 @@
       }
       /* Saved photo positions from the drag-photos toggle — persist across
          refreshes without depending on localStorage. */
-      img[src="photos_ai/1AADAF97-7E17-4442-A580-5A8FA3FF9556.png"] {
+      img[src="PAGES/photos_ai/1AADAF97-7E17-4442-A580-5A8FA3FF9556.png"] {
         object-position: 25.3% 51.6%;
       }
-      img[src="photos_ai/image.png.png"] {
+      img[src="PAGES/photos_ai/image.png.png"] {
         object-position: 55.7% 50.4%;
       }
       .service-card-overlay {
@@ -3042,12 +3059,20 @@
         padding: 6px 10px;
         font: 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
         border-radius: 4px;
-        opacity: 0.4;
+        opacity: 0;
+        pointer-events: none;
         cursor: pointer;
         transition: opacity 0.2s;
         user-select: none;
       }
-      .drag-toggle:hover { opacity: 1; }
+      /* Only show drag toggles when rulers are open or drag mode is active */
+      body.show-rulers .drag-toggle,
+      body.show-drag .drag-toggle {
+        opacity: 0.4;
+        pointer-events: auto;
+      }
+      body.show-rulers .drag-toggle:hover,
+      body.show-drag .drag-toggle:hover { opacity: 1; }
       body.show-drag .drag-toggle {
         background: var(--red);
         opacity: 1;
@@ -3138,333 +3163,6 @@
         font-weight: 600;
       }
 
-      /* ─── RULERS OVERLAY (toggle with #rulers in URL) ──────────
-         Colour key (also shown in the on-screen legend):
-           PINK   — common viewport widths (375, 768, 1280, 1440, 1728, 1920)
-           CYAN   — viewport-height "folds" (where the screen breaks at this height)
-           ORANGE — content max-width edges (1440px centered)
-           GREEN  — content gutter edges (where text/images actually start)
-           PURPLE — your CURRENT viewport's outer edges (visible only on screens > 1920)
-      */
-      .rulers {
-        display: none;
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 9998;
-        font: 10px/1
-          ui-monospace,
-          SFMono-Regular,
-          Menlo,
-          monospace;
-      }
-      body.show-rulers .rulers {
-        display: block;
-      }
-      .ruler-v,
-      .ruler-h {
-        position: fixed;
-      }
-      .ruler-h {
-        position: absolute;
-      }
-      .ruler-v {
-        top: 0;
-        bottom: 0;
-        width: 1px;
-      }
-      .ruler-h {
-        left: 0;
-        right: 0;
-        height: 1px;
-      }
-      /* Device color tokens — same color shared between a device's vertical
-         (width) line and its horizontal (height) line so they read as a pair.
-         (rev: iPhone uses gray, fold uses pink — swapped so folds read
-         on a colored line and iPhone is the muted default-ish device.) */
-      .ruler-v.device-iphone,  .ruler-h.device-iphone  { --c: 160, 160, 160; } /* gray  (swapped) */
-      .ruler-v.device-ipad,    .ruler-h.device-ipad    { --c: 255, 210, 63;  } /* yellow */
-      .ruler-v.device-laptop,  .ruler-h.device-laptop  { --c: 0,   188, 212; } /* teal   */
-      .ruler-v.device-design,  .ruler-h.device-design  { --c: 90,  140, 255; } /* blue   */
-      .ruler-v.device-mbp16,   .ruler-h.device-mbp16   { --c: 187, 134, 252; } /* purple */
-      .ruler-v.device-desktop, .ruler-h.device-desktop { --c: 255, 110, 110; } /* red    */
-
-      .ruler-v[class*="device-"] {
-        background: rgba(var(--c), 0.5);
-      }
-      .ruler-h[class*="device-"] {
-        background: rgba(var(--c), 0.55);
-        border-top: 1px dashed rgba(var(--c), 0.4);
-      }
-      .ruler-v[class*="device-"]::after,
-      .ruler-h[class*="device-"]::after {
-        color: rgb(var(--c));
-      }
-
-      /* Layout guides — abstract (not device-specific) */
-      .ruler-v.maxw {
-        background: rgba(255, 145, 0, 0.65);
-      }
-      .ruler-v.gutter {
-        background: rgba(50, 220, 110, 0.6);
-        border-left: 1px dashed rgba(50, 220, 110, 0.4);
-      }
-      /* Current viewport-height fold (where YOUR screen breaks).
-         (rev: pink — swapped from gray with iPhone for legibility.) */
-      .ruler-h.fold {
-        background: rgba(255, 102, 204, 0.45);
-      }
-      /* Animation trigger guides — scroll positions where IO classes
-         get added (.trigger.add) or removed (.trigger.remove). Read:
-         "when this line is at the top of the viewport, the trigger
-         fires." Drawn in brand red so they stand apart from devices. */
-      .ruler-h.trigger {
-        background: rgba(228, 51, 56, 0.55);
-        border-top: 1px dashed rgba(228, 51, 56, 0.6);
-      }
-      .ruler-h.trigger.remove {
-        background: rgba(228, 51, 56, 0.30);
-        border-top: 1px dotted rgba(228, 51, 56, 0.5);
-      }
-      .ruler-h.trigger::after {
-        color: #ff7a7e;
-        left: 12px;
-        right: auto;
-      }
-      /* Labels */
-      .ruler-v::after,
-      .ruler-h::after {
-        content: attr(data-label);
-        position: absolute;
-        padding: 2px 6px;
-        background: rgba(0, 0, 0, 0.85);
-        white-space: nowrap;
-        border-radius: 3px;
-        letter-spacing: 0.04em;
-      }
-      .ruler-v::after {
-        top: 12px;
-        left: 4px;
-      }
-      .ruler-h::after {
-        top: -16px;
-        left: 12px;
-      }
-      /* Horizontal device-height labels anchor right so they don't collide
-         with the vertical labels that anchor left */
-      .ruler-h[class*="device-"]::after {
-        left: auto;
-        right: 12px;
-      }
-      .ruler-v.maxw::after  { color: #ffa040; }
-      .ruler-v.gutter::after { color: #5fe896; }
-      .ruler-h.fold::after  { color: #ff66cc; }
-
-      /* Per-element animation guides — one line glued to each animated
-         element's top edge. Updated each frame from getBoundingClientRect
-         so the line follows the element as it transforms / scrolls / reflows.
-         Colors per section: IOE = warm orange, FP = sky blue, REV = lime. */
-      .ruler-h.elem {
-        background: rgba(var(--c), 0.5);
-        border-top: 1px dashed rgba(var(--c), 0.45);
-      }
-      .ruler-h.elem::after {
-        color: rgb(var(--c));
-        background: rgba(0, 0, 0, 0.85);
-        left: 12px;
-        right: auto;
-      }
-      /* Legend in the corner */
-      .ruler-legend {
-        position: fixed;
-        bottom: 56px;
-        left: 12px;
-        z-index: 9999;
-        background: rgba(0, 0, 0, 0.85);
-        color: #fff;
-        padding: 10px 12px;
-        font: 10px/1.6
-          ui-monospace,
-          SFMono-Regular,
-          Menlo,
-          monospace;
-        border-radius: 5px;
-        display: none;
-        max-width: 240px;
-      }
-      body.show-rulers .ruler-legend {
-        display: block;
-      }
-      .ruler-legend b {
-        display: block;
-        font-size: 10px;
-        margin-bottom: 6px;
-        letter-spacing: 0.1em;
-        color: #fff;
-      }
-      /* Collapsible legend (rev: click header to hide the body so you can
-         see the lines behind it; click again to expand). */
-      .ruler-legend-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        cursor: pointer;
-        user-select: none;
-      }
-      .ruler-legend-header b { margin-bottom: 0; }
-      .ruler-legend-toggle {
-        font-size: 14px;
-        line-height: 1;
-        color: rgba(255, 255, 255, 0.7);
-      }
-      .ruler-legend.collapsed {
-        padding: 6px 10px;
-        max-width: 120px;
-      }
-      .ruler-legend.collapsed .ruler-legend-body {
-        display: none;
-      }
-      /* HUD step-preset row — four pills above the scrub bar. Each pill
-         sets the (arrow / shift+arrow) px step pair for the scrub. */
-      #debug-hud #hud-step-row {
-        pointer-events: auto;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        margin-bottom: 6px;
-        padding-bottom: 6px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        flex-wrap: wrap;
-      }
-      #debug-hud #hud-step-row .lbl {
-        font-size: 9px;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: rgba(255, 255, 255, 0.55);
-        white-space: nowrap;
-      }
-      #debug-hud .hud-step-btn {
-        pointer-events: auto;
-        background: rgba(255, 255, 255, 0.08);
-        color: rgba(255, 255, 255, 0.65);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 3px;
-        padding: 2px 6px;
-        font: inherit;
-        font-size: 10px;
-        cursor: pointer;
-        outline: none;
-      }
-      #debug-hud .hud-step-btn:hover {
-        background: rgba(255, 255, 255, 0.15);
-        color: #fff;
-      }
-      #debug-hud .hud-step-btn.active {
-        background: rgba(227, 255, 23, 0.18);
-        color: #e3ff17;
-        border-color: #e3ff17;
-      }
-      /* HUD scrub row — persistent input glued to the top of the HUD.
-         HUD container is pointer-events:none; the scrub row opts back in
-         so clicks/keys reach the input. Lives outside the render loop's
-         innerHTML rebuild, so it isn't clobbered every frame. */
-      #debug-hud #hud-scrub-row {
-        pointer-events: auto;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 8px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-      }
-      #debug-hud #hud-scrub-row .lbl {
-        font-size: 9px;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: rgba(255, 255, 255, 0.55);
-        white-space: nowrap;
-      }
-      #debug-hud #hud-scrub {
-        flex: 1;
-        background: rgba(255, 255, 255, 0.15);
-        color: #e3ff17;
-        border: 1px solid #e3ff17;
-        border-radius: 3px;
-        padding: 2px 6px;
-        font: inherit;
-        text-align: right;
-        outline: none;
-        -moz-appearance: textfield;
-      }
-      #debug-hud #hud-scrub:focus {
-        background: rgba(227, 255, 23, 0.12);
-      }
-      #debug-hud #hud-scrub::-webkit-inner-spin-button,
-      #debug-hud #hud-scrub::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-      .ruler-legend .row {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        line-height: 1.3;
-      }
-      .ruler-legend .section-title {
-        margin: 8px 0 4px;
-        font-size: 9px;
-        text-transform: uppercase;
-        letter-spacing: 0.14em;
-        color: rgba(255, 255, 255, 0.55);
-      }
-      .ruler-legend .section-title:first-of-type {
-        margin-top: 4px;
-      }
-      .ruler-legend .swatch-pair {
-        display: inline-flex;
-        align-items: center;
-        gap: 3px;
-        margin-right: 4px;
-      }
-      .ruler-legend .sw {
-        flex-shrink: 0;
-      }
-      .ruler-legend .sw.v {
-        width: 2px;
-        height: 10px;
-      }
-      .ruler-legend .sw.h {
-        width: 10px;
-        height: 2px;
-      }
-      .ruler-toggle {
-        position: fixed;
-        bottom: 12px;
-        left: 12px;
-        z-index: 9999;
-        background: rgba(0, 0, 0, 0.7);
-        color: #fff;
-        padding: 6px 10px;
-        font: 10px/1
-          ui-monospace,
-          SFMono-Regular,
-          Menlo,
-          monospace;
-        border-radius: 4px;
-        opacity: 0.4;
-        cursor: pointer;
-        transition: opacity 0.2s;
-        user-select: none;
-      }
-      .ruler-toggle:hover {
-        opacity: 1;
-      }
-      body.show-rulers .ruler-toggle {
-        background: #ff00c8;
-        opacity: 1;
-      }
-
       /* ═══════════════════════════════════════════════════════════
          RESPONSIVE OVERHAUL (rev20)
          Master was designed desktop-first (1280–1920). These rules
@@ -3507,6 +3205,9 @@
         .project-card:nth-child(12) { grid-column: 3 / span 2; grid-row: 6 / span 1; }
       }
 
+      /* Nav drawer — hidden at desktop, only rendered inside the ≤960 media block */
+      .nav-drawer { display: none; }
+
       /* ─── ≤ 960  tablet ───────────────────────────────────────── */
       @media (max-width: 960px) {
         :root { --gutter: 32px; }
@@ -3546,6 +3247,7 @@
           transform: translateX(0);
         }
         .nav-drawer {
+          display: flex; /* override the desktop display:none */
           position: fixed;
           top: 0; right: 0; bottom: 0;
           width: 320px; max-width: 85vw;
@@ -3555,7 +3257,6 @@
           transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
           padding: 100px 32px 32px;
           box-shadow: -16px 0 60px rgba(0,0,0,0.18);
-          display: flex;
           flex-direction: column;
           gap: 22px;
         }
@@ -3664,9 +3365,11 @@
   </head>
   <body>
     <!-- ═══════════════════════════════════════════════════ NAV -->
+    <!-- Inlined from _shared/nav.html (2026-05-29) — self-contained, no async fetch.
+         Init runs via window.onNavLoaded() at the very bottom of <body>. -->
     <nav id="main-nav">
       <div class="nav-inner">
-        <a class="nav-logo" href="/" aria-label="Enduro Construction">
+        <a class="nav-logo" href="index.html" aria-label="Enduro Construction">
           <!-- Brand-locked red-rect logo (Radik 2026-05-19). Both the
                red badge and the white wordmark are baked into the SVG;
                it does NOT inherit currentColor and never changes
@@ -3677,13 +3380,13 @@
           </svg>
         </a>
         <nav class="nav-links">
-          <a href="/construction-services">Services</a>
-          <a href="/projects">Portfolio</a>
-          <a href="/about-us">About Us</a>
-          <a href="/blog">Insights</a>
+          <a href="construction-services">Services</a>
+          <a href="portfolio">Portfolio</a>
+          <a href="about-us">About Us</a>
+          <a href="blog">Blog</a>
         </nav>
         <div class="nav-right">
-          <a class="nav-contact" href="/contact-us">Contact Us</a>
+          <a class="nav-contact" href="contact-us">Contact Us</a>
           <!-- Mobile hamburger — only visible ≤960 px via CSS. -->
           <button class="nav-hamburger" id="navHamburger" type="button" aria-label="Open menu" aria-expanded="false" style="display:none;">
             <span></span>
@@ -3695,11 +3398,11 @@
     <!-- Mobile nav drawer — slides in from the right when hamburger
          toggles. Hidden by default; CSS shows + transforms it at ≤960. -->
     <aside class="nav-drawer" id="navDrawer" aria-hidden="true">
-      <a href="/construction-services">Services</a>
-      <a href="/projects">Portfolio</a>
-      <a href="/about-us">About Us</a>
-      <a href="/blog">Insights</a>
-      <a href="/contact-us" style="color: var(--red);">Contact Us</a>
+      <a href="construction-services">Services</a>
+      <a href="portfolio">Portfolio</a>
+      <a href="about-us">About Us</a>
+      <a href="blog">Blog</a>
+      <a href="contact-us" style="color: var(--red);">Contact Us</a>
     </aside>
 
     <main class="page-content">
@@ -3720,8 +3423,8 @@
                  STAND BEHIND on the line above. -->
             <p class="hero-sub reveal d1">Commercial Construction Experts</p>
             <div class="hero-actions reveal d2">
-              <a href="projects.html" class="btn btn-red">Recent Projects</a>
-              <a href="/contact-us" class="btn btn-ghost">Discuss Your Space</a>
+              <a href="portfolio" class="btn btn-red">Recent Projects</a>
+              <a href="contact-us" class="btn btn-ghost">Discuss Your Space</a>
             </div>
           </div>
         </div>
@@ -3737,21 +3440,21 @@
     <section id="services" data-nav-tone="light">
       <div class="container">
         <div class="services-top">
-          <div id="servicesTitleBlock">
+          <div id="servicesTitleBlock" data-vl='{"kind":"edge","group":"ioe","label":"IOE title","edge":"top"}'>
             <span class="section-tag">What We Do</span>
             <h2 class="section-heading">In Our<br />Element</h2>
           </div>
-          <p class="services-desc">
+          <p class="services-desc" data-vl='{"kind":"edge","group":"ioe","label":"IOE subtext","edge":"top"}'>
             Two core services, one standard — every project gets the same
             accountability, coordination, and craft.
           </p>
         </div>
-        <div class="services-grid">
+        <div class="services-grid" data-vl='{"kind":"trigger","group":"ioe","label":"IOE service cards","class":"trigger","events":[{"role":"entry","edge":"top","at":"70%","class":"trigger"},{"role":"exit","edge":"bottom","at":"0%","class":"trigger-exit-up"}]}'>
           <!-- Card 1: General Contracting -->
-          <div class="service-card">
+          <div class="service-card" data-vl='{"kind":"edge","group":"ioe","label":"IOE card 1","edge":"top"}'>
             <div class="service-card-img">
               <img
-                src="photos_ai/image.png.png"
+                src="PAGES/photos_ai/image.png.png"
                 alt="General Contracting"
               />
             </div>
@@ -3766,10 +3469,10 @@
           </div>
 
           <!-- Card 2: Construction Management -->
-          <div class="service-card">
+          <div class="service-card" data-vl='{"kind":"edge","group":"ioe","label":"IOE card 2","edge":"top"}'>
             <div class="service-card-img">
               <img
-                src="photos_ai/1AADAF97-7E17-4442-A580-5A8FA3FF9556.png"
+                src="PAGES/photos_ai/1AADAF97-7E17-4442-A580-5A8FA3FF9556.png"
                 alt="Construction Management"
               />
             </div>
@@ -3787,7 +3490,7 @@
                Keeps the .service-card class so the existing slide-in /
                slide-out reveal animation (.services-grid.trigger and
                .services-grid.trigger-exit-up) still treats it identically. -->
-          <a href="/contact-us" class="service-card service-card--cta">
+          <a href="contact-us" class="service-card service-card--cta" data-vl='{"kind":"edge","group":"ioe","label":"IOE card 3 (CTA)","edge":"top"}'>
             <span class="cta-tag">Have a project?</span>
             <h3 class="cta-title">Let's<br />Talk.</h3>
             <span class="cta-underline"></span>
@@ -3812,11 +3515,11 @@
         </div>
       </div>
       <div class="projects-grid-wrap">
-        <div class="projects-grid">
+        <div class="projects-grid" data-vl='{"kind":"trigger","group":"fp","label":"Featured Projects grid","class":"exit-up","events":[{"role":"entry","edge":"top","at":"85%","class":"in","watch":"#projects .project-card"},{"role":"exit","edge":"bottom","at":"29%","class":"exit-up"}]}'>
           <!-- 1 · 2×2 hero spot -->
           <div class="project-card reveal">
             <div class="project-card-img">
-              <img src="photos/Dawson Lab/Pro/Photos/Insta Selection/LL_02637.jpg" alt="Dawson Lab" decoding="async" fetchpriority="high" />
+              <img src="assets/img/ph_insta_selection_ll_02637.jpg" alt="Dawson Lab" decoding="async" fetchpriority="high" />
             </div>
             <div class="project-card-overlay"></div>
             <div class="project-card-content">
@@ -3827,7 +3530,7 @@
           <!-- 2 · 1×1 -->
           <div class="project-card reveal">
             <div class="project-card-img">
-              <img src="photos/UBC Henry Angus Classrooms/INSTAGRAM SELECTION/2053-Main-Mall-Vancouver-001.JPG" alt="Henry Angus Classrooms" decoding="async" fetchpriority="high" />
+              <img src="assets/img/ph_ubc_henry_angus_classrooms_instagram_selection_2053-main-mall-vancouver-001.jpg" alt="Henry Angus Classrooms" decoding="async" fetchpriority="high" />
             </div>
             <div class="project-card-overlay"></div>
             <div class="project-card-content">
@@ -3838,7 +3541,7 @@
           <!-- 3 · 1×1 -->
           <div class="project-card reveal">
             <div class="project-card-img">
-              <img src="photos/SPPH Research Lab/SPPH Photos/Pro/DSC03436.jpg" alt="SPPH Research Lab" decoding="async" fetchpriority="high" />
+              <img src="assets/img/ph_pro_dsc03436.jpg" alt="SPPH Research Lab" decoding="async" fetchpriority="high" />
             </div>
             <div class="project-card-overlay"></div>
             <div class="project-card-content">
@@ -3850,7 +3553,7 @@
                narrow tall slot (col 5, rows 1-2). -->
           <div class="project-card reveal">
             <div class="project-card-img">
-              <img src="photos/Ray Perrault Fieldhouse/Hi-res/TM208935.jpg" alt="Ray Perrault Fieldhouse" decoding="async" fetchpriority="high" />
+              <img src="assets/img/ph_ray_perrault_fieldhouse_hi-res_tm208935.jpg" alt="Ray Perrault Fieldhouse" decoding="async" fetchpriority="high" />
             </div>
             <div class="project-card-overlay"></div>
             <div class="project-card-content">
@@ -3861,7 +3564,7 @@
           <!-- 5 · 1×1 -->
           <div class="project-card reveal">
             <div class="project-card-img">
-              <img src="photos/Norgate Cannabis Store/Pro/Photos/IMG_014.jpg" alt="Norgate Cannabis Store" decoding="async" fetchpriority="high" />
+              <img src="assets/img/ph_img_014.jpg" alt="Norgate Cannabis Store" decoding="async" fetchpriority="high" />
             </div>
             <div class="project-card-overlay"></div>
             <div class="project-card-content">
@@ -3872,7 +3575,7 @@
           <!-- 6 · 2×1 wide -->
           <div class="project-card reveal">
             <div class="project-card-img">
-              <img src="photos/Bonsor Washrooms/Lo-Res/6550-Bonsor-Ave-Burnaby-003_LoRes.jpg" alt="Bonsor Washrooms" decoding="async" fetchpriority="high" />
+              <img src="assets/img/ph_bonsor_washrooms_hi-res_6550-bonsor-ave-burnaby-003.jpg" alt="Bonsor Washrooms" decoding="async" fetchpriority="high" />
             </div>
             <div class="project-card-overlay"></div>
             <div class="project-card-content">
@@ -3883,7 +3586,7 @@
           <!-- 7 · 1×1 -->
           <div class="project-card reveal">
             <div class="project-card-img">
-              <img src="photos/CEME Office/Pro/DSC03936-HDR.jpg" alt="CEME Office" decoding="async" fetchpriority="high" />
+              <img src="assets/img/ph_ceme_office_pro_dsc03936-hdr.jpg" alt="CEME Office" decoding="async" fetchpriority="high" />
             </div>
             <div class="project-card-overlay"></div>
             <div class="project-card-content">
@@ -3894,7 +3597,7 @@
           <!-- 8 · 3×2 BIG feature -->
           <div class="project-card reveal">
             <div class="project-card-img">
-              <img src="photos/Maison Margiela/Photos/Lo-Res/MaisonMargiela-OakridgePark-001_LoRes.jpg" alt="Maison Margiela Oakridge Park" decoding="async" fetchpriority="high" />
+              <img src="assets/img/ph_maison_margiela_photos_hi-res_maisonmargiela-oakridgepark-001.jpg" alt="Maison Margiela Oakridge Park" decoding="async" fetchpriority="high" />
             </div>
             <div class="project-card-overlay"></div>
             <div class="project-card-content">
@@ -3905,7 +3608,7 @@
           <!-- 9 · 1×1 -->
           <div class="project-card reveal">
             <div class="project-card-img">
-              <img src="photos/UBC FSIAP Lab/Photos/Unprocessed/8G7A7047.JPG" alt="UBC FSIAP Lab" decoding="async" fetchpriority="high" />
+              <img src="assets/img/ph_unprocessed_8g7a7047.jpg" alt="UBC FSIAP Lab" decoding="async" fetchpriority="high" />
             </div>
             <div class="project-card-overlay"></div>
             <div class="project-card-content">
@@ -3916,7 +3619,7 @@
           <!-- 10 · 2×1 wide -->
           <div class="project-card reveal">
             <div class="project-card-img">
-              <img src="photos/Seed & Stone Pitt Meadows/Phone/IMG_4895.jpg" alt="Seed &amp; Stone" decoding="async" fetchpriority="high" />
+              <img src="assets/img/ph_seed_stone_pitt_meadows_phone_img_4895.jpg" alt="Seed &amp; Stone" decoding="async" fetchpriority="high" />
             </div>
             <div class="project-card-overlay"></div>
             <div class="project-card-content">
@@ -3927,7 +3630,7 @@
           <!-- 11 · 1×1 -->
           <div class="project-card reveal">
             <div class="project-card-img">
-              <img src="photos/CFIA/Photos/Lo-Res/3155-Willingdon-Green-Burnaby-009.JPG" alt="CFIA" decoding="async" fetchpriority="high" />
+              <img src="assets/img/ph_cfia_photos_hi-res_3155-willingdon-green-burnaby-009.jpg" alt="CFIA" decoding="async" fetchpriority="high" />
             </div>
             <div class="project-card-overlay"></div>
             <div class="project-card-content">
@@ -3937,7 +3640,7 @@
           </div>
           <!-- 12 · PORTFOLIO CTA — Henning Lab slot. Eyebrow text
                removed; just the "Portfolio" title + underline. -->
-          <a href="projects.html" class="project-card project-card--cta reveal">
+          <a href="portfolio" class="project-card project-card--cta reveal">
             <h3 class="portfolio-cta-title">Portfolio</h3>
             <span class="portfolio-cta-underline"></span>
           </a>
@@ -3953,7 +3656,7 @@
          (Radik 2026-05-19). Three Google review cards over a
          continuous client-logo marquee with uniform-sized brand boxes.
          Sits between Featured Projects and Process. -->
-    <section id="reviews" data-nav-tone="light">
+    <section id="reviews" data-nav-tone="light" data-vl='{"kind":"trigger","group":"rev","label":"Reviews section","class":"in-view","events":[{"role":"entry","edge":"top","at":"86%","class":"in-view"}]}'>
       <div class="container">
         <div class="reviews-top">
           <span class="section-tag">Reviews</span>
@@ -4013,23 +3716,23 @@
           <div class="reviews-marquee-track">
             <!-- Logos: text-wordmarks only (no icon-only marks).
                  UBC + City of Surrey removed pending wordmark assets. -->
-            <div class="reviews-logo-box"><img src="client_logos/Maison_Margiela/Maison_Margiela_idfEq-rHHU_2.png" alt="Maison Margiela" /></div>
-            <div class="reviews-logo-box"><img src="client_logos/Cutler/Cutler_idjYjoh_Hy_2.png" alt="Cutler" /></div>
-            <div class="reviews-logo-box"><img src="client_logos/Strong_Pilates/Strong_Pilates_idoM_S9M94_1.png" alt="Strong Pilates" /></div>
-            <div class="reviews-logo-box"><img src="client_logos/Motif_Interior_Design_Studio/Motif_Interior_Design_Studio_idKiWr-cDQ_0.png" alt="Motif" /></div>
-            <div class="reviews-logo-box"><img src="client_logos/Saputo_Inc-/Saputo_Inc-_idkYIJ5p7R_0.png" alt="Saputo" /></div>
-            <div class="reviews-logo-box"><img src="client_logos/City_of_North_Vancouver/City_of_North_Vancouver_idKWctrq4J_0.png" alt="City of North Vancouver" /></div>
-            <div class="reviews-logo-box"><img src="client_logos/City_of_Delta/City_of_Delta_id2hbn0i1Q_2.png" alt="City of Delta" /></div>
-            <div class="reviews-logo-box"><img src="client_logos/Warrington_PCI_Management/Warrington_PCI_Management_iddx-edoKv_0.png" alt="Warrington PCI Management" /></div>
+            <div class="reviews-logo-box"><img src="assets/img/logo_maison_margiela_maison_margiela_idfeq-rhhu_2.png" alt="Maison Margiela" /></div>
+            <div class="reviews-logo-box"><img src="assets/img/logo_cutler_cutler_idjyjoh_hy_2.png" alt="Cutler" /></div>
+            <div class="reviews-logo-box"><img src="assets/img/logo_strong_pilates_strong_pilates_idom_s9m94_1.png" alt="Strong Pilates" /></div>
+            <div class="reviews-logo-box"><img src="assets/img/logo_motif_interior_design_studio_motif_interior_design_studio_idkiwr-cdq_0.png" alt="Motif" /></div>
+            <div class="reviews-logo-box"><img src="assets/img/logo_saputo_inc-_saputo_inc-_idkyij5p7r_0.png" alt="Saputo" /></div>
+            <div class="reviews-logo-box"><img src="assets/img/logo_city_of_north_vancouver_city_of_north_vancouver_idkwctrq4j_0.png" alt="City of North Vancouver" /></div>
+            <div class="reviews-logo-box"><img src="assets/img/logo_city_of_delta_city_of_delta_id2hbn0i1q_2.png" alt="City of Delta" /></div>
+            <div class="reviews-logo-box"><img src="assets/img/logo_warrington_pci_management_warrington_pci_management_iddx-edokv_0.png" alt="Warrington PCI Management" /></div>
             <!-- Repeat for seamless loop -->
-            <div class="reviews-logo-box"><img src="client_logos/Maison_Margiela/Maison_Margiela_idfEq-rHHU_2.png" alt="" /></div>
-            <div class="reviews-logo-box"><img src="client_logos/Cutler/Cutler_idjYjoh_Hy_2.png" alt="" /></div>
-            <div class="reviews-logo-box"><img src="client_logos/Strong_Pilates/Strong_Pilates_idoM_S9M94_1.png" alt="" /></div>
-            <div class="reviews-logo-box"><img src="client_logos/Motif_Interior_Design_Studio/Motif_Interior_Design_Studio_idKiWr-cDQ_0.png" alt="" /></div>
-            <div class="reviews-logo-box"><img src="client_logos/Saputo_Inc-/Saputo_Inc-_idkYIJ5p7R_0.png" alt="" /></div>
-            <div class="reviews-logo-box"><img src="client_logos/City_of_North_Vancouver/City_of_North_Vancouver_idKWctrq4J_0.png" alt="" /></div>
-            <div class="reviews-logo-box"><img src="client_logos/City_of_Delta/City_of_Delta_id2hbn0i1Q_2.png" alt="" /></div>
-            <div class="reviews-logo-box"><img src="client_logos/Warrington_PCI_Management/Warrington_PCI_Management_iddx-edoKv_0.png" alt="" /></div>
+            <div class="reviews-logo-box"><img src="assets/img/logo_maison_margiela_maison_margiela_idfeq-rhhu_2.png" alt="" /></div>
+            <div class="reviews-logo-box"><img src="assets/img/logo_cutler_cutler_idjyjoh_hy_2.png" alt="" /></div>
+            <div class="reviews-logo-box"><img src="assets/img/logo_strong_pilates_strong_pilates_idom_s9m94_1.png" alt="" /></div>
+            <div class="reviews-logo-box"><img src="assets/img/logo_motif_interior_design_studio_motif_interior_design_studio_idkiwr-cdq_0.png" alt="" /></div>
+            <div class="reviews-logo-box"><img src="assets/img/logo_saputo_inc-_saputo_inc-_idkyij5p7r_0.png" alt="" /></div>
+            <div class="reviews-logo-box"><img src="assets/img/logo_city_of_north_vancouver_city_of_north_vancouver_idkwctrq4j_0.png" alt="" /></div>
+            <div class="reviews-logo-box"><img src="assets/img/logo_city_of_delta_city_of_delta_id2hbn0i1q_2.png" alt="" /></div>
+            <div class="reviews-logo-box"><img src="assets/img/logo_warrington_pci_management_warrington_pci_management_iddx-edokv_0.png" alt="" /></div>
           </div>
         </div>
       </div>
@@ -4038,7 +3741,7 @@
     <!-- ════════════════════════════════════════════════ PROCESS · 5-state typewriter + drag CTA -->
     <!-- data-nav-tone="auto" → JS reads .process-sticky's data-state and
          inverts the nav for state 2 (navy bg) and state 5 (black bg). -->
-    <section id="process" data-nav-tone="auto">
+    <section id="process" data-nav-tone="auto" data-vl='{"kind":"trigger","group":"proc","label":"Process","class":"in","events":[{"role":"entry","edge":"top","at":"80%","class":"in","watch":"#processEyebrow"}]}'>
       <div class="process-sticky" id="processSticky" data-state="0">
         <div class="process-stripe process-stripe-1"></div>
         <div class="process-stripe process-stripe-2"></div>
@@ -4126,7 +3829,7 @@
          the seamless black → black handoff with process state 5. The
          child elements (.reveal) keep their own entrance animations;
          only the SECTION/background is now fully static. -->
-    <section id="team" data-nav-tone="dark">
+    <section id="team" data-nav-tone="dark" data-vl='{"kind":"edge","group":"team","label":"Team section","edge":"top"}'>
       <div class="container">
         <div class="team-top">
           <div>
@@ -4135,7 +3838,7 @@
           </div>
         </div>
         <div class="team-photo reveal">
-          <img src="team_placeholder.png" alt="Enduro team — placeholder" />
+          <img src="assets/img/ph_dawson_lab_pro_photos_ll_02666.jpg" alt="Enduro project — team photo pending (placeholder)" />
         </div>
         <div class="team-below">
           <p class="team-desc reveal d1">
@@ -4143,7 +3846,7 @@
             finish trades. No rotating subs running your schedule — same crew,
             same standard, every build.
           </p>
-          <a href="/about-us" class="btn btn-dark reveal d2">About Us</a>
+          <a href="about-us" class="btn btn-dark reveal d2">About Us</a>
         </div>
       </div>
     </section>
@@ -4159,7 +3862,8 @@
     <div class="footer-spacer" aria-hidden="true"></div>
 
     <!-- ═══════════════════════════════════════════════════ FOOTER -->
-    <footer>
+    <!-- Inlined from _shared/footer.html (2026-05-29) — self-contained. -->
+    <footer data-vl='{"kind":"edge","group":"footer","label":"Footer","edge":"top"}'>
       <div class="footer-inner">
         <div class="footer-top">
           <!-- Col 1: Brand (logo + tagline) -->
@@ -4226,18 +3930,18 @@
           <div>
             <p class="footer-col-title">What We Do</p>
             <ul class="footer-links">
-              <li><a href="/portfolio">Portfolio</a></li>
-              <li><a href="/services#construction-management">Construction Management</a></li>
-              <li><a href="/services#general-contracting">General Contracting</a></li>
+              <li><a href="portfolio">Portfolio</a></li>
+              <li><a href="services#construction-management">Construction Management</a></li>
+              <li><a href="services#general-contracting">General Contracting</a></li>
             </ul>
           </div>
           <!-- Company -->
           <div>
             <p class="footer-col-title">Company</p>
             <ul class="footer-links">
-              <li><a href="/about-us">About Us</a></li>
-              <li><a href="/blog">Blog</a></li>
-              <li><a href="/internal">Internal</a></li>
+              <li><a href="about-us">About Us</a></li>
+              <li><a href="blog">Blog</a></li>
+              <li><a href="internal">Internal</a></li>
             </ul>
           </div>
         </div>
@@ -4351,7 +4055,10 @@
 
     <script>
       /* ─── NAV scroll state + HERO SCRUB ─────────────────────── */
-      const nav = document.getElementById("main-nav");
+      // nav is now inlined at the top of <body>, so it's already in the DOM
+      // when this runs. onNavLoaded() (fired at end of body) re-grabs it and
+      // wires the mobile hamburger.
+      let nav = document.getElementById("main-nav");
       const heroSection = document.getElementById("hero");
       const heroPhotoFrame = document.querySelector(".hero-photo-frame");
       const heroContent = document.querySelector(".hero-content");
@@ -4382,6 +4089,19 @@
       // measure after fonts/layout settle — one rAF is enough in practice.
       requestAnimationFrame(measureStTopDocY);
       window.addEventListener("resize", measureStTopDocY);
+
+      // PERF-BONUS: Cache CSS custom properties that only change on resize.
+      // Reading getComputedStyle inside applyHeroPhotoState (called every
+      // scroll frame) forces a style flush on every frame — move reads here.
+      let cachedPinY = 440;
+      let cachedLiftAmount = 0;
+      function refreshCSSTokens() {
+        const cssRoot = getComputedStyle(document.documentElement);
+        cachedPinY = parseFloat(cssRoot.getPropertyValue("--ioe-pin-y")) || 440;
+        cachedLiftAmount = parseFloat(cssRoot.getPropertyValue("--ioe-lift-amount")) || 0;
+      }
+      requestAnimationFrame(refreshCSSTokens);
+      window.addEventListener("resize", refreshCSSTokens);
 
       // Apply photo state from a given progress value (0..1). Shared between
       // scroll-driven scrub AND the snap-to-full animation (so the snap can
@@ -4548,9 +4268,9 @@
           // #services margin-top is tuned so natural-flow at scrubEnd
           // equals (pinY − liftAmount) → Phase 2 ends with transform = 0
           // → zero-jump handoff into Phase 3.
-          const cssRoot = getComputedStyle(document.documentElement);
-          const pinY = parseFloat(cssRoot.getPropertyValue("--ioe-pin-y")) || 440;
-          const liftAmount = parseFloat(cssRoot.getPropertyValue("--ioe-lift-amount")) || 0;
+          // PERF-BONUS: Use cached values (refreshed on resize, not per scroll frame)
+          const pinY = cachedPinY;
+          const liftAmount = cachedLiftAmount;
           const animationLength = window.innerHeight * 0.65;
           const scrubEnd = animationLength;
           // Phase 1 ends when photoBottom reaches pinY.
@@ -6182,17 +5902,27 @@
         // to Y = NAV_GLASS_FADE_END the glass background lerps 1 → 0.
         // Past the end it stays at 0. Before the start it stays at its
         // default (driven by body.scrolled). Text inversion is unaffected.
-        // Originally 4026 / 4156. Walked to 3926 / 4056 for the -100
-        // reviews lift, then to 4105 / 4235 after the Option B rhythm
-        // sweep (Radik 2026-05-21) — Process→Team handoff moved +179
-        // when Reviews lost its -100 lift and Projects/Reviews/Team
-        // padding normalised to 160/120 tokens.
-        const NAV_GLASS_FADE_START = 4105;
-        const NAV_GLASS_FADE_END   = 4235;
+        // 2026-05-29: was a hardcoded absolute Y (4105/4235, tuned at vh=996)
+        // which drifted at the 1440×900 design viewport (W6). Now anchored to
+        // the #team section's document position, so it self-corrects to any
+        // viewport height (check() re-runs on scroll AND resize). Same 130px
+        // fade span; END = team top reaching just under the nav.
+        const NAV_GLASS_FADE_SPAN = 130;   // px the glass takes to fade 1 → 0
         function updateNavGlass() {
+          const team = document.getElementById("team");
+          // While Process is scroll-locked, #team is display:none
+          // (offsetParent === null) → handoff hasn't happened yet, no fade.
+          if (!team || team.offsetParent === null) {
+            body.classList.remove("nav-glass-fade");
+            return;
+          }
+          const navHeight = nav ? nav.offsetHeight : 97;
+          const teamTopDoc = team.getBoundingClientRect().top + window.scrollY;
+          const end   = teamTopDoc - navHeight;        // glass fully clear as team meets the nav
+          const start = end - NAV_GLASS_FADE_SPAN;      // 130px lead-in before that
           const y = window.scrollY;
-          if (y >= NAV_GLASS_FADE_START) {
-            const t = Math.min(1, (y - NAV_GLASS_FADE_START) / (NAV_GLASS_FADE_END - NAV_GLASS_FADE_START));
+          if (y >= start) {
+            const t = Math.min(1, Math.max(0, (y - start) / NAV_GLASS_FADE_SPAN));
             const opacity = (1 - t).toFixed(3);
             document.documentElement.style.setProperty("--nav-glass-opacity", opacity);
             body.classList.add("nav-glass-fade");
@@ -6358,8 +6088,10 @@
          The drawer + button are always in the DOM; CSS shows them
          only ≤960 px. Clicking the hamburger toggles body.menu-open
          which slides the drawer in from the right. Click any link or
-         tap outside the drawer to close. */
-      (function setupMobileNav() {
+         tap outside the drawer to close.
+         NOTE: nav markup is now inlined directly in <body>. setupMobileNav()
+         is called via window.onNavLoaded(), fired at the end of <body>. */
+      function setupMobileNav() {
         const btn    = document.getElementById("navHamburger");
         const drawer = document.getElementById("navDrawer");
         if (!btn || !drawer) return;
@@ -6376,7 +6108,14 @@
           close();
         });
         window.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
-      })();
+      }
+      // Fired once at the end of <body> now that nav is inlined (formerly
+      // called by nav-loader.js after async injection). Reassigns the `nav`
+      // variable so scroll/process logic can use it, then wires the mobile menu.
+      window.onNavLoaded = function() {
+        nav = document.getElementById("main-nav");
+        setupMobileNav();
+      };
 
       /* ─── AI ASSISTANT WIDGET ────────────────────────────── */
       (function setupAIHelp() {
@@ -7108,625 +6847,15 @@
         });
       })();
 
-      /* ─── DEBUG HUD (press D to toggle) ─────────────────────────
-         Pure observer — never mutates layout, scroll, or animations.
-         Replaces the old #pos-indicator (which only showed scrollY +
-         section + hero phases). New surface area:
-           • viewport actual + design-target note (1920)
-           • scroll y / max / pct
-           • current section + top@y + Δcenter (px from section.top
-             to viewport center; positive = section.top is below center)
-           • nav inversion state
-           • hero scrub phases (kept from old widget)
-           • States panel — IO classes (with elapsed time since ON)
-             for IOE.trigger, FP.exit-up, REVIEWS.in-view, PROCESS.contact
-           • "Animating now" — any tracked element with opacity strictly
-             between 0 and 1 (or non-identity transform) is listed with
-             its current opacity. Lets you watch reviews-card / projects-
-             card cascades land frame-by-frame.
-         Toggle: press "D" (skipped while typing in form fields).
-         ───────────────────────────────────────────────────────────── */
-      (function setupDebugHUD() {
-        const hud = document.createElement("div");
-        hud.id = "debug-hud";
-        hud.style.cssText =
-          "position:fixed;bottom:12px;right:12px;z-index:9999;" +
-          "background:rgba(0,0,0,0.88);color:#fff;padding:10px 12px;" +
-          "font:11px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;" +
-          "border-radius:8px;user-select:none;pointer-events:none;" +
-          "min-width:300px;max-width:360px;opacity:0.93;";
-        document.body.appendChild(hud);
-
-        let visible = true;
-        function setVisible(v) {
-          visible = v;
-          hud.style.display = v ? "block" : "none";
-        }
-        // Exposed so the rulers toggle (bottom-left) can drive HUD
-        // visibility — Radik wants the HUD to appear/disappear with
-        // the rulers. The D key still independently toggles just the HUD.
-        window.__debugHudSetVisible = setVisible;
-        document.addEventListener("keydown", (e) => {
-          if (e.key !== "d" && e.key !== "D") return;
-          const t = document.activeElement;
-          if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
-          setVisible(!visible);
-        });
-
-        // Step presets — each pill sets the (arrow / shift+arrow) px step
-        // pair used by the scrub input's keydown handler. Default is the
-        // middle option (50/150) per Radik.
-        const stepPresets = [
-          { id: "1-10",    arrow: 1,   shift: 10  },
-          { id: "25-50",   arrow: 25,  shift: 50  },
-          { id: "50-150",  arrow: 50,  shift: 150 },
-          { id: "150-250", arrow: 150, shift: 250 },
-        ];
-        let activeStep = stepPresets[2];
-
-        const stepRow = document.createElement("div");
-        stepRow.id = "hud-step-row";
-        stepRow.innerHTML = '<span class="lbl">step</span>';
-        const stepBtns = stepPresets.map((p) => {
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "hud-step-btn" + (p === activeStep ? " active" : "");
-          btn.textContent = p.arrow + "/" + p.shift;
-          btn.title = "↑/↓ ±" + p.arrow + " px · Shift+↑/↓ ±" + p.shift + " px";
-          btn.addEventListener("click", () => {
-            activeStep = p;
-            stepBtns.forEach((b, i) => b.classList.toggle("active", stepPresets[i] === p));
-            scrub.focus();
-          });
-          stepRow.appendChild(btn);
-          return btn;
-        });
-        hud.appendChild(stepRow);
-
-        // Persistent scrub row: <input> at the top of the HUD, lives
-        // outside the render-loop innerHTML rebuild so it survives. When
-        // not focused, render() mirrors window.scrollY into the input so
-        // it's a live readout. When focused:
-        //   ↑           +arrow step px (page scrolls DOWN by that amount)
-        //   ↓           -arrow step px (page scrolls UP by that amount)
-        //   Shift+↑/↓   ±shift step px
-        //   Enter       jump to typed value
-        //   Esc         blur
-        // The step pair is set by the step-preset pills above.
-        const scrubRow = document.createElement("div");
-        scrubRow.id = "hud-scrub-row";
-        scrubRow.innerHTML = '<span class="lbl">jump · y</span>';
-        const scrub = document.createElement("input");
-        scrub.type = "number";
-        scrub.id = "hud-scrub";
-        scrub.value = String(window.scrollY);
-        scrub.title = "type + Enter to jump · ↑ +1 · ↓ -1 · Shift ±10 · Esc to blur";
-        scrubRow.appendChild(scrub);
-        hud.appendChild(scrubRow);
-
-        const hudBody = document.createElement("div");
-        hudBody.id = "hud-body";
-        hud.appendChild(hudBody);
-
-        // First click → highlight whatever number is currently in the
-        // input so the next keystroke overwrites it. Use mousedown +
-        // setTimeout so the browser's own focus/cursor placement runs
-        // first and we override it.
-        scrub.addEventListener("mousedown", () => {
-          const wasFocused = document.activeElement === scrub;
-          if (wasFocused) return;
-          setTimeout(() => scrub.select(), 0);
-        });
-        scrub.addEventListener("focus", () => scrub.select());
-
-        scrub.addEventListener("keydown", (ev) => {
-          if (ev.key === "ArrowUp" || ev.key === "ArrowDown") {
-            ev.preventDefault();
-            const step = ev.shiftKey ? activeStep.shift : activeStep.arrow;
-            const dir  = ev.key === "ArrowUp" ? 1 : -1;
-            const cur  = parseFloat(scrub.value) || 0;
-            const next = Math.max(0, cur + dir * step);
-            scrub.value = String(next);
-            window.scrollTo({ top: next, behavior: "auto" });
-          } else if (ev.key === "Enter") {
-            ev.preventDefault();
-            const v = parseFloat(scrub.value);
-            if (!isNaN(v)) window.scrollTo({ top: Math.max(0, v), behavior: "auto" });
-          } else if (ev.key === "Escape") {
-            ev.preventDefault();
-            scrub.blur();
-          }
-        });
-
-        const sectionIds = ["hero", "services", "projects", "reviews", "process", "team"];
-
-        // States to track: each {sel, cls, label}. Elapsed time since
-        // class became ON is shown next to its name.
-        const states = [
-          { sel: "#services .services-grid", cls: "trigger",          label: "IOE.trigger" },
-          { sel: "#services .services-grid", cls: "trigger-exit-up",  label: "IOE.exit-up" },
-          { sel: "#projects .projects-grid", cls: "exit-up",          label: "FP.exit-up"  },
-          { sel: "#reviews",                 cls: "in-view",          label: "REV.in-view" },
-          { sel: "#process .process-sticky", cls: "contact-revealed", label: "PROC.contact"},
-        ];
-        const timers = new Map(); // label -> ms when class went ON (null = off)
-        function startWatching() {
-          states.forEach((s) => {
-            const el = document.querySelector(s.sel);
-            if (!el) return;
-            timers.set(s.label, el.classList.contains(s.cls) ? performance.now() : null);
-            new MutationObserver(() => {
-              const on = el.classList.contains(s.cls);
-              const prev = timers.get(s.label);
-              if (on && !prev) timers.set(s.label, performance.now());
-              else if (!on && prev) timers.set(s.label, null);
-            }).observe(el, { attributes: true, attributeFilter: ["class"] });
-          });
-        }
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", startWatching);
-        } else {
-          startWatching();
-        }
-
-        // "Mid-animation" selectors. We list any whose computed opacity
-        // is strictly between 0 and 1, or whose transform is non-identity.
-        const animSelectors = [
-          ".reviews-top .section-tag",
-          ".reviews-heading",
-          ".reviews-cards .rc:nth-child(1)",
-          ".reviews-cards .rc:nth-child(2)",
-          ".reviews-cards .rc:nth-child(3)",
-          ".reviews-marquee-frame",
-          ".projects-top",
-          ".projects-grid .project-card:nth-child(1)",
-          ".projects-grid .project-card:nth-child(6)",
-          ".projects-grid .project-card:nth-child(12)",
-          ".services-top",
-          ".services-grid .service-card:nth-child(1)",
-          ".services-grid .service-card:nth-child(3)",
-        ];
-
-        function currentSection() {
-          const center = window.innerHeight / 2;
-          let containing = null;
-          let nearest = null;
-          let nearestDist = Infinity;
-          for (const id of sectionIds) {
-            const node = document.getElementById(id);
-            if (!node) continue;
-            const r = node.getBoundingClientRect();
-            if (r.top <= center && r.bottom > center) {
-              containing = { id, topY: r.top, h: r.height };
-            }
-            const dist = Math.min(Math.abs(r.top - center), Math.abs(r.bottom - center));
-            if (dist < nearestDist) {
-              nearestDist = dist;
-              nearest = { id, topY: r.top, h: r.height, arrow: r.top > center ? "↓" : "↑" };
-            }
-          }
-          if (containing) return containing;
-          if (nearest) return { id: nearest.arrow + " " + nearest.id, topY: nearest.topY, h: nearest.h };
-          return { id: "—", topY: 0, h: 0 };
-        }
-
-        const R = (n) => Math.round(n);
-
-        function render() {
-          if (!visible) return;
-          const y   = window.scrollY;
-          const x   = window.scrollX;
-          const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-          const pct = max > 0 ? (y / max * 100).toFixed(1) : "0";
-          const vw  = window.innerWidth;
-          const vh  = window.innerHeight;
-          const sec = currentSection();
-          const deltaCenter = (vh / 2) - sec.topY;
-          const onDark = document.body.classList.contains("nav-on-dark");
-          const now = performance.now();
-
-          // Hero phases (mirrors applyHeroPhotoState)
-          const heroNode = document.getElementById("hero");
-          let heroLine = "";
-          if (heroNode) {
-            const heroH = heroNode.offsetHeight || vh;
-            const progress = Math.max(0, Math.min(1, y / heroH));
-            const SHRINK_END = 0.40, LIFT_START = 0.34;
-            const shrink = Math.max(0, Math.min(1, progress / SHRINK_END));
-            const lift   = Math.max(0, Math.min(1, (progress - LIFT_START) / (1 - LIFT_START)));
-            heroLine = '<div style="color:#aaa">hero · prog ' + progress.toFixed(2) +
-              ' · shrink ' + shrink.toFixed(2) + ' · lift ' + lift.toFixed(2) + '</div>';
-          }
-
-          // States
-          let stateLines = "";
-          states.forEach((s) => {
-            const el = document.querySelector(s.sel);
-            if (!el) return;
-            const on = el.classList.contains(s.cls);
-            const since = timers.get(s.label);
-            const elapsed = (on && since) ? ((now - since) / 1000).toFixed(1) + "s" : "";
-            const color = on ? "#e3ff17" : "rgba(255,255,255,0.32)";
-            stateLines += '<div style="color:' + color + '">' +
-              s.label + ' · ' + (on ? "ON" : "off") +
-              (elapsed ? ' <span style="color:rgba(255,255,255,0.55)">(' + elapsed + ')</span>' : "") +
-              '</div>';
-          });
-
-          // Mid-animation snapshot
-          let animLines = "";
-          animSelectors.forEach((sel) => {
-            const el = document.querySelector(sel);
-            if (!el) return;
-            const cs = getComputedStyle(el);
-            const op = parseFloat(cs.opacity);
-            const tx = cs.transform;
-            const midOp  = op > 0.005 && op < 0.995;
-            const moving = tx && tx !== "none" && tx !== "matrix(1, 0, 0, 1, 0, 0)";
-            if (midOp || moving) {
-              const short = sel
-                .replace(".reviews-", "rv·")
-                .replace(".projects-", "fp·")
-                .replace(".services-", "se·")
-                .replace(":nth-child", "·n");
-              animLines += '<div style="color:#9fdfff">' + short +
-                ' <span style="color:rgba(255,255,255,0.55)">op ' + op.toFixed(2);
-              if (moving) animLines += ' · tf';
-              animLines += '</span></div>';
-            }
-          });
-          if (animLines) {
-            animLines = '<div style="color:rgba(255,255,255,0.5);margin-top:6px;text-transform:uppercase;letter-spacing:0.08em;font-size:9px;">Animating now</div>' + animLines;
-          }
-
-          // Mirror live scroll-Y into the scrub input unless the user
-          // is actively typing/scrubbing in it.
-          if (document.activeElement !== scrub) {
-            scrub.value = String(y);
-          }
-
-          hudBody.innerHTML =
-            '<div style="color:rgba(255,255,255,0.55);margin-bottom:4px;letter-spacing:0.1em;text-transform:uppercase;font-size:9px;">' +
-            'DEBUG HUD · press D to toggle</div>' +
-            '<div>viewport · <b>' + vw + ' × ' + vh + '</b>' +
-            ' <span style="color:rgba(255,255,255,0.45)">(design: 1920)</span></div>' +
-            '<div>scroll · Y <b>' + y + '</b>' +
-            ' / ' + max + ' (' + pct + '%) · X <b>' + x + '</b></div>' +
-            '<div>section · <b style="color:#e3ff17">' + sec.id + '</b></div>' +
-            '<div style="color:#aaa">  top@' + R(sec.topY) + 'px · Δcenter ' + R(deltaCenter) +
-            'px · h ' + R(sec.h) + '</div>' +
-            '<div>nav · <b style="color:' + (onDark ? '#e3ff17' : '#fff') + '">' +
-            (onDark ? 'on-dark' : 'on-light') + '</b></div>' +
-            heroLine +
-            '<div style="color:rgba(255,255,255,0.5);margin-top:6px;text-transform:uppercase;letter-spacing:0.08em;font-size:9px;">States</div>' +
-            stateLines +
-            animLines;
-        }
-
-        function tick() {
-          render();
-          requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-      })();
-
-      (function setupRulers() {
-        const overlay = document.createElement("div");
-        overlay.className = "rulers";
-        document.body.appendChild(overlay);
-
-        // Each device pairs its viewport width (vertical line) with its
-        // height (horizontal line). Same color for both so the pair is obvious.
-        // (rev: iPhone swapped from pink → gray, since fold lines took the pink.)
-        const devices = [
-          { key: "iphone",  label: "iPhone",     w: 375,  h: 667,  color: "#a0a0a0" },
-          { key: "ipad",    label: "iPad",       w: 768,  h: 768,  color: "#ffd23f" },
-          { key: "laptop",  label: "Laptop",     w: 1280, h: 800,  color: "#00bcd4" },
-          { key: "design",  label: "Design",     w: 1440, h: 900,  color: "#5a8cff" },
-          { key: "mbp16",   label: '16" MBP',    w: 1728, h: 1117, color: "#bb86fc" },
-          { key: "desktop", label: "Desktop",    w: 1920, h: 1080, color: "#ff6e6e" },
-        ];
-
-        // Per-element animation guides. Each entry creates a single
-        // horizontal line glued to the element's TOP edge. Updated each
-        // animation frame via getBoundingClientRect → top: rect.top px, so
-        // the line follows the element as it animates, scrolls, or reflows.
-        //   IOE  group · orange  (255, 166, 77)
-        //   FP   group · sky blue(90,  179, 255)
-        //   REV  group · lime    (165, 232, 78)
-        // Each tracked element line is labeled with its identity; the live
-        // position reflects whatever CSS / transform is currently applied
-        // — change a delay or transform, the line follows.
-        const elemGroups = [
-          { rgb: "255, 166, 77", items: [
-            { sel: "#services .services-top h2",            label: "IOE · Title" },
-            { sel: "#services .services-desc",              label: "IOE · Subtext" },
-            { sel: "#services .service-card:nth-child(1)",  label: "IOE · Card 1 (GC)" },
-            { sel: "#services .service-card:nth-child(2)",  label: "IOE · Card 2 (CM)" },
-            { sel: "#services .service-card:nth-child(3)",  label: "IOE · Card 3 (CTA)" },
-          ] },
-          { rgb: "90, 179, 255", items: [
-            { sel: "#projects .projects-top",               label: "FP · Title" },
-            { sel: "#projects .projects-grid",              label: "FP · Grid (top)" },
-          ] },
-          { rgb: "165, 232, 78", items: [
-            { sel: "#reviews .reviews-top h2",              label: "REV · Heading" },
-            { sel: "#reviews .reviews-cards .rc:nth-child(1)", label: "REV · Card 1" },
-            { sel: "#reviews .reviews-cards .rc:nth-child(2)", label: "REV · Card 2" },
-            { sel: "#reviews .reviews-cards .rc:nth-child(3)", label: "REV · Card 3" },
-            { sel: "#reviews .reviews-marquee-frame",       label: "REV · Marquee" },
-          ] },
-        ];
-        const perElementLines = []; // {el, line}
-
-        // Legend — split into a clickable header + a body that can collapse,
-        // so the user can fold the table-of-contents away to see the lines
-        // behind it. (rev: was a single innerHTML block.)
-        const legend = document.createElement("div");
-        legend.className = "ruler-legend";
-        const header = document.createElement("div");
-        header.className = "ruler-legend-header";
-        header.innerHTML = '<b>RULERS</b><span class="ruler-legend-toggle">−</span>';
-        const body = document.createElement("div");
-        body.className = "ruler-legend-body";
-
-        const deviceRows = devices.map(d =>
-          '<div class="row">' +
-            '<span class="swatch-pair">' +
-              '<span class="sw v" style="background:' + d.color + '"></span>' +
-              '<span class="sw h" style="background:' + d.color + '"></span>' +
-            '</span>' +
-            d.label + ' ' + d.w + ' × ' + d.h +
-          '</div>'
-        ).join('');
-        body.innerHTML =
-          '<div class="section-title">Devices (vertical + horizontal)</div>' +
-          deviceRows +
-          '<div class="section-title">Layout (vertical)</div>' +
-          '<div class="row"><span class="swatch-pair"><span class="sw v" style="background:#ffa040"></span></span>content max-width (1440)</div>' +
-          '<div class="row"><span class="swatch-pair"><span class="sw v" style="background:#5fe896"></span></span>content gutters (80px in)</div>' +
-          '<div class="section-title">Current screen (horizontal)</div>' +
-          '<div class="row"><span class="swatch-pair"><span class="sw h" style="background:#ff66cc"></span></span>your viewport-height folds</div>' +
-          '<div class="section-title">Animation triggers (horizontal)</div>' +
-          '<div class="row"><span class="swatch-pair"><span class="sw h" style="background:rgba(228,51,56,0.7)"></span></span>IO class ADD scroll-Y (dashed)</div>' +
-          '<div class="row"><span class="swatch-pair"><span class="sw h" style="background:rgba(228,51,56,0.35)"></span></span>IO class REMOVE scroll-Y (dotted)</div>' +
-          '<div class="section-title">Per-element edges (horizontal, glued to element)</div>' +
-          '<div class="row"><span class="swatch-pair"><span class="sw h" style="background:rgb(255,166,77)"></span></span>IOE: title, subtext, 3 cards</div>' +
-          '<div class="row"><span class="swatch-pair"><span class="sw h" style="background:rgb(90,179,255)"></span></span>FP: title, grid</div>' +
-          '<div class="row"><span class="swatch-pair"><span class="sw h" style="background:rgb(165,232,78)"></span></span>REV: heading, 3 cards, marquee</div>';
-
-        legend.appendChild(header);
-        legend.appendChild(body);
-        document.body.appendChild(legend);
-
-        // Header click → collapse / expand legend body
-        let legendCollapsed = false;
-        header.addEventListener("click", () => {
-          legendCollapsed = !legendCollapsed;
-          legend.classList.toggle("collapsed", legendCollapsed);
-          header.querySelector(".ruler-legend-toggle").textContent = legendCollapsed ? "+" : "−";
-        });
-
-        // Read tokens from the actual page (so rulers always match real CSS)
-        function getTokens() {
-          const cs = getComputedStyle(document.documentElement);
-          return {
-            max: parseInt(cs.getPropertyValue("--max")) || 1440,
-            gutter: parseInt(cs.getPropertyValue("--gutter")) || 80,
-          };
-        }
-
-        function rebuild() {
-          overlay.innerHTML = "";
-          const { max, gutter } = getTokens();
-          const winW = window.innerWidth;
-
-          // Device viewport-width markers — color-coded per device
-          devices.forEach((d) => {
-            const v = document.createElement("div");
-            v.className = "ruler-v device-" + d.key;
-            v.style.left = d.w + "px";
-            v.setAttribute("data-label", d.label + " " + d.w);
-            overlay.appendChild(v);
-          });
-
-          // Centered content max-width edges
-          const contentLeft = Math.max(0, (winW - max) / 2);
-          const contentRight = contentLeft + max;
-          [
-            [contentLeft, "max-width L · " + contentLeft.toFixed(0) + "px"],
-            [contentRight, "max-width R · " + contentRight.toFixed(0) + "px"],
-          ].forEach(([x, label]) => {
-            const v = document.createElement("div");
-            v.className = "ruler-v maxw";
-            v.style.left = x + "px";
-            v.setAttribute("data-label", label);
-            overlay.appendChild(v);
-          });
-          // Gutter edges (where content actually starts)
-          [
-            [contentLeft + gutter, "gutter L · " + (contentLeft + gutter).toFixed(0) + "px"],
-            [contentRight - gutter, "gutter R · " + (contentRight - gutter).toFixed(0) + "px"],
-          ].forEach(([x, label]) => {
-            const v = document.createElement("div");
-            v.className = "ruler-v gutter";
-            v.style.left = x + "px";
-            v.setAttribute("data-label", label);
-            overlay.appendChild(v);
-          });
-
-          // Horizontal fold lines — current viewport-height multiples.
-          // NOTE: every horizontal line gets data-docy so syncPositions()
-          // can recompute its viewport-y as (docY − scrollY) every frame.
-          // Without that, lines would be pinned to viewport coordinates and
-          // wouldn't scroll with the page.
-          const vh = window.innerHeight;
-          const pageH = Math.max(
-            document.documentElement.scrollHeight,
-            document.body.scrollHeight,
-          );
-          let labelN = 1;
-          for (let y = vh; y < pageH; y += vh) {
-            const h = document.createElement("div");
-            h.className = "ruler-h fold";
-            h.dataset.docy = y;
-            h.style.top = (y - window.scrollY) + "px";
-            h.setAttribute("data-label", `Fold ${labelN} · ${y}px`);
-            overlay.appendChild(h);
-            labelN++;
-          }
-
-          // Device viewport-height markers — color-coded per device, shares
-          // color with the matching vertical width line
-          devices.forEach((d) => {
-            if (d.h > pageH) return;
-            const h = document.createElement("div");
-            h.className = "ruler-h device-" + d.key;
-            h.dataset.docy = d.h;
-            h.style.top = (d.h - window.scrollY) + "px";
-            h.setAttribute("data-label", d.label + " " + d.h);
-            overlay.appendChild(h);
-          });
-
-          // Animation trigger guides — compute the scroll-Y at which each
-          // tracked IO transitions (intersect ↔ not-intersect) based on its
-          // target rect + rootMargin. Draw horizontal lines at those doc-Y
-          // positions: "when this line is at viewport top, trigger fires."
-          //   rootMargin semantics (CSS-margin style):
-          //     positive → extends root outward (target intersects sooner)
-          //     negative → shrinks root inward  (target intersects later)
-          //   Effective root edges in viewport coords:
-          //     root_top    = -rmTop
-          //     root_bottom = vh + rmBottom
-          //   Trigger doc-Y:
-          //     ADD    (scroll-down entry)  = targetTopDoc - root_bottom
-          //     REMOVE (scroll-down exit)   = targetBottomDoc - root_top
-          //   Lines are in brand red, dashed (ADD) / dotted (REMOVE).
-          const triggers = [
-            { sel: "#services .services-grid", rm: [0,      0, "-30%", 0], name: "IOE .trigger" },
-            { sel: ".projects-grid",           rm: ["-29%", 0, "-15%", 0], name: "FP .in"      },
-            { sel: "#reviews",                 rm: ["100px",0, "-14%", 0], name: "REV .in-view"},
-          ];
-          const parseRM = (v) => {
-            if (typeof v === "number") return v;
-            const s = String(v).trim();
-            if (s.endsWith("%"))  return (parseFloat(s) / 100) * vh;
-            if (s.endsWith("px")) return parseFloat(s);
-            return parseFloat(s) || 0;
-          };
-          triggers.forEach((t) => {
-            const el = document.querySelector(t.sel);
-            if (!el) return;
-            const r = el.getBoundingClientRect();
-            const topDoc = r.top + window.scrollY;
-            const botDoc = topDoc + r.height;
-            const rmTop = parseRM(t.rm[0]);
-            const rmBot = parseRM(t.rm[2]);
-            const rootTopVp = -rmTop;
-            const rootBotVp = vh + rmBot;
-            const addY    = Math.round(topDoc - rootBotVp);
-            const removeY = Math.round(botDoc - rootTopVp);
-            if (addY >= 0 && addY < pageH) {
-              const h = document.createElement("div");
-              h.className = "ruler-h trigger add";
-              h.dataset.docy = addY;
-              h.style.top = (addY - window.scrollY) + "px";
-              h.setAttribute("data-label", t.name + " ADD ↓  y=" + addY);
-              overlay.appendChild(h);
-            }
-            if (removeY >= 0 && removeY < pageH) {
-              const h = document.createElement("div");
-              h.className = "ruler-h trigger remove";
-              h.dataset.docy = removeY;
-              h.style.top = (removeY - window.scrollY) + "px";
-              h.setAttribute("data-label", t.name + " REMOVE ↑  y=" + removeY);
-              overlay.appendChild(h);
-            }
-          });
-
-          // Per-element lines — create once per rebuild. Their TOP is
-          // updated each frame by syncPositions() based on the element's
-          // current getBoundingClientRect (so they glue to the element
-          // through transforms / scroll / reflow).
-          perElementLines.length = 0;
-          elemGroups.forEach((group) => {
-            group.items.forEach((it) => {
-              const el = document.querySelector(it.sel);
-              if (!el) return;
-              const line = document.createElement("div");
-              line.className = "ruler-h elem";
-              line.style.setProperty("--c", group.rgb);
-              line.setAttribute("data-label", it.label);
-              // Initial position so we don't flash at top:0 before the
-              // first sync frame runs.
-              line.style.top = el.getBoundingClientRect().top + "px";
-              overlay.appendChild(line);
-              perElementLines.push({ el, line });
-            });
-          });
-        }
-
-        // Per-frame sync — keeps ALL horizontal lines visually anchored to
-        // their intended document position even though the .rulers parent
-        // is position: fixed (viewport-anchored). Two cases:
-        //   1. data-docy lines (folds, device heights, IO triggers) →
-        //      viewport-y = docY − scrollY. Static doc-y, just scroll-offset.
-        //   2. .ruler-h.elem lines (per-element guides) →
-        //      viewport-y = el.getBoundingClientRect().top. Live, follows
-        //      the element through any transform / animation.
-        let rafID = null;
-        function syncPositions() {
-          const sy = window.scrollY;
-          overlay.querySelectorAll(".ruler-h[data-docy]").forEach((el) => {
-            el.style.top = (parseFloat(el.dataset.docy) - sy) + "px";
-          });
-          perElementLines.forEach((item) => {
-            if (!item.el || !document.body.contains(item.el)) return;
-            const r = item.el.getBoundingClientRect();
-            item.line.style.top = r.top + "px";
-          });
-          rafID = requestAnimationFrame(syncPositions);
-        }
-
-        const toggle = document.createElement("div");
-        toggle.className = "ruler-toggle";
-        toggle.textContent = "📐 rulers";
-        toggle.title = "Toggle rulers (or visit #rulers in URL)";
-        document.body.appendChild(toggle);
-
-        function setOn(on) {
-          document.body.classList.toggle("show-rulers", on);
-          // Drive the debug HUD's visibility to match — Radik wants
-          // them paired so 📐 toggle controls both. (D key still
-          // toggles just the HUD if independent control is needed.)
-          if (typeof window.__debugHudSetVisible === "function") {
-            window.__debugHudSetVisible(on);
-          }
-          if (on) {
-            rebuild();
-            if (rafID == null) rafID = requestAnimationFrame(syncPositions);
-            if (location.hash !== "#rulers")
-              history.replaceState(null, "", "#rulers");
-          } else {
-            if (rafID != null) { cancelAnimationFrame(rafID); rafID = null; }
-            if (location.hash === "#rulers")
-              history.replaceState(null, "", location.pathname);
-          }
-        }
-
-        toggle.addEventListener("click", () => {
-          setOn(!document.body.classList.contains("show-rulers"));
-        });
-
-        let rebuildTO;
-        window.addEventListener("resize", () => {
-          if (!document.body.classList.contains("show-rulers")) return;
-          clearTimeout(rebuildTO);
-          rebuildTO = setTimeout(rebuild, 120);
-        });
-
-        if (location.hash === "#rulers") setOn(true);
-      })();
     </script>
-  </body>
+
+      <!-- ═══════════════════════════════ NAV INIT (partials inlined) -->
+    <!-- nav + footer are stamped directly into the page above — no async
+         fetch. Fire the nav init hook now that the whole DOM is parsed.
+         This is exactly what nav-loader.js used to call after injecting
+         nav.html (wires the mobile hamburger + reassigns the `nav` ref). -->
+    <script>
+      if (typeof window.onNavLoaded === "function") window.onNavLoaded();
+    </script>
+</body>
 </html>

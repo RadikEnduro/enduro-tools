@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enduro · About — Concept 02 · Stats Counter</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../_shared/tokens.css" />
+<style>
+  body { background: var(--off-white); }
+  .ab2-hero { padding: 160px var(--gutter) 100px; max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: end; }
+  .ab2-hero h1 { font-size: clamp(72px, 11vw, 200px); font-weight: 900; letter-spacing: -0.055em; line-height: 0.84; text-transform: uppercase; }
+  .ab2-hero p { font-size: clamp(16px, 1.4vw, 20px); color: var(--k-65); line-height: 1.55; max-width: 50ch; }
+
+  .ab2-counter { background: var(--black); color: var(--white); padding: 120px var(--gutter); }
+  .ab2-counter-inner { max-width: var(--max); margin: 0 auto; }
+  .ab2-counter h2 { font-size: clamp(40px, 5vw, 80px); font-weight: 900; letter-spacing: -0.04em; line-height: 0.9; text-transform: uppercase; margin-bottom: 80px; max-width: 18ch; }
+  .ab2-counter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 64px 80px; }
+  .ab2-stat { padding-top: 24px; border-top: 1px solid var(--w-25); }
+  .ab2-stat b { display: block; font-size: clamp(72px, 8.5vw, 156px); font-weight: 900; letter-spacing: -0.055em; line-height: 0.9; color: var(--white); }
+  .ab2-stat b .unit { color: var(--red-bright); font-size: 0.5em; vertical-align: top; }
+  .ab2-stat h3 { font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red-bright); font-weight: 700; margin-top: 24px; }
+  .ab2-stat p { font-size: 14px; color: var(--w-50); margin-top: 8px; line-height: 1.55; }
+
+  .ab2-belief { background: var(--off-white); padding: 140px var(--gutter); max-width: var(--max); margin: 0 auto; }
+  .ab2-belief blockquote { font-size: clamp(36px, 4.5vw, 72px); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; max-width: 30ch; }
+  .ab2-belief blockquote span { color: var(--red); }
+
+  .ab2-team-strip { background: var(--white); padding: 120px var(--gutter); }
+  .ab2-team-inner { max-width: var(--max); margin: 0 auto; }
+  .ab2-team-inner h2 { font-size: clamp(36px, 4.5vw, 64px); font-weight: 900; letter-spacing: -0.035em; line-height: 0.92; text-transform: uppercase; margin-bottom: 64px; }
+  .ab2-team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .ab2-tm { background: var(--off-white); aspect-ratio: 3/4; border-radius: 14px; overflow: hidden; position: relative; }
+  .ab2-tm img { position: absolute; inset: 0; filter: grayscale(60%); transition: filter 0.5s; }
+  .ab2-tm:hover img { filter: grayscale(0%); }
+  .ab2-tm-overlay { position: absolute; inset: 0; padding: 24px; display: flex; flex-direction: column; justify-content: flex-end; color: var(--white); background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.8)); }
+  .ab2-tm-overlay b { display: block; font-size: 17px; font-weight: 800; letter-spacing: -0.02em; }
+  .ab2-tm-overlay span { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--w-75); margin-top: 4px; }
+
+  .ab2-cta { padding: 140px var(--gutter); text-align: center; background: var(--red); color: var(--white); }
+  .ab2-cta h2 { font-size: clamp(48px, 7vw, 120px); font-weight: 900; letter-spacing: -0.045em; line-height: 0.9; text-transform: uppercase; max-width: 14ch; margin: 0 auto 32px; }
+</style></head>
+<body>
+<nav class="enduro-nav on-dark" id="enduroNav"><div class="enduro-nav-inner"><a class="enduro-nav-logo" href="../../enduro_concept-MASTER.html"><svg viewBox="0 0 294 90"><path fill="#fff" d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg></a><div class="enduro-nav-links"><a href="../services/concept_01.html">Services</a><a href="../projects-index/concept_01.html">Our Work</a><a href="concept_01.html" class="active">About Us</a><a href="../insights/concept_01.html">Insights</a><a href="../contact/concept_01.html">Contact Us</a></div><div class="enduro-nav-right"></div></div></nav>
+
+<section class="ab2-hero">
+  <div><span class="tag reveal">About Us</span><h1 class="reveal d1">We build for what comes next.</h1></div>
+  <p class="reveal d2">Established 2010 in Vancouver. Lab fit-outs, institutional builds, and complex tenant improvements — delivered by one accountable team that's been doing this kind of work, this way, since before "live operations" was a buzzword.</p>
+</section>
+
+<section class="ab2-counter">
+  <div class="ab2-counter-inner">
+    <h2 class="reveal">Fourteen years of finished spaces.</h2>
+    <div class="ab2-counter-grid">
+      <div class="ab2-stat reveal"><b data-counter="14">0</b><h3>Years in operation</h3><p>Founded in Vancouver, 2010. Same operating philosophy ever since.</p></div>
+      <div class="ab2-stat reveal d1"><b data-counter="120" data-suffix="+">0</b><h3>Projects delivered</h3><p>From single-floor TIs to multi-phase institutional builds.</p></div>
+      <div class="ab2-stat reveal d2"><b data-counter="96"><span>0</span><span class="unit">%</span></b><h3>On-time rate</h3><p>Trailing 24 months. The metric we lead with — because slipped openings cost real money.</p></div>
+      <div class="ab2-stat reveal d3"><b data-counter="40" data-suffix="+">0</b><h3>Live-ops builds</h3><p>Projects delivered around active labs, clinics, and classrooms.</p></div>
+      <div class="ab2-stat reveal d4"><b data-counter="18">0</b><h3>UBC projects</h3><p>Long-standing relationship with the university's facilities team.</p></div>
+      <div class="ab2-stat reveal d5"><b>1</b><h3>Accountable team</h3><p>Same PM. Same super. Same crew lead. Kickoff to keys.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="ab2-belief">
+  <span class="tag reveal" style="color: var(--red);">What we believe</span>
+  <blockquote class="reveal d1">"<span>Construction quality</span> is the version of the schedule you actually shipped — not the version you wrote at the start."</blockquote>
+</section>
+
+<section class="ab2-team-strip">
+  <div class="ab2-team-inner">
+    <h2 class="reveal">The people behind the schedule.</h2>
+    <div class="ab2-team-grid">
+      <div class="ab2-tm reveal"><img src="../../assets/img/ph_dawson_lab_pro_photos_ll_02621.jpg" alt="" /><div class="ab2-tm-overlay"><b>Radik Birkin</b><span>Founder / Principal</span></div></div>
+      <div class="ab2-tm reveal d1"><img src="../../assets/img/ph_ubc_fsiap_lab_photos_unprocessed_8g7a7047.jpg" alt="" /><div class="ab2-tm-overlay"><b>Project Manager</b><span>Field operations</span></div></div>
+      <div class="ab2-tm reveal d2"><img src="../../assets/img/ph_norgate_cannabis_store_pro_photos_img_014.jpg" alt="" /><div class="ab2-tm-overlay"><b>Superintendent</b><span>On-site leadership</span></div></div>
+      <div class="ab2-tm reveal d3"><img src="../../assets/img/ph_ceme_office_pro_dsc03936-hdr.jpg" alt="" /><div class="ab2-tm-overlay"><b>Estimator</b><span>Pre-construction</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="ab2-cta">
+  <h2 class="reveal">Built for what comes next.</h2>
+  <a href="../contact/concept_01.html" class="btn btn-black reveal d1">Start a project <span class="btn-arrow">→</span></a>
+</section>
+
+<footer class="enduro-footer"><div class="enduro-footer-grid"><div class="footer-brand"><svg viewBox="0 0 294 90" style="height:30px;width:auto;fill:#fff;"><path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg><p>Vancouver-based commercial general contractor.</p></div><div><h3>What We Do</h3><ul><li><a href="#">General Contracting</a></li><li><a href="#">Construction Management</a></li></ul></div><div><h3>Company</h3><ul><li><a href="concept_01.html">About</a></li><li><a href="../projects-index/concept_01.html">Our Work</a></li></ul></div><div><h3>Contact</h3><ul><li><a href="tel:6049686578">604.968.6578</a></li><li><a href="mailto:info@enduroconstruction.ca">info@enduroconstruction.ca</a></li></ul></div></div><div class="enduro-footer-bottom"><span>© Enduro Construction Ltd.</span><span>Built for what comes next</span></div></footer>
+
+<script>
+(function(){
+  const obs = new IntersectionObserver((es) => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add("in");
+    const c = e.target.querySelector("[data-counter]");
+    if (c && !c.dataset.done) {
+      c.dataset.done = "1";
+      const target = parseInt(c.dataset.counter, 10);
+      const suffix = c.dataset.suffix || "";
+      const dur = 1600, start = performance.now();
+      function tick(now) {
+        const t = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - t, 3);
+        c.textContent = Math.round(target * eased) + suffix;
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+  }), { threshold: 0.25 });
+  document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+  const nav = document.getElementById("enduroNav");
+  window.addEventListener("scroll", () => nav.classList.toggle("scrolled", window.scrollY > 40), { passive: true });
+})();
+</script>
+</body></html>

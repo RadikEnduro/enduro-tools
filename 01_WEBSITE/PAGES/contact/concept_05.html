@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enduro · Contact — Concept 05 · Full-Screen Form</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../_shared/tokens.css" />
+<style>
+  body { background: var(--off-white); }
+  .fs-wrap { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+  .fs-left { background: var(--black); color: var(--white); padding: 160px var(--gutter) 80px; display: flex; flex-direction: column; justify-content: space-between; }
+  .fs-left .top h1 { font-size: clamp(56px, 7vw, 132px); font-weight: 900; letter-spacing: -0.05em; line-height: 0.86; text-transform: uppercase; margin-top: 24px; }
+  .fs-left .top p { font-size: clamp(16px, 1.4vw, 20px); color: var(--w-75); max-width: 50ch; margin-top: 32px; }
+  .fs-left .bottom { display: grid; gap: 32px; margin-top: 80px; }
+  .fs-left .bottom div { padding-top: 16px; border-top: 1px solid var(--w-25); }
+  .fs-left .bottom h3 { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red-bright); font-weight: 700; margin-bottom: 8px; }
+  .fs-left .bottom b { font-size: 18px; font-weight: 600; color: var(--white); }
+  .fs-left .bottom a { color: var(--white); border-bottom: 1px solid var(--white); }
+
+  .fs-right { padding: 160px var(--gutter) 80px; display: flex; flex-direction: column; justify-content: center; }
+  .fs-right h2 { font-size: 13px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 32px; }
+  .fs-form { display: grid; gap: 20px; max-width: 560px; }
+  .fs-form label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--k-65); margin-bottom: 8px; }
+  .fs-form input, .fs-form textarea, .fs-form select {
+    width: 100%; padding: 18px 0; background: transparent;
+    border: 0; border-bottom: 1px solid var(--k-25);
+    font-family: inherit; font-size: 17px; font-weight: 500; color: var(--black);
+    transition: border-color 0.2s;
+  }
+  .fs-form input:focus, .fs-form textarea:focus, .fs-form select:focus { outline: none; border-bottom-color: var(--red); }
+  .fs-form input::placeholder, .fs-form textarea::placeholder { color: var(--k-50); }
+  .fs-form .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .fs-submit {
+    margin-top: 16px;
+    align-self: start;
+    background: var(--black); color: var(--white);
+    padding: 18px 28px; border-radius: 10px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 12px;
+    transition: transform 0.3s var(--ease-out), background 0.2s;
+  }
+  .fs-submit:hover { transform: translateX(4px); background: var(--red); }
+  .fs-disclaimer { font-size: 11px; color: var(--k-50); margin-top: 24px; }
+
+  @media (max-width: 900px) { .fs-wrap { grid-template-columns: 1fr; } }
+</style></head>
+<body>
+<nav class="enduro-nav on-dark" id="enduroNav"><div class="enduro-nav-inner"><a class="enduro-nav-logo" href="../../enduro_concept-MASTER.html"><svg viewBox="0 0 294 90"><path fill="#fff" d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg></a><div class="enduro-nav-links"><a href="../services/concept_01.html">Services</a><a href="../projects-index/concept_01.html">Our Work</a><a href="../about/concept_01.html">About Us</a><a href="../insights/concept_01.html">Insights</a><a href="concept_01.html" class="active">Contact Us</a></div><div class="enduro-nav-right"></div></div></nav>
+
+<div class="fs-wrap">
+  <div class="fs-left">
+    <div class="top">
+      <span class="tag" style="color: var(--red-bright);">Contact</span>
+      <h1>Send drawings. We'll respond.</h1>
+      <p>One business day. Real human. Project-fit assessment, timeline range, and the path to a real quote — not a marketing autoresponder.</p>
+    </div>
+    <div class="bottom">
+      <div><h3>Phone</h3><b><a href="tel:6049686578">604.968.6578</a></b></div>
+      <div><h3>Email</h3><b><a href="mailto:info@enduroconstruction.ca">info@enduroconstruction.ca</a></b></div>
+      <div><h3>Office</h3><b>#170 – 422 Richards St, Vancouver</b></div>
+    </div>
+  </div>
+
+  <div class="fs-right">
+    <h2>Project inquiry</h2>
+    <form class="fs-form">
+      <div class="grid-2">
+        <div><label>Name</label><input type="text" placeholder="Your name" /></div>
+        <div><label>Company</label><input type="text" placeholder="Firm / org" /></div>
+      </div>
+      <div class="grid-2">
+        <div><label>Email</label><input type="email" placeholder="you@firm.com" /></div>
+        <div><label>Phone</label><input type="tel" placeholder="604.555.0000" /></div>
+      </div>
+      <div><label>Project type</label><select><option>General Contracting</option><option>Construction Management</option><option>Lab fit-out</option><option>Office TI</option><option>Retail TI</option><option>Institutional</option><option>Not sure</option></select></div>
+      <div class="grid-2">
+        <div><label>Approx. size</label><input type="text" placeholder="e.g. 8,000 sqft" /></div>
+        <div><label>Target start</label><input type="text" placeholder="Q3 2026" /></div>
+      </div>
+      <div><label>Tell us more</label><textarea rows="3" placeholder="Location, scope, drawings status, anything weird…"></textarea></div>
+      <button type="submit" class="fs-submit">Send inquiry <span class="btn-arrow">→</span></button>
+      <p class="fs-disclaimer">By submitting, you agree to be contacted about your inquiry. Your info stays with us — we don't share or sell.</p>
+    </form>
+  </div>
+</div>
+
+<footer class="enduro-footer"><div class="enduro-footer-grid"><div class="footer-brand"><svg viewBox="0 0 294 90" style="height:30px;width:auto;fill:#fff;"><path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg><p>Vancouver-based commercial general contractor.</p></div><div><h3>Contact</h3><ul><li><a href="tel:6049686578">604.968.6578</a></li></ul></div><div></div><div></div></div><div class="enduro-footer-bottom"><span>© Enduro Construction Ltd.</span><span>Built for what comes next</span></div></footer>
+<script>const nav=document.getElementById("enduroNav");window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>40),{passive:true});</script>
+</body></html>

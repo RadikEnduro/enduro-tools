@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enduro · Services — Concept 02 · Sticky Spec Cards</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../_shared/tokens.css" />
+  <style>
+    body { background: var(--off-white); }
+    /* Marquee hero */
+    .svc2-hero { padding: 160px var(--gutter) 100px; background: var(--off-white); position: relative; overflow: hidden; }
+    .svc2-hero h1 { font-size: clamp(64px, 9vw, 160px); font-weight: 900; letter-spacing: -0.05em; line-height: 0.86; text-transform: uppercase; max-width: 14ch; }
+    .svc2-hero .pill { display: inline-flex; align-items: center; gap: 12px; padding: 6px 12px; background: var(--white); border: 1px solid var(--k-25); border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+    .svc2-hero .pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--red); animation: pulse 1.6s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(200,33,26,0.45); } 50% { box-shadow: 0 0 0 8px rgba(200,33,26,0); } }
+    .svc2-hero-meta { display: flex; gap: 56px; margin-top: 56px; flex-wrap: wrap; }
+    .svc2-hero-meta div { font-size: 13px; color: var(--k-50); }
+    .svc2-hero-meta div b { display: block; color: var(--black); font-size: clamp(28px, 3vw, 44px); font-weight: 900; letter-spacing: -0.025em; margin-top: 4px; }
+
+    /* Marquee */
+    .marquee { background: var(--black); color: var(--white); padding: 20px 0; overflow: hidden; }
+    .marquee-track { display: flex; gap: 64px; white-space: nowrap; animation: marquee 28s linear infinite; }
+    .marquee-track span { font-size: clamp(18px, 2vw, 26px); font-weight: 900; letter-spacing: -0.02em; text-transform: uppercase; display: inline-flex; align-items: center; gap: 64px; }
+    .marquee-track span::after { content: "✕"; color: var(--red); font-size: 16px; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* Sticky cards layout */
+    .svc2-stack { padding: 120px var(--gutter); max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; }
+    .svc2-sticky-side { position: sticky; top: 120px; align-self: start; }
+    .svc2-sticky-side h2 { font-size: clamp(34px, 3.6vw, 56px); font-weight: 900; letter-spacing: -0.04em; line-height: 0.92; text-transform: uppercase; margin-bottom: 24px; }
+    .svc2-cards { display: flex; flex-direction: column; gap: 24px; }
+    .svc2-card { background: var(--white); border-radius: 16px; padding: 40px; transition: transform 0.4s var(--ease-out), box-shadow 0.4s; }
+    .svc2-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -20px rgba(0,0,0,0.18); }
+    .svc2-card .num { font-size: 80px; font-weight: 900; line-height: 1; letter-spacing: -0.05em; color: transparent; -webkit-text-stroke: 1.5px var(--black); margin-bottom: 24px; }
+    .svc2-card h3 { font-size: 28px; font-weight: 900; letter-spacing: -0.025em; text-transform: uppercase; margin-bottom: 14px; }
+    .svc2-card p { color: var(--k-65); font-size: 15px; margin-bottom: 20px; }
+    .svc2-card .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .svc2-card .tags span { font-size: 11px; padding: 5px 10px; border-radius: 999px; background: var(--sand); font-weight: 600; letter-spacing: 0.06em; }
+
+    /* Capabilities band */
+    .svc2-caps { background: var(--black); color: var(--white); padding: 120px var(--gutter); }
+    .svc2-caps-inner { max-width: var(--max); margin: 0 auto; }
+    .svc2-caps h2 { font-size: clamp(40px, 5vw, 80px); font-weight: 900; letter-spacing: -0.04em; line-height: 0.9; text-transform: uppercase; margin-bottom: 56px; max-width: 18ch; }
+    .svc2-caps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--w-25); border-radius: 16px; overflow: hidden; }
+    .svc2-cap { background: var(--black); padding: 36px; }
+    .svc2-cap h3 { font-size: 17px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 10px; }
+    .svc2-cap p { color: var(--w-50); font-size: 13px; }
+    .svc2-cap .ic { width: 36px; height: 36px; margin-bottom: 24px; color: var(--red-bright); }
+
+    .svc2-cta { background: var(--off-white); padding: 140px var(--gutter); text-align: center; }
+    .svc2-cta h2 { font-size: clamp(44px, 6vw, 96px); font-weight: 900; letter-spacing: -0.045em; line-height: 0.9; text-transform: uppercase; max-width: 16ch; margin: 0 auto 32px; }
+    .svc2-cta p { max-width: 56ch; margin: 0 auto 36px; color: var(--k-65); }
+  </style>
+</head>
+<body>
+  <nav class="enduro-nav" id="enduroNav">
+    <div class="enduro-nav-inner">
+      <a class="enduro-nav-logo" href="../../enduro_concept-MASTER.html"><svg viewBox="0 0 294 90"><path fill="#fff" d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59ZM85.85 33.11L74.77 85.79H57L71.32 18.31H89.09L87.98 23.05L93.83 18.31H104.49C109.54 19.5 112.41 25.42 111.14 31.34L99.65 85.79H81.88L92.8 34.3L91.77 33.11H85.85ZM127.66 71H133.59L141.54 33.11H135.62L134.27 34.3L126.76 69.81L127.66 71Z"/></svg></a>
+      <div class="enduro-nav-links">
+        <a href="concept_01.html" class="active">Services</a>
+        <a href="../projects-index/concept_01.html">Our Work</a>
+        <a href="../about/concept_01.html">About Us</a>
+        <a href="../insights/concept_01.html">Insights</a>
+        <a href="../contact/concept_01.html">Contact Us</a>
+      </div>
+      <div class="enduro-nav-right"></div>
+    </div>
+  </nav>
+
+  <section class="svc2-hero">
+    <span class="pill reveal">Now booking 2026 builds</span>
+    <h1 class="reveal d1" style="margin-top: 36px;">A general contractor you can <span style="color:var(--red);">stand behind.</span></h1>
+    <div class="svc2-hero-meta reveal d2">
+      <div>Established<b>2010</b></div>
+      <div>Projects delivered<b>120+</b></div>
+      <div>Live operations builds<b>40+</b></div>
+      <div>On-time rate<b>96%</b></div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Lab fit-outs</span><span>Tenant improvements</span><span>Live-operations builds</span><span>Institutional projects</span><span>Research facilities</span><span>Healthcare</span>
+      <span>Lab fit-outs</span><span>Tenant improvements</span><span>Live-operations builds</span><span>Institutional projects</span><span>Research facilities</span><span>Healthcare</span>
+    </div>
+  </div>
+
+  <section class="svc2-stack">
+    <div class="svc2-sticky-side">
+      <span class="tag reveal" style="color: var(--red);">Our Services</span>
+      <h2 class="reveal d1">Two ways to work together.</h2>
+      <p class="reveal d2" style="color: var(--k-65); font-size: 15px;">We're built for the kind of project where coordination is everything — labs, institutional spaces, complex TIs. Pick the engagement model that matches your build.</p>
+    </div>
+    <div class="svc2-cards">
+      <div class="svc2-card reveal">
+        <div class="num">01</div>
+        <h3>General Contracting</h3>
+        <p>Self-performed commercial interiors, lab fit-outs, and institutional builds. One team, one accountable point of contact, top-to-bottom on-site supervision.</p>
+        <div class="tags">
+          <span>Lab fit-outs</span><span>TI</span><span>Live operations</span><span>Healthcare</span>
+        </div>
+      </div>
+      <div class="svc2-card reveal d1">
+        <div class="num">02</div>
+        <h3>Construction Management</h3>
+        <p>For complex, multi-trade projects. We lead scheduling, budgeting, and trade-coordination from preconstruction through commissioning. Open-book, no surprises.</p>
+        <div class="tags">
+          <span>Preconstruction</span><span>Scheduling</span><span>Budget tracking</span><span>Multi-trade</span>
+        </div>
+      </div>
+      <div class="svc2-card reveal d2">
+        <div class="num">03</div>
+        <h3>Tenant Improvements</h3>
+        <p>Office, retail, and specialty TIs — turnkey from design coordination through deficiency walk. Permit-aware scheduling so you open when you said you would.</p>
+        <div class="tags">
+          <span>Office</span><span>Retail</span><span>Permits</span><span>Turnkey</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc2-caps">
+    <div class="svc2-caps-inner">
+      <h2 class="reveal">Capabilities the spec sheet doesn't mention.</h2>
+      <div class="svc2-caps-grid">
+        <div class="svc2-cap reveal">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <h3>Live-operations awareness</h3>
+          <p>We build around running labs, classrooms, and clinics — phasing, isolation, after-hours coordination, the works.</p>
+        </div>
+        <div class="svc2-cap reveal d1">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          <h3>Trade-coordination depth</h3>
+          <p>Mech, electrical, casework, lab gases — one schedule, one set of decisions, one accountable team.</p>
+        </div>
+        <div class="svc2-cap reveal d2">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <h3>Schedule rigor</h3>
+          <p>Critical path on paper before the first wall comes out. Weekly look-ahead. You see what we see.</p>
+        </div>
+        <div class="svc2-cap reveal d3">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <h3>Permit-aware delivery</h3>
+          <p>Inspection sequencing baked into the schedule from week one. Closures are clean.</p>
+        </div>
+        <div class="svc2-cap reveal d4">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <h3>On-time delivery</h3>
+          <p>Our on-time rate is the metric we lead with — because slipped openings cost real money.</p>
+        </div>
+        <div class="svc2-cap reveal d5">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <h3>One accountable team</h3>
+          <p>Same PM, super, and crew lead from kickoff to keys. No mid-build handoffs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc2-cta">
+    <h2 class="reveal">If your project is the kind that doesn't fit a template, we should talk.</h2>
+    <p class="reveal d1">Walk-throughs and ballparks are free. We'll look at the drawings, ask the right questions, and tell you honestly whether we're the right fit.</p>
+    <a href="../contact/concept_01.html" class="btn btn-red reveal d2">Book a walk-through <span class="btn-arrow">→</span></a>
+  </section>
+
+  <footer class="enduro-footer">
+    <div class="enduro-footer-grid">
+      <div class="footer-brand"><svg viewBox="0 0 294 90" style="height:30px;width:auto;fill:#fff;"><path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg><p>Vancouver-based commercial general contractor.</p></div>
+      <div><h3>What We Do</h3><ul><li><a href="#">General Contracting</a></li><li><a href="#">Construction Management</a></li></ul></div>
+      <div><h3>Company</h3><ul><li><a href="../about/concept_01.html">About</a></li><li><a href="../projects-index/concept_01.html">Our Work</a></li></ul></div>
+      <div><h3>Contact</h3><ul><li><a href="tel:6049686578">604.968.6578</a></li><li><a href="mailto:info@enduroconstruction.ca">info@enduroconstruction.ca</a></li></ul></div>
+    </div>
+    <div class="enduro-footer-bottom"><span>© Enduro Construction Ltd.</span><span>Built for what comes next</span></div>
+  </footer>
+
+  <script>
+    (function(){
+      const obs = new IntersectionObserver((es) => es.forEach(e => e.target.classList.toggle("in", e.isIntersecting)), { threshold: 0.15 });
+      document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+      const nav = document.getElementById("enduroNav");
+      window.addEventListener("scroll", () => nav.classList.toggle("scrolled", window.scrollY > 40), { passive: true });
+    })();
+  </script>
+</body>
+</html>

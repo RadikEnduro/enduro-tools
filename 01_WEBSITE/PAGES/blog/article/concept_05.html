@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enduro · Article — Concept 05 · Distraction-Free Reader</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../../_shared/tokens.css" />
+<style>
+  body { background: var(--off-white); color: var(--black); }
+  .df-hero { padding: 200px var(--gutter) 32px; max-width: 680px; margin: 0 auto; text-align: center; }
+  .df-hero .meta { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--k-65); display: flex; justify-content: center; gap: 24px; padding-bottom: 32px; }
+  .df-hero .meta b { color: var(--red); font-weight: 700; }
+  .df-hero h1 { font-family: "Fraunces", serif; font-size: clamp(40px, 6vw, 80px); font-weight: 400; line-height: 1.05; letter-spacing: -0.025em; }
+  .df-hero h1 em { font-style: italic; color: var(--red); }
+  .df-hero .dek { font-family: "Fraunces", serif; font-size: clamp(18px, 1.8vw, 24px); line-height: 1.4; color: var(--k-65); margin-top: 24px; max-width: 52ch; margin-left: auto; margin-right: auto; }
+
+  .df-rule { width: 60px; height: 2px; background: var(--red); margin: 56px auto; }
+
+  .df-body { padding: 0 var(--gutter) 120px; max-width: 680px; margin: 0 auto; font-family: "Fraunces", serif; font-size: 19px; line-height: 1.75; color: var(--black); }
+  .df-body > * + * { margin-top: 1.3em; }
+  .df-body h2 { font-family: "Fraunces", serif; font-size: clamp(24px, 3vw, 36px); font-weight: 400; line-height: 1.05; letter-spacing: -0.015em; margin-top: 2em; }
+  .df-body h2 em { font-style: italic; color: var(--red); }
+  .df-body p:first-of-type { font-size: 22px; line-height: 1.5; color: var(--black); }
+
+  .df-toolbar { position: fixed; top: 96px; right: 24px; z-index: 100; display: flex; flex-direction: column; gap: 8px; }
+  .df-toolbar button { width: 36px; height: 36px; border-radius: 50%; background: var(--white); border: 1px solid var(--k-25); color: var(--k-65); font-weight: 700; transition: all 0.2s; cursor: pointer; }
+  .df-toolbar button:hover { color: var(--red); border-color: var(--red); }
+
+  .df-end { padding: 64px var(--gutter); text-align: center; border-top: 1px solid var(--k-25); max-width: 680px; margin: 0 auto; }
+  .df-end span { font-family: "Inter", sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--k-65); }
+  .df-end a { display: inline-block; margin-top: 12px; font-family: "Fraunces", serif; font-size: 20px; color: var(--red); border-bottom: 1px solid var(--red); }
+
+  body.dark { background: var(--black); color: var(--off-white); }
+  body.dark .df-body { color: var(--off-white); }
+  body.dark .df-hero .dek, body.dark .df-hero .meta { color: var(--w-50); }
+  body.dark .df-toolbar button { background: var(--surface); border-color: var(--w-25); color: var(--w-50); }
+  body.dark .df-end { border-color: var(--w-25); }
+</style></head>
+<body>
+<nav class="enduro-nav" id="enduroNav"><div class="enduro-nav-inner"><a class="enduro-nav-logo" href="../../enduro_concept-MASTER.html"><svg viewBox="0 0 294 90"><path fill="#fff" d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg></a><div class="enduro-nav-links"><a href="../services/concept_01.html">Services</a><a href="../projects-index/concept_01.html">Our Work</a><a href="../about/concept_01.html">About Us</a><a href="../insights/concept_01.html" class="active">Insights</a><a href="../contact/concept_01.html">Contact Us</a></div><div class="enduro-nav-right"></div></div></nav>
+
+<div class="df-toolbar">
+  <button onclick="document.body.classList.toggle('dark')" title="Toggle dark">◐</button>
+  <button onclick="document.body.style.fontSize = (parseInt(getComputedStyle(document.body).fontSize)+1)+'px'" title="Bigger text">A+</button>
+  <button onclick="document.body.style.fontSize = (parseInt(getComputedStyle(document.body).fontSize)-1)+'px'" title="Smaller text">A−</button>
+</div>
+
+<article class="df-hero">
+  <div class="meta"><span>No. 010</span><span>Operations</span><span><b>4 min read</b></span></div>
+  <h1>Why our deficiency walks happen <em>before</em> invoicing.</h1>
+  <p class="dek">A short, opinionated piece on the most underrated step in handover.</p>
+</article>
+
+<div class="df-rule"></div>
+
+<article class="df-body">
+  <p>The deficiency walk is the part of the process nobody likes. By the time you reach it, the build is "done" — the client wants to occupy, the team wants to demobilize, the punch list feels like a chore. So it gets pushed.</p>
+  <p>The conventional schedule looks like this: deficiency walk, invoice issued, punch list resolved over the following month. We do it the other way: deficiency walk, punch list closed to zero, then the invoice issues. Different sequence, same components.</p>
+
+  <h2>The math <em>of that swap.</em></h2>
+  <p>When the invoice issues with deficiencies open, the client now has a list, an invoice, and an empty space. Two of those things create urgency; the third doesn't. The list waits. Two weeks later, the client emails. Three weeks later, the trades have rebooked. Four weeks later, the project is "almost done" — a phrase that signals trouble.</p>
+
+  <h2>What changes when the order flips.</h2>
+  <p>Trades stay on hook because they don't get paid until the list is closed. We stay on hook because we hold our own invoice. The client gets a finished space, not an almost-finished one. The PM gets to start the next job from a clean line.</p>
+  <p>It's not a clever trick. It's just the only sequence that respects the word "complete."</p>
+
+  <h2>The hard part.</h2>
+  <p>The hard part is scoping it correctly at the front. Deficiency walks done before invoicing means the schedule includes the closing-out time, not just the install time. We add two weeks. Sometimes three. We tell the client in week one that the final two weeks of the schedule are punch-resolution. They like it. The schedule is honest from the start.</p>
+</article>
+
+<section class="df-end">
+  <span>No. 010 · Field Note · Operations</span>
+  <a href="concept_01.html">Read No. 014 → The schedule isn't a wish</a>
+</section>
+
+<footer class="enduro-footer"><div class="enduro-footer-grid"><div class="footer-brand"><svg viewBox="0 0 294 90" style="height:30px;width:auto;fill:#fff;"><path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg><p>Vancouver-based commercial general contractor.</p></div><div></div><div></div><div><h3>Contact</h3><ul><li><a href="tel:6049686578">604.968.6578</a></li></ul></div></div><div class="enduro-footer-bottom"><span>© Enduro Construction Ltd.</span><span>Built for what comes next</span></div></footer>
+<script>(function(){const nav=document.getElementById("enduroNav");window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>40),{passive:true});})();</script>
+</body></html>

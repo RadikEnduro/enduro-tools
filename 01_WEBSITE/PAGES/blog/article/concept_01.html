@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enduro · Article — Concept 01 · Long-form Reader</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,400;9..144,700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../../_shared/tokens.css" />
+<style>
+  body { background: var(--white); }
+  .ar-hero { padding: 160px var(--gutter) 56px; max-width: 880px; margin: 0 auto; }
+  .ar-crumb { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); font-weight: 700; }
+  .ar-hero h1 { font-family: "Fraunces", serif; font-size: clamp(48px, 7vw, 96px); font-weight: 400; letter-spacing: -0.03em; line-height: 1; margin: 20px 0 32px; }
+  .ar-hero h1 em { font-style: italic; color: var(--red); }
+  .ar-byline { display: grid; grid-template-columns: auto auto auto; gap: 32px; padding: 24px 0; border-top: 1px solid var(--k-25); border-bottom: 1px solid var(--k-25); font-size: 13px; color: var(--k-65); }
+  .ar-byline b { display: block; color: var(--black); margin-top: 4px; font-size: 14px; font-weight: 600; }
+  .ar-feat { padding: 0 var(--gutter) 56px; max-width: 1200px; margin: 0 auto; }
+  .ar-feat .img { aspect-ratio: 16/8; border-radius: 4px; overflow: hidden; }
+  .ar-feat-caption { font-size: 12px; color: var(--k-50); padding-top: 12px; }
+  .ar-body { padding: 32px var(--gutter) 120px; max-width: 760px; margin: 0 auto; font-size: 19px; line-height: 1.7; }
+  .ar-body > * + * { margin-top: 1.5em; }
+  .ar-body h2 { font-family: "Fraunces", serif; font-size: clamp(28px, 3.5vw, 48px); font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; margin-top: 2em; }
+  .ar-body h2 em { font-style: italic; color: var(--red); }
+  .ar-body p:first-of-type::first-letter { font-family: "Fraunces", serif; font-size: 92px; float: left; line-height: 0.85; padding-right: 14px; padding-top: 8px; color: var(--red); }
+  .ar-body blockquote { font-family: "Fraunces", serif; font-size: clamp(24px, 2.6vw, 36px); font-weight: 400; line-height: 1.2; padding-left: 28px; border-left: 3px solid var(--red); color: var(--black); margin: 1.6em 0; }
+  .ar-body figure { margin: 2em 0; }
+  .ar-body figure img { border-radius: 4px; aspect-ratio: 16/9; object-fit: cover; }
+  .ar-body figcaption { font-size: 12px; color: var(--k-50); margin-top: 10px; }
+  .ar-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: rgba(0,0,0,0.1); z-index: 250; }
+  .ar-progress .f { height: 100%; background: var(--red); width: 0%; transition: width 0.1s; }
+
+  .ar-next { padding: 100px var(--gutter); background: var(--off-white); }
+  .ar-next-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .ar-next a { display: block; padding: 32px; background: var(--white); border-radius: 14px; transition: transform 0.3s var(--ease-out); }
+  .ar-next a:hover { transform: translateY(-4px); }
+  .ar-next .label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); font-weight: 700; }
+  .ar-next h3 { font-family: "Fraunces", serif; font-size: 28px; font-weight: 700; line-height: 1.05; margin-top: 12px; letter-spacing: -0.015em; }
+</style></head>
+<body>
+<nav class="enduro-nav" id="enduroNav"><div class="enduro-nav-inner"><a class="enduro-nav-logo" href="../../enduro_concept-MASTER.html"><svg viewBox="0 0 294 90"><path fill="#fff" d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg></a><div class="enduro-nav-links"><a href="../services/concept_01.html">Services</a><a href="../projects-index/concept_01.html">Our Work</a><a href="../about/concept_01.html">About Us</a><a href="../insights/concept_01.html" class="active">Insights</a><a href="../contact/concept_01.html">Contact Us</a></div><div class="enduro-nav-right"></div></div></nav>
+
+<div class="ar-progress"><div class="f" id="arFill"></div></div>
+
+<article class="ar-hero">
+  <span class="ar-crumb">Field Note · No. 014</span>
+  <h1 class="reveal">The schedule isn't a wish. It's a <em>commitment.</em></h1>
+  <div class="ar-byline reveal d1">
+    <div>By<b>Radik Birkin</b></div>
+    <div>Published<b>04 March 2026</b></div>
+    <div>Read time<b>8 minutes</b></div>
+  </div>
+</article>
+
+<div class="ar-feat">
+  <div class="img"><img src="../../../assets/img/ph_ubc_fsiap_lab_photos_unprocessed_8g7a7047.jpg" alt="UBC FSIAP Lab" /></div>
+  <p class="ar-feat-caption">Above · UBC FSIAP Lab. 22 weeks, 17 trades, opened on the date we put on paper at kickoff.</p>
+</div>
+
+<article class="ar-body">
+  <p>Every project starts with a schedule someone wrote down. The interesting question isn't whether that schedule was achievable — most of them are. The interesting question is whether it was a commitment.</p>
+  <p>Construction practice tends to treat the kickoff schedule as a wish, a hope, an opening offer. The version of the schedule that actually gets shipped — the one with all the slipped milestones and absorbed delays — is the version everybody pretends not to have written. We tried, for years, to build our practice around a different premise: the version of the schedule you send is the version you ship. Same numbers. Same dates. Same finish line.</p>
+
+  <h2>Why the wish-shaped schedule survives.</h2>
+  <p>Because it gets the contract signed. The "we'll figure it out" approach has its uses. It lets the team commit before all the unknowns are known. It optimistically sequences trades that haven't been booked. It assumes the inspector will sign off on the first walk. Optimism is, on paper, free.</p>
+  <p>But it isn't free. The cost shows up at handover, when the open punch list collides with the open date, and somebody has to choose: slip the opening, ship deficiencies, or fight about it. We built our practice to make that decision unnecessary.</p>
+
+  <blockquote>"The right time to negotiate the schedule is at the front. The wrong time is at week 14."</blockquote>
+
+  <h2>The four practices that hold the line.</h2>
+  <p>Open-book preconstruction. We share the constructability review with the client before contracts are signed. If we see a sequencing problem or a long-lead trade gap, we surface it now, when it costs an email — not later, when it costs three weeks.</p>
+  <p>Weekly look-ahead with the actual team. The PM, super, and trade leads meet weekly. The output is a six-line list: what's at risk, what we're doing about it, who owns it. The list goes to the client. The client knows what we know.</p>
+  <p>Trade-sequencing as a deliverable, not an assumption. Mech, electrical, casework, gases — sequenced on paper, day-by-day, before the first wall comes out. The Gantt isn't decorative.</p>
+  <p>Deficiency walks before invoicing. The list is closed before the invoice arrives. This isn't a process detail — it's a contract clause we hold ourselves to.</p>
+
+  <figure><img src="../../../assets/img/ph_dawson_lab_pro_photos_insta_selection_ll_02637.jpg" alt="Dawson Lab" /><figcaption>UBC Dawson Lab. The schedule we sent at kickoff was the schedule we delivered.</figcaption></figure>
+
+  <h2>What this <em>doesn't</em> mean.</h2>
+  <p>It doesn't mean we never miss. We do. Weather, supply chains, scope changes, the occasional honest underestimate — projects are projects. What it means is that when we miss, the client knows two weeks before, not two days after. The conversation about the slip happens before the slip, with options on the table. That's not magic. It's just the look-ahead doing its job.</p>
+
+  <h2>The point.</h2>
+  <p>If you take one thing from this piece, take this: the version of the schedule you send is a promise. We treat it that way internally — operationally, contractually, culturally. The version of the schedule we ship is the version we wrote down, because the version we wrote down was the one we believed.</p>
+</article>
+
+<section class="ar-next">
+  <div class="ar-next-inner">
+    <a href="concept_02.html"><span class="label">← Previous · No. 013</span><h3>Building around live operations: a field manual.</h3></a>
+    <a href="concept_02.html"><span class="label">Next · No. 015 →</span><h3>Open-book budgets: how we run them in practice.</h3></a>
+  </div>
+</section>
+
+<footer class="enduro-footer"><div class="enduro-footer-grid"><div class="footer-brand"><svg viewBox="0 0 294 90" style="height:30px;width:auto;fill:#fff;"><path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg><p>Vancouver-based commercial general contractor.</p></div><div></div><div></div><div><h3>Contact</h3><ul><li><a href="tel:6049686578">604.968.6578</a></li></ul></div></div><div class="enduro-footer-bottom"><span>© Enduro Construction Ltd.</span><span>Built for what comes next</span></div></footer>
+<script>
+(function(){
+  const obs=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle("in",e.isIntersecting)),{threshold:0.15});
+  document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+  const nav=document.getElementById("enduroNav");
+  const fill = document.getElementById("arFill");
+  window.addEventListener("scroll",()=>{
+    nav.classList.toggle("scrolled", window.scrollY > 40);
+    const sh = document.documentElement.scrollHeight - window.innerHeight;
+    fill.style.width = ((window.scrollY / sh) * 100) + "%";
+  }, {passive:true});
+})();
+</script>
+</body></html>

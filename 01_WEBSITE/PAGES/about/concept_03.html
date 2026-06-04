@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enduro · About — Concept 03 · Team Bento</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../_shared/tokens.css" />
+<style>
+  body { background: var(--sand); }
+  .ab3-hero { padding: 160px var(--gutter) 80px; max-width: var(--max); margin: 0 auto; }
+  .ab3-hero h1 { font-size: clamp(72px, 11vw, 200px); font-weight: 900; letter-spacing: -0.055em; line-height: 0.86; text-transform: uppercase; max-width: 14ch; }
+  .ab3-hero .lead { font-size: clamp(20px, 1.6vw, 26px); color: var(--k-65); max-width: 56ch; margin-top: 32px; line-height: 1.4; }
+
+  .ab3-bento { padding: 0 var(--gutter) 120px; max-width: var(--max); margin: 0 auto; }
+  .ab3-grid { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 220px; gap: 16px; }
+  .ab3-tile { background: var(--white); border-radius: 18px; overflow: hidden; position: relative; cursor: pointer; transition: transform 0.5s var(--ease-out); }
+  .ab3-tile:hover { transform: scale(0.985); }
+  .ab3-tile.photo img { transition: transform 6s var(--ease-out); }
+  .ab3-tile.photo:hover img { transform: scale(1.05); }
+  .ab3-tile.photo .ab3-overlay { position: absolute; inset: 0; padding: 24px; display: flex; flex-direction: column; justify-content: flex-end; color: var(--white); background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.85)); }
+  .ab3-tile.photo .ab3-overlay b { font-size: 20px; font-weight: 800; }
+  .ab3-tile.photo .ab3-overlay span { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 4px; color: var(--w-75); }
+  .ab3-tile.text { padding: 32px; display: flex; flex-direction: column; justify-content: space-between; }
+  .ab3-tile.text .num { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; color: var(--red); text-transform: uppercase; }
+  .ab3-tile.text h3 { font-size: clamp(22px, 2.2vw, 32px); font-weight: 900; letter-spacing: -0.025em; line-height: 1; text-transform: uppercase; }
+  .ab3-tile.text p { font-size: 14px; color: var(--k-65); line-height: 1.55; }
+  .ab3-tile.dark { background: var(--black); color: var(--white); }
+  .ab3-tile.dark p { color: var(--w-75); }
+  .ab3-tile.red { background: var(--red); color: var(--white); }
+  .ab3-tile.red .num { color: var(--w-75); }
+  .ab3-tile.big-stat { display: flex; flex-direction: column; justify-content: center; padding: 32px; }
+  .ab3-tile.big-stat b { display: block; font-size: clamp(56px, 7vw, 120px); font-weight: 900; line-height: 0.9; letter-spacing: -0.05em; }
+  .ab3-tile.big-stat span { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 12px; }
+
+  .col-2 { grid-column: span 2; }
+  .col-3 { grid-column: span 3; }
+  .col-4 { grid-column: span 4; }
+  .row-2 { grid-row: span 2; }
+
+  .ab3-quote { padding: 120px var(--gutter); background: var(--off-white); }
+  .ab3-quote-inner { max-width: var(--max); margin: 0 auto; }
+  .ab3-quote blockquote { font-size: clamp(36px, 4.5vw, 80px); font-weight: 800; line-height: 1; letter-spacing: -0.03em; max-width: 18ch; text-transform: uppercase; }
+  .ab3-quote blockquote span { color: var(--red); }
+  .ab3-quote cite { display: block; margin-top: 32px; font-size: 13px; font-style: normal; letter-spacing: 0.16em; text-transform: uppercase; color: var(--k-65); }
+
+  .ab3-cta { padding: 140px var(--gutter); background: var(--black); color: var(--white); }
+  .ab3-cta-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: end; }
+  .ab3-cta h2 { font-size: clamp(48px, 6vw, 100px); font-weight: 900; letter-spacing: -0.045em; line-height: 0.9; text-transform: uppercase; }
+</style></head>
+<body>
+<nav class="enduro-nav" id="enduroNav"><div class="enduro-nav-inner"><a class="enduro-nav-logo" href="../../enduro_concept-MASTER.html"><svg viewBox="0 0 294 90"><path fill="#fff" d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg></a><div class="enduro-nav-links"><a href="../services/concept_01.html">Services</a><a href="../projects-index/concept_01.html">Our Work</a><a href="concept_01.html" class="active">About Us</a><a href="../insights/concept_01.html">Insights</a><a href="../contact/concept_01.html">Contact Us</a></div><div class="enduro-nav-right"></div></div></nav>
+
+<section class="ab3-hero">
+  <span class="tag reveal">About Enduro</span>
+  <h1 class="reveal d1">Builders who finish what they start.</h1>
+  <p class="lead reveal d2">A Vancouver-based commercial GC. We're known for the kind of projects where coordination is the deliverable — lab fit-outs, institutional builds, complex TIs around live operations.</p>
+</section>
+
+<section class="ab3-bento">
+  <div class="ab3-grid">
+    <div class="ab3-tile photo col-3 row-2 reveal"><img src="../../assets/img/ph_dawson_lab_pro_photos_insta_selection_ll_02637.jpg" alt="" /><div class="ab3-overlay"><b>Radik Birkin</b><span>Founder · Principal</span></div></div>
+    <div class="ab3-tile text col-3 reveal d1"><div><span class="num">Established</span><h3>Vancouver, 2010</h3></div><p>14 years building the kind of small, accountable team that can take on real complexity without losing the throughline. Same operating philosophy since day one.</p></div>
+    <div class="ab3-tile big-stat dark reveal d2"><b>96<span style="color:var(--red-bright);">%</span></b><span>On-time, last 24 months</span></div>
+    <div class="ab3-tile text red col-2 reveal d3"><div><span class="num">Discipline</span><h3>One PM. One super.</h3></div><p>Same accountable team from kickoff to keys. No mid-build handoffs. No "let me check with the office."</p></div>
+    <div class="ab3-tile photo col-2 reveal"><img src="../../assets/img/ph_ubc_fsiap_lab_photos_unprocessed_8g7a7047.jpg" alt="" /><div class="ab3-overlay"><b>UBC FSIAP Lab</b><span>18-week fit-out</span></div></div>
+    <div class="ab3-tile photo col-2 reveal d1"><img src="../../assets/img/ph_norgate_cannabis_store_pro_photos_img_014.jpg" alt="" /><div class="ab3-overlay"><b>Norgate Cannabis</b><span>Retail TI</span></div></div>
+    <div class="ab3-tile big-stat reveal d2"><b>120<span style="color:var(--red);">+</span></b><span>Projects delivered</span></div>
+    <div class="ab3-tile text col-2 reveal d3"><div><span class="num">Specialty</span><h3>Live-operations builds</h3></div><p>40+ projects delivered around active labs, classrooms, and clinics. Phasing, isolation, after-hours work — built into how we plan.</p></div>
+    <div class="ab3-tile photo col-2 reveal"><img src="../../assets/img/ph_ceme_office_pro_dsc03936-hdr.jpg" alt="" /><div class="ab3-overlay"><b>CEME Office</b><span>UBC TI</span></div></div>
+    <div class="ab3-tile text col-2 dark reveal d1"><div><span class="num" style="color:var(--red-bright);">Operating principle</span><h3>Open book.</h3></div><p>You see the numbers we see. Change orders explained, not surprised. Open-book budget tracking through commissioning.</p></div>
+  </div>
+</section>
+
+<section class="ab3-quote">
+  <div class="ab3-quote-inner">
+    <blockquote class="reveal">Schedules are <span>commitments.</span><br>Drawings are <span>conversations.</span><br>Handover is <span>everything.</span></blockquote>
+    <cite class="reveal d1">— Internal operating principle, est. 2010</cite>
+  </div>
+</section>
+
+<section class="ab3-cta">
+  <div class="ab3-cta-inner">
+    <h2 class="reveal">Reach out to the team you'll actually work with.</h2>
+    <a href="../contact/concept_01.html" class="btn btn-red reveal d1">Start a conversation <span class="btn-arrow">→</span></a>
+  </div>
+</section>
+
+<footer class="enduro-footer"><div class="enduro-footer-grid"><div class="footer-brand"><svg viewBox="0 0 294 90" style="height:30px;width:auto;fill:#fff;"><path d="M37.26 33.11L34.84 44.95H41.94L44.37 33.11L43.47 31.93H38.73L37.26 33.11ZM54.04 71.59C52.19 80.58 48.64 83.9 41.82 85.79H17.66C12.87 83.9 9.71 79.4 11.4 71.59L19.64 32.52C21.61 23.52 25.16 20.21 31.98 18.31H56.14C60.93 20.21 63.97 24.71 62.28 32.52L57.31 56.2H32.43L29.31 71L30.21 72.18H34.95L36.42 71L38.41 61.4H56.18L54.04 71.59Z"/></svg><p>Vancouver-based commercial general contractor.</p></div><div><h3>What We Do</h3><ul><li><a href="#">General Contracting</a></li></ul></div><div><h3>Company</h3><ul><li><a href="concept_01.html">About</a></li></ul></div><div><h3>Contact</h3><ul><li><a href="tel:6049686578">604.968.6578</a></li></ul></div></div><div class="enduro-footer-bottom"><span>© Enduro Construction Ltd.</span><span>Built for what comes next</span></div></footer>
+<script>(function(){const obs=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle("in",e.isIntersecting)),{threshold:0.15});document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));const nav=document.getElementById("enduroNav");window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",window.scrollY>40),{passive:true});})();</script>
+</body></html>
