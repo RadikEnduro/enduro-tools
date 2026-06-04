@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Enduro Construction — Proposal Intake Form</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -583,6 +584,14 @@
     min-width: 200px;
   }
 
+  /* ── RESPONSIVE ── */
+  @media (max-width: 580px) {
+    .page-wrap { padding: 32px 20px 60px; }
+    .field-row.cols-2,
+    .field-row.cols-3 { grid-template-columns: 1fr; }
+    .check-grid.cols-2 { grid-template-columns: 1fr; }
+  }
+
   /* ── DRAG HANDLE (6-dot grip) ── */
   .drag-handle {
     display: grid;
@@ -733,61 +742,39 @@
   .form-step { display: none; }
   .form-step.active { display: block; }
 
-  /* ── STEP STEPPER (horizontal, sticky top) ── */
+  /* Remove old inline nav bars */
+  .step-nav { display: none; }
+
+  /* ── STEP RAIL (fixed left) ── */
   .step-rail {
-    display: flex;
-    align-items: flex-end;
-    gap: 14px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--white);
-    padding: 16px 0 14px;
-    margin-bottom: 36px;
-    border-bottom: 1.5px solid var(--border);
-  }
-
-  /* numbered steps, evenly distributed across the bar */
-  .step-rail-track {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    align-items: flex-end;
-  }
-
-  .step-rail-item {
-    flex: 1;
-    min-width: 0;
+    position: fixed;
+    left: max(16px, calc(50% - 460px));
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 7px;
+    gap: 0;
+    z-index: 100;
+  }
+
+  .step-rail-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
     position: relative;
   }
 
-  /* connector line between steps — horizontal, runs through the dot row (dots sit at item bottom) */
+  /* connector line between steps */
   .step-rail-item:not(:last-child)::after {
     content: '';
-    position: absolute;
-    bottom: 14.5px;
-    left: calc(50% + 16px);
-    right: calc(-50% + 16px);
-    height: 1.5px;
+    display: block;
+    width: 1.5px;
+    height: 20px;
     background: var(--border);
     transition: background 0.2s;
   }
-
-  /* send + reset live at the right end, divided from the steps */
-  .step-rail-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    height: 30px;
-    padding-left: 16px;
-    border-left: 1.5px solid var(--border);
-    flex-shrink: 0;
-  }
-  .step-rail-actions .btn-reset-circle { margin-top: 0; }
   .step-dot {
     width: 30px;
     height: 30px;
@@ -875,6 +862,32 @@
     background: rgba(254,204,2,0.40);
   }
 
+  /* form-frozen — all inputs disabled while browsing away from a broken step */
+  .form-step.frozen input,
+  .form-step.frozen textarea,
+  .form-step.frozen select,
+  .form-step.frozen button:not(.btn-nav) {
+    pointer-events: none;
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .form-step.frozen .frozen-notice {
+    display: flex;
+  }
+  .frozen-notice {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    background: #FECC02;
+    border: 1px solid rgba(0,0,0,0.12);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #0D0D0D;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
   /* pulse animation — fires when a dot becomes newly unlocked */
   @keyframes dot-unlock-pulse {
     0%   { box-shadow: 0 0 0 0px rgba(13,13,13,0.45); transform: scale(1); }
@@ -897,8 +910,9 @@
     box-shadow: 0 0 0 3px rgba(200,33,26,0.15);
   }
 
-  /* Send button — right end of the stepper bar */
+  /* Send button at the bottom of rail */
   .step-rail-send {
+    margin-top: 10px;
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -940,35 +954,14 @@
     transform: translateX(2px);
   }
 
-  /* ── Step labels: always visible below each dot ── */
+  /* ── Rail labels: slide out to the LEFT from behind the dot on hover ── */
   .step-rail-label {
-    font-size: 10.5px;
-    font-weight: 500;
-    letter-spacing: 0.1px;
-    line-height: 1.25;
-    text-align: center;
-    color: var(--text-dim);
-    max-width: 100%;
-    transition: color 0.18s;
-  }
-  .step-rail-item.active .step-rail-label   { color: var(--text);     font-weight: 600; }
-  .step-rail-item.done .step-rail-label     { color: var(--text-mid); }
-  .step-rail-item.unlocked .step-rail-label { color: var(--text-mid); }
-  .step-rail-item.warning .step-rail-label  { color: #8a6d00; }
-
-  /* Send + reset tooltips — drop below the button on hover */
-  .step-rail-send,
-  .btn-reset-circle {
-    position: relative;
-  }
-  .step-rail-send .rail-label,
-  .btn-reset-circle .rail-label {
     position: absolute;
-    top: calc(100% + 7px);
-    left: 50%;
-    transform: translateX(-50%);
+    right: calc(100% + 16px); /* gap from dot edge */
+    top: 15px;                /* half of 30px dot — centers on the dot, not the full item */
+    transform: translateY(-50%);
     white-space: nowrap;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.1px;
     color: var(--text-dim);
@@ -976,12 +969,55 @@
     padding: 0;
     pointer-events: none;
     z-index: 100;
+    max-width: 0;
+    overflow: hidden;
     opacity: 0;
-    transition: opacity 0.16s ease;
+    transition: max-width 0.24s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.18s ease;
+  }
+  /* Active dot is 33px — nudge center down 1.5px */
+  .step-rail-item.active .step-rail-label {
+    top: 16.5px;
+  }
+  .step-rail-item:hover .step-rail-label {
+    max-width: 140px;
+    opacity: 1;
+  }
+  /* Send + reset: same sliding label as steps 1-5 */
+  .step-rail-send,
+  .btn-reset-circle {
+    position: relative;
+  }
+  .step-rail-send .rail-label,
+  .btn-reset-circle .rail-label {
+    position: absolute;
+    right: calc(100% + 16px);
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    color: var(--text-dim);
+    background: transparent;
+    padding: 0;
+    pointer-events: none;
+    z-index: 100;
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-width 0.24s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.18s ease;
   }
   .step-rail-send:hover .rail-label,
   .btn-reset-circle:hover .rail-label {
+    max-width: 140px;
     opacity: 1;
+  }
+
+  /* hide rail on very narrow viewports */
+  @media (max-width: 860px) {
+    .step-rail { display: none; }
   }
 
   /* ── DEV MODE ── */
@@ -1060,51 +1096,48 @@
     </div>
   </div>
 
-  <!-- Step stepper (horizontal, top) -->
+  <!-- Step rail -->
   <nav class="step-rail" id="stepRail" aria-label="Form steps">
-    <div class="step-rail-track">
-      <div class="step-rail-item active" id="rail-1" data-step="1">
-        <span class="step-rail-label">Project Info</span>
-        <div class="step-dot" onclick="railGo(1)">1</div>
-      </div>
-      <div class="step-rail-item locked" id="rail-2" data-step="2">
-        <span class="step-rail-label">Prepared For</span>
-        <div class="step-dot" onclick="railGo(2)">2</div>
-      </div>
-      <div class="step-rail-item locked" id="rail-3" data-step="3">
-        <span class="step-rail-label">Project Team</span>
-        <div class="step-dot" onclick="railGo(3)">3</div>
-      </div>
-      <div class="step-rail-item locked" id="rail-4" data-step="4">
-        <span class="step-rail-label">Proposal Pages</span>
-        <div class="step-dot" onclick="railGo(4)">4</div>
-      </div>
-      <div class="step-rail-item locked" id="rail-5" data-step="5">
-        <span class="step-rail-label">Additional Notes</span>
-        <div class="step-dot" onclick="railGo(5)">5</div>
-      </div>
+    <div class="step-rail-item active" id="rail-1" data-step="1">
+      <div class="step-dot" onclick="railGo(1)">1</div>
+      <span class="step-rail-label">Project Info</span>
     </div>
-    <div class="step-rail-actions">
-      <button type="button" class="step-rail-send" id="railSendBtn" onclick="handleRailSend()">
-        <span class="rail-label">Send intake</span>
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;pointer-events:none;">
-          <path d="M2 7H12M12 7L7.5 2.5M12 7L7.5 11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-      <button type="button" class="btn-reset-circle" onclick="resetIntakeForm()" title="Reset form">
-        <span class="rail-label">Reset form</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;pointer-events:none;">
-          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-          <path d="M3 3v5h5"/>
-        </svg>
-      </button>
+    <div class="step-rail-item locked" id="rail-2" data-step="2">
+      <div class="step-dot" onclick="railGo(2)">2</div>
+      <span class="step-rail-label">Prepared For</span>
     </div>
+    <div class="step-rail-item locked" id="rail-3" data-step="3">
+      <div class="step-dot" onclick="railGo(3)">3</div>
+      <span class="step-rail-label">Project Team</span>
+    </div>
+    <div class="step-rail-item locked" id="rail-4" data-step="4">
+      <div class="step-dot" onclick="railGo(4)">4</div>
+      <span class="step-rail-label">Proposal Pages</span>
+    </div>
+    <div class="step-rail-item locked" id="rail-5" data-step="5">
+      <div class="step-dot" onclick="railGo(5)">5</div>
+      <span class="step-rail-label">Additional Notes</span>
+    </div>
+    <button type="button" class="step-rail-send" id="railSendBtn" onclick="handleRailSend()" style="margin-top:10px;">
+      <span class="rail-label">Send intake</span>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;pointer-events:none;">
+        <path d="M2 7H12M12 7L7.5 2.5M12 7L7.5 11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <button type="button" class="btn-reset-circle" onclick="resetIntakeForm()" title="Reset form">
+      <span class="rail-label">Reset form</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;pointer-events:none;">
+        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+        <path d="M3 3v5h5"/>
+      </svg>
+    </button>
   </nav>
 
   <form id="intakeForm" novalidate>
 
     <!-- ══ STEP 1 ══ -->
     <div class="form-step active" data-step="1">
+    <div class="frozen-notice">⚠️ Complete the highlighted step before editing here.</div>
     <!-- ══════════════════════════════════════
          SECTION 1 — PROJECT INFO
     ══════════════════════════════════════ -->
@@ -1221,10 +1254,17 @@
       </div>
 
     </div>
+
+      <div class="step-nav">
+        <button type="button" class="btn-back" onclick="stepNav(-1)" style="display:none;">← Back</button>
+        <button type="button" class="btn-next" onclick="stepNav(1)">Next →</button>
+        <span class="step-error"></span>
+      </div>
     </div><!-- /step 1 -->
 
     <!-- ══ STEP 2 ══ -->
     <div class="form-step" data-step="2">
+    <div class="frozen-notice">⚠️ Complete the highlighted step before editing here.</div>
     <!-- ══════════════════════════════════════
          SECTION 2 — PREPARED FOR
     ══════════════════════════════════════ -->
@@ -1261,10 +1301,17 @@
       </div>
 
     </div>
+
+      <div class="step-nav">
+        <button type="button" class="btn-back" onclick="stepNav(-1)">← Back</button>
+        <button type="button" class="btn-next" onclick="stepNav(1)">Next →</button>
+        <span class="step-error"></span>
+      </div>
     </div><!-- /step 2 -->
 
     <!-- ══ STEP 3 ══ -->
     <div class="form-step" data-step="3">
+    <div class="frozen-notice">⚠️ Complete the highlighted step before editing here.</div>
     <!-- ══════════════════════════════════════
          SECTION 3 — PROJECT TEAM
     ══════════════════════════════════════ -->
@@ -1292,10 +1339,17 @@
       <div id="extra-team-rows"></div>
       <button type="button" class="btn-add" style="margin-top:4px;" onclick="addTeamRow()">+ Add member</button>
     </div>
+
+      <div class="step-nav">
+        <button type="button" class="btn-back" onclick="stepNav(-1)">← Back</button>
+        <button type="button" class="btn-next" onclick="stepNav(1)">Next →</button>
+        <span class="step-error"></span>
+      </div>
     </div><!-- /step 3 -->
 
     <!-- ══ STEP 4 ══ -->
     <div class="form-step" data-step="4">
+    <div class="frozen-notice">⚠️ Complete the highlighted step before editing here.</div>
     <!-- ══════════════════════════════════════
          SECTION 4 — PROPOSAL PAGES
     ══════════════════════════════════════ -->
@@ -1350,7 +1404,10 @@
           <div id="phasing-rows"></div>
           <div style="display:flex; align-items:center; gap:10px; margin-top:8px; flex-wrap:wrap;">
             <button type="button" class="btn-add" onclick="addPhaseRow()">+ Add phase</button>
+            <button type="button" class="btn-add" id="phase-confirm-btn" onclick="selectPhaseMode('confirmed')" style="border-color:rgba(0,0,0,0.15);">Confirm order</button>
+            <button type="button" class="btn-add" id="phase-draft-btn" onclick="selectPhaseMode('draft')" style="border-color:rgba(0,0,0,0.15);">Build a draft</button>
           </div>
+          <input type="hidden" name="phase_mode" id="phase_mode" value="">
         </div>
 
         <label class="check-item">
@@ -1559,10 +1616,17 @@
       <div id="opt-extra-rows" style="margin-top:4px;"></div>
       <button type="button" class="btn-add" style="margin-top:12px;" onclick="addOptRow()">+ Add page</button>
     </div>
+
+      <div class="step-nav">
+        <button type="button" class="btn-back" onclick="stepNav(-1)">← Back</button>
+        <button type="button" class="btn-next" onclick="stepNav(1)">Next →</button>
+        <span class="step-error"></span>
+      </div>
     </div><!-- /step 4 -->
 
     <!-- ══ STEP 5 ══ -->
     <div class="form-step" data-step="5">
+    <div class="frozen-notice">⚠️ Complete the highlighted step before editing here.</div>
     <!-- ══════════════════════════════════════
          SECTION 5 — ADDITIONAL NOTES
     ══════════════════════════════════════ -->
@@ -1573,10 +1637,16 @@
       </div>
 
       <div class="notes-area">
-        <textarea name="additional_notes" style="min-height:110px;" placeholder="Anything else worth knowing — project, client, context. (optional)"></textarea>
+        <textarea name="additional_notes" style="min-height:110px;" placeholder="Anything else worth knowing — project, client, context." required></textarea>
         <div style="margin-top:8px; font-size:12px; color:rgba(200,33,26,0.65); font-style:italic;">Suggestions to make this form better — what do you find annoying about it?</div>
       </div>
     </div>
+
+      <div class="step-nav">
+        <button type="button" class="btn-back" onclick="stepNav(-1)">← Back</button>
+        <button type="button" class="btn-next" onclick="stepNav(1)">Send →</button>
+        <span class="step-error"></span>
+      </div>
     </div><!-- /step 5 -->
 
   </form>
@@ -1615,7 +1685,22 @@
   let phasesChanged = false;
 
   function markPhasesChanged() {
+    if (phasesChanged) return;
     phasesChanged = true;
+    // If neither mode is selected yet, nudge both buttons red
+    const mode = document.getElementById('phase_mode')?.value;
+    if (!mode) {
+      const confirmBtn = document.getElementById('phase-confirm-btn');
+      const draftBtn   = document.getElementById('phase-draft-btn');
+      if (confirmBtn && !confirmBtn.classList.contains('confirmed')) {
+        confirmBtn.style.borderColor = 'var(--red)';
+        confirmBtn.style.color = 'var(--red)';
+      }
+      if (draftBtn && !draftBtn.classList.contains('confirmed')) {
+        draftBtn.style.borderColor = 'var(--red)';
+        draftBtn.style.color = 'var(--red)';
+      }
+    }
   }
 
   function togglePhasing(cb) {
@@ -1624,8 +1709,23 @@
     const icon = cb.closest('label').querySelector('.expand-icon');
     if (icon) icon.classList.toggle('is-open', cb.checked);
     if (cb.checked && document.getElementById('phasing-rows').children.length === 0) {
-      phasesChanged = false; // fresh build = standard sequence, unedited
+      phasesChanged = false; // fresh build = no changes yet
       buildPhasingRows();
+    }
+    if (!cb.checked) {
+      // Reset mode selection when phasing is unchecked
+      const field = document.getElementById('phase_mode');
+      if (field) field.value = '';
+      const confirmBtn = document.getElementById('phase-confirm-btn');
+      const draftBtn   = document.getElementById('phase-draft-btn');
+      [confirmBtn, draftBtn].forEach(b => {
+        if (!b) return;
+        b.classList.remove('confirmed');
+        b.style.borderColor = 'rgba(0,0,0,0.15)';
+        b.style.color = '';
+      });
+      if (confirmBtn) confirmBtn.textContent = 'Confirm order';
+      if (draftBtn)   draftBtn.textContent   = 'Build a draft';
     }
   }
 
@@ -1740,7 +1840,46 @@
     makePhaseRow('', '');
   }
 
-  // (phasing mode selector removed — phasing ships the standard sequence unless edited)
+  function selectPhaseMode(mode) {
+    const confirmBtn = document.getElementById('phase-confirm-btn');
+    const draftBtn   = document.getElementById('phase-draft-btn');
+    const field      = document.getElementById('phase_mode');
+    const current    = field.value;
+
+    // Toggle off if already selected
+    if (current === mode) {
+      field.value = '';
+      confirmBtn.classList.remove('confirmed');
+      draftBtn.classList.remove('confirmed');
+      confirmBtn.textContent = 'Confirm order';
+      draftBtn.textContent   = 'Build a draft';
+      confirmBtn.style.borderColor = phasesChanged ? 'var(--red)' : 'rgba(0,0,0,0.15)';
+      confirmBtn.style.color       = phasesChanged ? 'var(--red)' : '';
+      draftBtn.style.borderColor   = phasesChanged ? 'var(--red)' : 'rgba(0,0,0,0.15)';
+      draftBtn.style.color         = phasesChanged ? 'var(--red)' : '';
+      return;
+    }
+
+    // Select the chosen mode, deselect the other
+    field.value = mode;
+
+    // Reset both first
+    [confirmBtn, draftBtn].forEach(b => {
+      b.classList.remove('confirmed');
+      b.style.borderColor = 'rgba(0,0,0,0.15)';
+      b.style.color = '';
+    });
+
+    if (mode === 'confirmed') {
+      confirmBtn.classList.add('confirmed');
+      confirmBtn.textContent = '✓ Order confirmed';
+      draftBtn.textContent   = 'Build a draft';
+    } else {
+      draftBtn.classList.add('confirmed');
+      draftBtn.textContent   = '✓ Build a draft';
+      confirmBtn.textContent = 'Confirm order';
+    }
+  }
 
   // ── Other Admin sub-panel
   let otherAdminDragReady = false;
@@ -1835,6 +1974,7 @@
     document.getElementById('contract-other-wrap').style.display = value === 'Other' ? 'block' : 'none';
   }
 
+
   // ── Checkbox + radio highlight toggle
   function initCheckHighlight(root) {
     root.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
@@ -1854,7 +1994,7 @@
   initCheckHighlight(document);
 
   // ── Dynamic row helpers
-  let teamCount = 0, expCount = 0, optCount = 0;
+  let teamCount = 0, expCount = 0, refCount = 0, optCount = 0, attachCount = 0;
 
   function makeRemoveBtn(container) {
     const btn = document.createElement('button');
@@ -1890,6 +2030,19 @@
     document.getElementById('exp-extra-rows').appendChild(row);
   }
 
+  function addRefRow() {
+    refCount++;
+    const row = document.createElement('div');
+    row.className = 'dynamic-row';
+    row.style.gridTemplateColumns = '1fr 1fr 1fr';
+    row.innerHTML = `
+      <div class="field"><label>Name</label><input type="text" name="ref_extra_name_${refCount}" placeholder="Full name"></div>
+      <div class="field"><label>Company / Project</label><input type="text" name="ref_extra_co_${refCount}" placeholder="Company or project"></div>
+      <div class="field"><label>Email / Phone</label><input type="text" name="ref_extra_contact_${refCount}" placeholder="email or phone"></div>`;
+    row.appendChild(makeRemoveBtn(row));
+    document.getElementById('ref-extra-rows').appendChild(row);
+  }
+
   function addOptRow() {
     optCount++;
     const row = document.createElement('div');
@@ -1897,6 +2050,15 @@
     row.innerHTML = `<div class="field"><label>Section name / description</label><input type="text" name="opt_extra_${optCount}" placeholder="Section name or description"></div>`;
     row.appendChild(makeRemoveBtn(row));
     document.getElementById('opt-extra-rows').appendChild(row);
+  }
+
+  function addAttachRow() {
+    attachCount++;
+    const row = document.createElement('div');
+    row.className = 'dynamic-row';
+    row.innerHTML = `<div class="field"><label>Attachment name</label><input type="text" name="attach_extra_${attachCount}" placeholder="Attachment name"></div>`;
+    row.appendChild(makeRemoveBtn(row));
+    document.getElementById('attach-extra-rows').appendChild(row);
   }
 
   // ── Form submit → mailto plain text
@@ -1912,6 +2074,19 @@
           return;
         }
       }
+    }
+
+    // Block submit if phasing is checked but neither mode selected
+    const phasingChecked = document.getElementById('phasing-cb')?.checked;
+    const phaseMode = document.getElementById('phase_mode')?.value;
+    if (!devMode && phasingChecked && !phaseMode) {
+      const confirmBtn = document.getElementById('phase-confirm-btn');
+      const draftBtn   = document.getElementById('phase-draft-btn');
+      [confirmBtn, draftBtn].forEach(b => {
+        if (b) { b.style.borderColor = 'var(--red)'; b.style.color = 'var(--red)'; }
+      });
+      confirmBtn?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
     }
 
     const data = new FormData(this);
@@ -1974,36 +2149,18 @@
 
     const addNotes = data.get('additional_notes') || '—';
 
-    // ── Review flags + missing-required (surfaced at the top for Radik)
-    const coverChecked = document.getElementById('cover-cb')?.checked;
-    const coverNotes   = data.get('cover_letter_notes') || '';
-    const reviewFlags = [];
-    document.querySelectorAll('[name^="exp_extra_name_"]').forEach(el => {
-      if (el.value) reviewFlags.push(`UNLISTED EXPERIENCE: "${el.value}" — add to the relevant-experience master list or build a custom page.`);
-    });
-    if (document.getElementById('phasing-cb')?.checked && phasesChanged) {
-      reviewFlags.push(`PHASING ADJUSTED — standard sequence was edited. Review before final.`);
-    }
-    if (contractTypeRaw === 'Other') reviewFlags.push(`CONTRACT TYPE "Other" — confirm: ${contractTypeOther || 'unspecified'}.`);
-    if (projTypeRaw === 'Other')     reviewFlags.push(`PROJECT TYPE "Other" — confirm: ${projTypeOther || 'unspecified'}.`);
-    const missingReq = [];
-    document.querySelectorAll('#intakeForm [required]').forEach(el => { if (!el.value.trim()) missingReq.push(el.name); });
-    if (!document.querySelector('input[name="contract_type"]:checked')) missingReq.push('contract_type');
+    // ⚠️ MASTER RULES DEPENDENCY — FORMAT WARNING
+    // The email body format below is used by Claude (MASTER_RULES.md § Intake auto-scan)
+    // to auto-detect pasted intake submissions and bootstrap project folders.
+    // Detection signals: ━━━ dividers + field labels "PROJECT NAME", "EFFORT LEVEL",
+    // "PROJECT TYPE", "CONTRACT TYPE", "ONEDRIVE".
+    // IF YOU CHANGE SECTION HEADERS, DIVIDERS, OR KEY FIELD LABELS:
+    // → Update MASTER_RULES.md § "Intake auto-scan + project bootstrap rule" to match.
+    // File: /00_START_HERE/MASTER_RULES.md
 
-    // ⚠️ MASTER_RULES DEPENDENCY — the intake auto-scan should key on the SENTINEL line below.
-    // STABLE CONTRACT: first line `=== ENDURO_PROPOSAL_INTAKE ===` + last line `=== END ===`.
-    // Detect on that sentinel, NOT on the dividers/labels (which are free to restyle).
-    // The legacy header line is kept only for back-compat until MASTER_RULES is repointed.
     const body = [
-      `=== ENDURO_PROPOSAL_INTAKE ===`,
       `ENDURO CONSTRUCTION — PROPOSAL INTAKE`,
       `Submitted: ${new Date().toLocaleDateString('en-CA')}`,
-      ``,
-      `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
-      `⚠ REVIEW FLAGS`,
-      `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
-      reviewFlags.length ? reviewFlags.map(f => `• ${f}`).join('\n') : `None`,
-      missingReq.length ? `MISSING REQUIRED: ${missingReq.join(', ')}` : '',
       ``,
       `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
       `1. PROJECT INFO`,
@@ -2050,22 +2207,25 @@
             : `  ☑ ${s}`).join('\n')
         : '  None selected',
       ...extraOptLines,
-      coverChecked ? `\n  Cover Letter notes:\n    ${(coverNotes || '(none provided)').replace(/\n/g, '\n    ')}` : '',
       expItems.length ? `\n  Relevant Experience:` : '',
       ...expItems.map(e => `    ☑ ${e}`),
       ...extraExpLines,
       phasingLines.length ? `\n  Phasing:` : '',
       ...phasingLines,
+      phasingLines.length ? `  Phase order: ${
+        document.getElementById('phase_mode')?.value === 'confirmed' ? 'Confirmed ✓' :
+        document.getElementById('phase_mode')?.value === 'draft'     ? 'Build a draft — Claude to generate based on scope ✦' :
+        'Not confirmed'
+      }` : '',
       ``,
       `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
       `6. ADDITIONAL NOTES`,
       `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
       addNotes,
-      `=== END ===`,
     ].filter(l => l !== '').join('\n');
 
     const subject = encodeURIComponent(`Proposal Intake — ${projectName}`);
-    window.location.href = `mailto:radik@enduroconstruction.ca?subject=${subject}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:birkine.r@gmail.com?subject=${subject}&body=${encodeURIComponent(body)}`;
   });
 
   // ── Multi-step controller
@@ -2103,13 +2263,54 @@
       const checked = document.querySelectorAll('input[name="pages"]:checked').length;
       if (checked < 4) return false;
     }
+    if (n === 5) {
+      const notes = document.querySelector('textarea[name="additional_notes"]');
+      if (!notes || !notes.value.trim()) return false;
+    }
     return true;
   }
 
   function updateRail() {
-    // Sync stepDone purely from validity — free navigation, no locking/freezing
+    // Sync stepDone — valid visited steps
     for (let n = 1; n <= TOTAL_STEPS; n++) {
-      if (isStepValid(n)) { stepDone.add(n); } else { stepDone.delete(n); }
+      if (isStepValid(n) && (stepDone.has(n) || n === currentStep)) {
+        stepDone.add(n);
+      } else if (!isStepValid(n)) {
+        stepDone.delete(n);
+      }
+    }
+
+    // Check if all steps have been completed at least once — flips permanently
+    if (!allEverCompleted && Array.from({length: TOTAL_STEPS}, (_, i) => i + 1).every(n => stepDone.has(n))) {
+      allEverCompleted = true;
+    }
+
+    // Warning steps: only relevant in free-nav mode (after allEverCompleted)
+    // In sequential mode there are no warning dots — just locked/unlocked
+    const warningSteps = new Set();
+    if (allEverCompleted) {
+      for (let n = 1; n <= TOTAL_STEPS; n++) {
+        if (n !== currentStep && visitedSteps.has(n) && !isStepValid(n)) {
+          warningSteps.add(n);
+        }
+      }
+    }
+
+    const anyWarning = warningSteps.size > 0;
+
+    // Freeze current step if in free-nav mode, a warning exists, and this step isn't the broken one
+    const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+    if (currentStepEl) {
+      const isFrozen = allEverCompleted && anyWarning && !warningSteps.has(currentStep);
+      currentStepEl.classList.toggle('frozen', isFrozen);
+      const notice = currentStepEl.querySelector('.frozen-notice');
+      if (notice && isFrozen) {
+        const nums = Array.from(warningSteps).sort((a, b) => a - b);
+        const label = nums.length === 1
+          ? `Step ${nums[0]}`
+          : `Steps ${nums.slice(0, -1).join(', ')} and ${nums[nums.length - 1]}`;
+        notice.innerHTML = `⚠️ Complete ${label} before editing here.`;
+      }
     }
 
     for (let n = 1; n <= TOTAL_STEPS; n++) {
@@ -2119,15 +2320,31 @@
 
       let newState;
       if (n === currentStep) {
-        newState = 'active';            // red — current step
+        newState = 'active'; // always red — no exceptions
+      } else if (warningSteps.has(n)) {
+        newState = 'warning'; // gold — broken, must fix (free-nav mode only)
       } else if (stepDone.has(n)) {
-        newState = 'done';              // black — complete
-      } else if (visitedSteps.has(n)) {
-        newState = 'warning';           // gold — visited but still missing something
+        newState = 'done'; // black — completed
+      } else if (allEverCompleted && visitedSteps.has(n)) {
+        newState = 'unlocked'; // free-nav: visited but not currently valid
+      } else if (!allEverCompleted && n === currentStep + 1 && isStepValid(currentStep)) {
+        newState = 'unlocked'; // sequential: next step just became reachable
       } else {
-        newState = 'unlocked';          // grey — reachable, not yet visited
+        newState = 'locked'; // not reachable yet
       }
       item.classList.add(newState);
+
+      // Fire pulse on the dot if it just became unlocked (wasn't before)
+      const dot = item.querySelector('.step-dot');
+      const wasAvailable = _prevUnlocked.has(n);
+      const isNowAvailable = (newState === 'unlocked');
+      if (isNowAvailable && !wasAvailable && dot) {
+        dot.classList.remove('pulse-unlock');
+        void dot.offsetWidth;
+        dot.classList.add('pulse-unlock');
+        dot.addEventListener('animationend', () => dot.classList.remove('pulse-unlock'), { once: true });
+      }
+      if (isNowAvailable) { _prevUnlocked.add(n); } else { _prevUnlocked.delete(n); }
     }
 
     // Live pages counter for step 4
@@ -2165,7 +2382,7 @@
       .forEach(el => el.classList.remove('field-missing', 'field-missing-shake'));
     document.querySelectorAll('.contract-btns.contract-missing')
       .forEach(el => el.classList.remove('contract-missing'));
-    document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
+document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active', 'frozen'));
     document.querySelector(`.form-step[data-step="${n}"]`).classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     currentStep = n;
@@ -2297,23 +2514,52 @@
   function handleRailSend() {
     const btn = document.getElementById('railSendBtn');
     if (btn && btn.classList.contains('ready')) {
+      // Form is fully valid — submit
       document.getElementById('intakeForm').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
-      return;
-    }
-    // Not ready — jump to the first invalid step and bounce its first missing field
-    for (let n = 1; n <= TOTAL_STEPS; n++) {
-      if (!isStepValid(n)) {
-        if (currentStep !== n) showStep(n);
-        validateStep(n);
-        return;
-      }
+    } else {
+      // Not ready — bounce the topmost missing field on the current step
+      validateStep(currentStep);
     }
   }
 
   // Rail click handler
   function railGo(n) {
     if (n === currentStep) return;
-    showStep(n); // free navigation — jump to any step
+
+    if (!allEverCompleted) {
+      // Sequential mode: allow going back freely
+      if (n < currentStep) { showStep(n); return; }
+      // Forward: only advance if current step is valid (clicking 3, 4, 5 all bounce the same as clicking 2)
+      if (isStepValid(currentStep)) {
+        stepDone.add(currentStep);
+        // Only move one step at a time even if they clicked further ahead
+        showStep(currentStep + 1);
+      } else {
+        validateStep(currentStep); // progressive bounce on topmost missing field
+      }
+      return;
+    }
+
+    // Free-nav mode: always allow
+    showStep(n);
+  }
+
+  function stepNav(dir) {
+    if (dir === 1) {
+      // Forward: require valid in sequential mode
+      if (!allEverCompleted && !isStepValid(currentStep)) {
+        validateStep(currentStep); // focuses first missing field
+        return;
+      }
+      if (isStepValid(currentStep)) stepDone.add(currentStep);
+      if (currentStep === TOTAL_STEPS) {
+        document.getElementById('intakeForm').dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));
+        return;
+      }
+      showStep(currentStep + 1);
+    } else {
+      showStep(currentStep - 1);
+    }
   }
 
   // ── Reset form — clears all fields and returns to step 1
@@ -2322,7 +2568,7 @@
     if (!window.confirm('Reset the entire form?\n\nAll entries will be cleared and you\'ll return to step 1.')) return;
     document.getElementById('intakeForm').reset();
     // Clear any dynamically added rows (team, phases, expenses, extras)
-    ['extra-team-rows','phasing-rows','exp-extra-rows','other-admin-rows','opt-extra-rows'].forEach(id => {
+    ['team-rows','phase-rows','exp-rows','other-admin-rows','opt-rows'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.innerHTML = '';
     });
