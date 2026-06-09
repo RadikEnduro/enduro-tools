@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enduro — Equipment Manager (web prototype)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --red:#E43338;--red-dark:#C42A2F;--black:#101820;--ink:#101820;--offwhite:#F4ECE2;--sand:#EBE7E0;--white:#fff;
+    --bg:#f4f5f7;--panel:#fff;--line:rgba(16,24,32,.10);--line2:rgba(16,24,32,.16);
+    --dim:rgba(16,24,32,.45);--mid:rgba(16,24,32,.64);
+    --ok:#107C41;--ok-bg:#e7f3ec;--amber:#9A6C00;--amber-bg:#fbf2dc;--navy:#0F3B66;--navy-bg:#e8f0f8;
+    --grey:#6B757D;--grey-bg:#eef0f1;--maint:#E43338;--maint-bg:#fdecec;--r:12px;
+    --sidebar:248px;
+  }
+  html,body{height:100%;}
+  body{font-family:'Inter',Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:14px;-webkit-font-smoothing:antialiased;}
+
+  /* ════ APP SHELL ════ */
+  .app{display:grid;grid-template-columns:var(--sidebar) 1fr;height:100vh;}
+
+  /* sidebar */
+  .sidebar{background:var(--black);color:#fff;display:flex;flex-direction:column;overflow:hidden;}
+  .sb-logo{padding:22px 22px 18px;}
+  .sb-logo svg{height:22px;display:block;}
+  .sb-logo .tag{font-size:9px;font-weight:800;letter-spacing:1px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-top:8px;}
+  .sb-user{margin:0 14px 12px;padding:11px 12px;border-radius:11px;background:rgba(255,255,255,.06);display:flex;align-items:center;gap:11px;cursor:pointer;transition:background .15s;}
+  .sb-user:hover{background:rgba(255,255,255,.1);}
+  .sb-ava{width:36px;height:36px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;}
+  .sb-user .nm{font-size:13.5px;font-weight:700;line-height:1.1;}
+  .sb-user .rl{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px;}
+  .sb-user .sw{margin-left:auto;opacity:.4;}
+  .sb-nav{flex:1;overflow-y:auto;padding:6px 12px;}
+  .sb-nav::-webkit-scrollbar{width:0;}
+  .nav-sec{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.32);padding:14px 12px 6px;}
+  .nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;color:rgba(255,255,255,.72);cursor:pointer;font-size:13.5px;font-weight:600;transition:background .14s,color .14s;position:relative;}
+  .nav-item:hover{background:rgba(255,255,255,.07);color:#fff;}
+  .nav-item.on{background:var(--red);color:#fff;}
+  .nav-item svg{width:18px;height:18px;flex-shrink:0;}
+  .nav-item .ct{margin-left:auto;font-size:11px;font-weight:800;background:rgba(255,255,255,.16);border-radius:20px;min-width:20px;text-align:center;padding:1px 6px;}
+  .nav-item.on .ct{background:rgba(0,0,0,.25);}
+  .nav-item .ct.alert{background:var(--red);color:#fff;}
+  .nav-item.on .ct.alert{background:#fff;color:var(--red);}
+  .nav-item .ct.notif{background:#FECC02;color:#101820;}
+  .nav-item.on .ct.notif{background:#fff;color:#101820;}
+
+  /* main */
+  .main{display:flex;flex-direction:column;overflow:hidden;}
+  .topbar{height:64px;flex-shrink:0;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:18px;padding:0 28px;}
+  .topbar h1{font-size:19px;font-weight:800;letter-spacing:-.3px;}
+  .topbar .sub{font-size:12px;color:var(--mid);font-weight:500;}
+  .top-search{margin-left:auto;position:relative;width:300px;max-width:36vw;}
+  .top-search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.4;}
+  .top-search input{width:100%;padding:9px 12px 9px 36px;border:1.5px solid var(--line2);border-radius:10px;font-family:inherit;font-size:13px;outline:none;background:var(--bg);}
+  .top-search input:focus{border-color:var(--red);background:#fff;}
+  .top-bell{position:relative;width:40px;height:40px;border-radius:10px;border:1.5px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+  .top-bell:hover{border-color:var(--line2);}
+  .top-bell .bdg{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;border-radius:9px;background:var(--red);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px;}
+
+  .content{flex:1;overflow-y:auto;padding:26px 28px 60px;}
+  .view{display:none;animation:fade .25s ease;}
+  .view.on{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+  /* ════ COMPONENTS ════ */
+  .section-h{font-size:13px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--mid);margin:26px 0 14px;display:flex;align-items:center;gap:10px;}
+  .section-h:first-child{margin-top:0;}
+  .section-h .cnt{font-size:11px;color:var(--dim);font-weight:700;}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:18px;}
+  .card .n{font-size:30px;font-weight:900;letter-spacing:-.6px;line-height:1;}
+  .card .l{font-size:11.5px;font-weight:700;color:var(--mid);margin-top:6px;text-transform:uppercase;letter-spacing:.3px;}
+  .card .l .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle;}
+  .card.tap{cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .08s;}
+  .card.tap:hover{border-color:var(--line2);box-shadow:0 10px 26px -16px rgba(16,24,32,.3);}
+  .card.tap:active{transform:scale(.99);}
+  .card.alert{border-color:rgba(228,51,56,.3);} .card.alert .n{color:var(--red);}
+
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;}
+
+  /* toolbar */
+  .toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+  .chip{appearance:none;border:1.5px solid var(--line);background:#fff;font-family:inherit;font-size:12px;font-weight:700;color:var(--mid);padding:7px 13px;border-radius:20px;cursor:pointer;transition:all .13s;display:inline-flex;align-items:center;gap:6px;}
+  .chip:hover{border-color:var(--line2);color:var(--ink);}
+  .chip.on{background:var(--black);border-color:var(--black);color:#fff;}
+  .chip .d{width:7px;height:7px;border-radius:50%;}
+
+  .btn{appearance:none;font-family:inherit;font-weight:700;border-radius:10px;cursor:pointer;border:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background .15s,border-color .15s,opacity .15s,transform .08s;}
+  .btn:active{transform:scale(.98);}
+  .btn-red{background:var(--red);color:#fff;padding:10px 18px;font-size:13.5px;} .btn-red:hover{background:var(--red-dark);}
+  .btn-red:disabled{background:var(--sand);color:var(--dim);cursor:not-allowed;}
+  .btn-dark{background:var(--black);color:#fff;padding:9px 15px;font-size:13px;} .btn-dark:hover{opacity:.9;}
+  .btn-ok{background:var(--ok);color:#fff;padding:9px 15px;font-size:13px;} .btn-ok:hover{opacity:.92;}
+  .btn-out{background:#fff;color:var(--ink);border:1.5px solid var(--line2);padding:9px 15px;font-size:13px;} .btn-out:hover{border-color:var(--ink);}
+  .btn-ghost{background:none;color:var(--mid);border:1.5px solid var(--line);padding:9px 14px;font-size:13px;} .btn-ghost:hover{color:var(--ink);border-color:var(--line2);}
+  .btn-sm{padding:7px 12px;font-size:12.5px;}
+  .ml-auto{margin-left:auto;}
+
+  /* table */
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  thead th{background:#fbfbfc;text-align:left;padding:11px 16px;font-size:11px;font-weight:700;letter-spacing:.3px;color:var(--mid);border-bottom:1px solid var(--line);white-space:nowrap;}
+  tbody td{padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:middle;}
+  tbody tr{cursor:pointer;transition:background .1s;}
+  tbody tr:hover{background:#fbf8f5;}
+  tbody tr:last-child td{border-bottom:none;}
+  td.eqid{font-weight:800;font-variant-numeric:tabular-nums;}
+  td.dim{color:var(--dim);}
+  .mine-b{font-size:9.5px;font-weight:800;color:var(--red);background:#fcebeb;padding:2px 7px;border-radius:10px;letter-spacing:.3px;margin-left:6px;}
+
+  .pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;padding:3px 10px;border-radius:11px;white-space:nowrap;}
+  .pill .d{width:6px;height:6px;border-radius:50%;}
+  .pill.assigned{color:var(--navy);background:var(--navy-bg);} .pill.assigned .d{background:var(--navy);}
+  .pill.available{color:var(--ok);background:var(--ok-bg);} .pill.available .d{background:var(--ok);}
+  .pill.transit{color:var(--amber);background:var(--amber-bg);} .pill.transit .d{background:var(--amber);}
+  .pill.maintenance{color:var(--maint);background:var(--maint-bg);} .pill.maintenance .d{background:var(--maint);}
+  .pill.retired{color:var(--grey);background:var(--grey-bg);} .pill.retired .d{background:var(--grey);}
+  .dotc{width:8px;height:8px;border-radius:50%;display:inline-block;}
+  .c-assigned{background:var(--navy);}.c-available{background:var(--ok);}.c-transit{background:var(--amber);}.c-maintenance{background:var(--maint);}.c-retired{background:var(--grey);}
+
+  /* request / approval rows */
+  .rq{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;margin-bottom:12px;}
+  .rq.act{border-color:rgba(228,51,56,.35);}
+  .rq-top{display:flex;align-items:flex-start;gap:12px;}
+  .rq-eq{font-size:11px;font-weight:800;color:#fff;background:var(--black);padding:3px 8px;border-radius:6px;flex-shrink:0;margin-top:1px;}
+  .rq-txt{font-size:14px;font-weight:600;line-height:1.4;}
+  .rq-txt b{font-weight:800;}
+  .rq-meta{font-size:12px;color:var(--mid);margin-top:3px;}
+  .rq-right{margin-left:auto;display:flex;gap:8px;align-items:center;flex-shrink:0;}
+  .signs{display:flex;gap:18px;margin-top:13px;padding-top:13px;border-top:1px solid var(--line);}
+  .sign{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--dim);}
+  .sign.done{color:var(--ok);}
+  .sign .ring{width:18px;height:18px;border-radius:50%;border:2px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:11px;}
+  .sign.done .ring{background:var(--ok);border-color:var(--ok);color:#fff;}
+  .lock-b{font-size:10.5px;font-weight:800;color:var(--ok);background:var(--ok-bg);padding:3px 9px;border-radius:10px;display:inline-flex;align-items:center;gap:5px;letter-spacing:.3px;}
+  .revoke-note{font-size:11.5px;color:var(--amber);font-weight:600;margin-top:8px;}
+
+  /* tabs */
+  .tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:20px;}
+  .tab{appearance:none;background:none;border:none;font-family:inherit;font-size:13.5px;font-weight:700;color:var(--dim);padding:10px 16px 13px;cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-1px;display:flex;align-items:center;gap:8px;}
+  .tab:hover{color:var(--ink);}
+  .tab.on{color:var(--ink);border-bottom-color:var(--red);}
+  .tab .ct{font-size:10.5px;font-weight:800;background:#fcebeb;color:var(--red);border-radius:20px;padding:1px 7px;}
+  .subview{display:none;} .subview.on{display:block;}
+
+  .empty{text-align:center;color:var(--dim);padding:50px 20px;font-style:italic;background:var(--panel);border:1px dashed var(--line2);border-radius:var(--r);}
+
+  /* fields */
+  .frow{display:grid;gap:14px;margin-bottom:14px;}
+  .frow.c2{grid-template-columns:1fr 1fr;}
+  .fld label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;}
+  .fld input,.fld select,.fld textarea{width:100%;padding:11px 13px;border:1.5px solid var(--line2);border-radius:10px;font-family:inherit;font-size:14px;outline:none;background:#fff;-webkit-appearance:none;appearance:none;}
+  .fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--red);}
+  .fld select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23101820' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:36px;cursor:pointer;}
+
+  /* activity */
+  .act-row{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--line);}
+  .act-row:last-child{border-bottom:none;}
+  .act-ic{width:30px;height:30px;border-radius:8px;background:var(--offwhite);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;}
+  .act-tx{font-size:13.5px;line-height:1.4;} .act-tx b{font-weight:800;}
+  .act-tm{font-size:11.5px;color:var(--dim);margin-top:2px;}
+
+  /* drawer */
+  .drawer-bg{position:fixed;inset:0;background:rgba(16,24,32,.4);opacity:0;pointer-events:none;transition:opacity .25s;z-index:80;}
+  .drawer-bg.on{opacity:1;pointer-events:auto;}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:480px;max-width:94vw;background:#fff;box-shadow:-10px 0 50px rgba(0,0,0,.18);transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);z-index:90;display:flex;flex-direction:column;}
+  .drawer.on{transform:none;}
+  .dwh{padding:22px 26px 18px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:14px;}
+  .dwh .eq{font-size:13px;font-weight:800;color:#fff;background:var(--black);padding:4px 10px;border-radius:7px;display:inline-block;}
+  .dwh h2{font-size:22px;font-weight:900;letter-spacing:-.4px;margin-top:10px;}
+  .dwh .ds{font-size:13px;color:var(--mid);margin-top:2px;}
+  .dwh .x{margin-left:auto;background:none;border:none;font-size:24px;color:var(--dim);cursor:pointer;line-height:1;}
+  .dwh .x:hover{color:var(--red);}
+  .dwb{padding:20px 26px 30px;overflow-y:auto;flex:1;}
+  .dgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px 18px;margin-bottom:8px;}
+  .di .k{font-size:11px;color:var(--dim);font-weight:700;}
+  .di .v{font-size:14px;font-weight:600;margin-top:1px;}
+  .blk-l{font-size:10.5px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--dim);margin:22px 0 10px;}
+  .hist{border-left:2px solid var(--line);padding-left:14px;}
+  .hist .h{margin-bottom:11px;} .hist .ht{font-size:12.5px;} .hist .hd{font-size:11px;color:var(--dim);}
+  .dwf{padding:16px 26px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px;}
+
+  /* scanner */
+  .scanner{width:100%;aspect-ratio:16/10;border-radius:14px;background:#0d1117;position:relative;overflow:hidden;margin:6px 0 16px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .sf{width:42%;height:62%;position:relative;}
+  .sf span{position:absolute;width:24px;height:24px;border:3px solid #fff;}
+  .sf span:nth-child(1){top:0;left:0;border-right:none;border-bottom:none;border-radius:6px 0 0 0;}
+  .sf span:nth-child(2){top:0;right:0;border-left:none;border-bottom:none;border-radius:0 6px 0 0;}
+  .sf span:nth-child(3){bottom:0;left:0;border-right:none;border-top:none;border-radius:0 0 0 6px;}
+  .sf span:nth-child(4){bottom:0;right:0;border-left:none;border-top:none;border-radius:0 0 6px 0;}
+  .sl{position:absolute;left:29%;right:29%;height:2px;background:var(--red);box-shadow:0 0 12px 2px var(--red);animation:scn 2s ease-in-out infinite;}
+  @keyframes scn{0%,100%{top:22%;}50%{top:74%;}}
+  .scan-tap{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:rgba(255,255,255,.8);font-size:12px;}
+  .cond2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .cond2 button{font-family:inherit;font-weight:700;font-size:14px;padding:15px;border-radius:11px;border:1.5px solid var(--line2);background:#fff;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;}
+  .cond2 button.gg{background:var(--ok);border-color:var(--ok);color:#fff;}
+  .cond2 button.bb{background:var(--maint);border-color:var(--maint);color:#fff;}
+
+  /* toast */
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--black);color:#fff;font-size:13px;font-weight:600;padding:12px 22px;border-radius:24px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:120;box-shadow:0 12px 36px -8px rgba(0,0,0,.4);}
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* actor sheet (centered modal) */
+  .modal-bg{position:fixed;inset:0;background:rgba(16,24,32,.45);opacity:0;pointer-events:none;transition:opacity .2s;z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;}
+  .modal-bg.on{opacity:1;pointer-events:auto;}
+  .modal{background:#fff;border-radius:16px;width:420px;max-width:100%;max-height:84vh;overflow:hidden;transform:scale(.96);transition:transform .2s;display:flex;flex-direction:column;}
+  .modal-bg.on .modal{transform:none;}
+  .modal-h{padding:20px 24px 14px;border-bottom:1px solid var(--line);font-size:17px;font-weight:800;}
+  .modal-b{padding:8px 0;overflow-y:auto;}
+  .actor{display:flex;align-items:center;gap:13px;padding:12px 24px;cursor:pointer;transition:background .12s;}
+  .actor:hover{background:var(--bg);}
+  .actor.cur{background:#fcf6f2;}
+  .actor .a{width:38px;height:38px;border-radius:50%;background:var(--black);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;}
+  .actor.pm .a{background:var(--navy);} .actor.admin .a{background:var(--red);}
+  .actor .an{font-size:14.5px;font-weight:700;} .actor .ar{font-size:12px;color:var(--mid);}
+  .actor .ck{margin-left:auto;color:var(--red);font-weight:800;}
+
+  .hint{background:var(--offwhite);border-radius:10px;padding:12px 15px;font-size:12.5px;color:var(--mid);line-height:1.5;margin-bottom:18px;}
+  .hint b{color:var(--ink);}
+
+  /* mobile bottom nav (hidden on desktop) */
+  .mnav{display:none;}
+
+  @media(max-width:900px){
+    :root{--sidebar:0px;}
+    .app{grid-template-columns:1fr;}
+    .sidebar{display:none;}
+    .topbar{padding:0 16px;height:58px;}
+    .topbar h1{font-size:17px;} .topbar .sub{display:none;}
+    .top-search{display:none;}
+    .content{padding:18px 14px 90px;}
+    .dgrid{grid-template-columns:1fr;}
+    .drawer{width:100%;}
+    /* table -> stacked cards */
+    .reg-table thead{display:none;}
+    .reg-table tbody tr{display:grid;grid-template-columns:auto 1fr auto;gap:4px 10px;padding:12px 14px;border-bottom:1px solid var(--line);align-items:center;}
+    .reg-table td{border:none;padding:2px 0;}
+    .reg-table td[data-l]::before{content:attr(data-l) " ";font-size:10px;color:var(--dim);font-weight:700;text-transform:uppercase;display:none;}
+    .reg-table td.col-desc,.reg-table td.col-loc{grid-column:2;color:var(--mid);font-size:12px;}
+    .reg-table td.col-eq{grid-row:1/3;} .reg-table td.col-type{font-weight:700;}
+    .reg-table td.col-status{grid-row:1/3;justify-self:end;}
+    .reg-table td.col-cond,.reg-table td.col-holder{display:none;}
+    /* mobile bottom nav */
+    .mnav{display:flex;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);z-index:70;padding-bottom:env(safe-area-inset-bottom);}
+    .mnav button{flex:1;background:none;border:none;font-family:inherit;padding:9px 2px 11px;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--dim);position:relative;cursor:pointer;}
+    .mnav button.on{color:var(--red);}
+    .mnav button .ml{font-size:10px;font-weight:700;}
+    .mnav button .mb{position:absolute;top:4px;right:calc(50% - 20px);min-width:15px;height:15px;border-radius:8px;background:var(--red);color:#fff;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+    .mnav button .mb.notif{background:#FECC02;color:#101820;}
+    .cards{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- ════ SIDEBAR ════ -->
+  <aside class="sidebar">
+    <div class="sb-logo">
+      <svg viewBox="0 0 260 78" xmlns="http://www.w3.org/2000/svg"><path d="M25.3695 29.7298L23.153 40.5405H29.6434L31.8599 29.7298L31.0322 28.6487H26.7053L25.3695 29.7298ZM40.693 64.8647C38.9999 73.0809 35.7571 76.1079 29.5309 77.8376H7.4635C3.08879 76.1079 0.203396 71.9998 1.75064 64.8647L9.27051 29.1892C11.0719 20.9731 14.3146 17.9461 20.5409 16.2163H42.6082C46.9829 17.9461 49.7602 22.0542 48.2129 29.1892L43.6718 50.8107H20.9554L18.1037 64.3242L18.9313 65.4052H23.2583L24.5941 64.3242L26.4143 55.5675H42.6403L40.693 64.8647ZM69.7374 29.7298L59.62 77.8376H43.3939L56.4713 16.2163H72.6973L71.6809 20.5406L77.0243 16.2163H86.7599C91.3736 17.2974 93.9973 22.7028 92.835 28.1082L82.3364 77.8376H66.1104L76.0819 30.8109L75.1461 29.7298H69.7374ZM107.921 64.3242H113.33L120.596 29.7298H115.187L113.959 30.8109L107.094 63.2431L107.921 64.3242ZM111.641 72.4322L105.07 77.8376H95.8749C91.5153 75.6755 89.1783 71.3512 90.2287 66.0539L98.2606 28.1082C99.677 21.6217 103.29 17.2974 109.493 16.2163H119.229L122.539 20.5406L126.934 0.000230512H143.16L126.704 77.8376H110.478L111.641 72.4322ZM184.15 16.2163L173.797 64.8647C172.104 73.0809 168.861 76.1079 162.635 77.8376H140.567C136.193 76.1079 133.307 71.9998 134.855 64.8647L145.207 16.2163H161.433L151.208 64.3242L152.035 65.4052H156.362L157.698 64.3242L167.924 16.2163H184.15ZM200.244 42.1621L192.724 77.8376H176.498L189.575 16.2163H205.801L204.781 20.6488C206.807 18.3785 209.341 17.0812 212.075 16.2163H218.998L215.384 32.973H203.269L201.933 34.0541L200.244 42.1621ZM249.962 64.8647C248.269 73.0809 245.026 76.1079 238.8 77.8376H216.732C212.358 76.1079 209.472 71.9998 211.02 64.8647L218.539 29.1892C220.341 20.9731 223.584 17.9461 229.81 16.2163H251.877C256.252 17.9461 259.029 22.0542 257.482 29.1892L249.962 64.8647ZM234.638 29.7298L227.373 64.3242L228.2 65.4052H232.527L233.863 64.3242L241.129 29.7298L240.301 28.6487H235.974L234.638 29.7298Z" fill="#E43338"/></svg>
+      <div class="tag">Equipment Manager · Prototype</div>
+    </div>
+    <div class="sb-user" onclick="openActor()">
+      <div class="sb-ava" id="uAva">ET</div>
+      <div><div class="nm" id="uName">Eric Tran</div><div class="rl" id="uRole">Superintendent</div></div>
+      <span class="sw"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M5 6l3 3 3-3M5 10l3-3 3 3" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </div>
+    <nav class="sb-nav" id="sbNav"></nav>
+  </aside>
+
+  <!-- ════ MAIN ════ -->
+  <div class="main">
+    <header class="topbar">
+      <div><h1 id="pageTitle">Dashboard</h1><div class="sub" id="pageSub">—</div></div>
+      <div class="top-search"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#101820" stroke-width="1.5"/><path d="M11 11l3.5 3.5" stroke="#101820" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <input type="text" id="globalSearch" placeholder="Search tools, IDs, people…" oninput="goSearch()"></div>
+    </header>
+
+    <div class="content" id="content">
+      <section class="view" id="v-dashboard"></section>
+      <section class="view" id="v-registry"></section>
+      <section class="view" id="v-requests"></section>
+      <section class="view" id="v-approvals"></section>
+      <section class="view" id="v-mine"></section>
+      <section class="view" id="v-maintenance"></section>
+      <section class="view" id="v-activity"></section>
+      <section class="view" id="v-add"></section>
+    </div>
+  </div>
+</div>
+
+<!-- mobile bottom nav -->
+<nav class="mnav" id="mnav"></nav>
+
+<!-- drawer -->
+<div class="drawer-bg" id="drawerBg" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer">
+  <div class="dwh" id="dwh"></div>
+  <div class="dwb" id="dwb"></div>
+  <div class="dwf" id="dwf"></div>
+</aside>
+
+<!-- actor modal -->
+<div class="modal-bg" id="actorBg" onclick="closeActor(event)">
+  <div class="modal">
+    <div class="modal-h">Switch who you are <span style="font-size:12px;font-weight:600;color:var(--mid);">— prototype, play any role</span></div>
+    <div class="modal-b" id="actorList"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════ DATA ═══════════════ */
+const PEOPLE={
+  'Eric Tran':{role:'super',title:'Superintendent',site:'UBC Friedman Theater'},
+  'Marco Silva':{role:'super',title:'Superintendent',site:'Abdera Therapeutics'},
+  'Dan Whitfield':{role:'super',title:'Superintendent',site:'Surrey SSLC'},
+  'Priya Nair':{role:'super',title:'Superintendent',site:'UBC CEME Reno'},
+  'Anass Adnani':{role:'pm',title:'Project Manager',site:'Office'},
+  'Fred Roberge':{role:'admin',title:'Principal · Admin',site:'Office'},
+};
+const PPL=Object.keys(PEOPLE);
+const PM='Anass Adnani';
+const STATUS={
+  assigned:{label:'On Site',cls:'assigned'},available:{label:'In Yard',cls:'available'},
+  transit:{label:'In Transit',cls:'transit'},maintenance:{label:'Under Maintenance',cls:'maintenance'},
+  retired:{label:'Damaged / Missing',cls:'retired'},
+};
+function ini(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
+function siteOf(h){return h==='Yard'?'Storage (Yard)':(PEOPLE[h]?PEOPLE[h].site:'—');}
+function fn(n){return n.split(' ')[0];}
+
+let me='Eric Tran';
+let clock=0; // fake monotonically increasing "minutes ago" stamp
+let TOOLS=[
+  {id:'EQ-001',type:'Step Ladder',desc:'12 ft fibreglass',holder:'Eric Tran',status:'assigned',cond:'Good'},
+  {id:'EQ-002',type:'HEPA Vacuum',desc:'Dust-control vac',holder:'Eric Tran',status:'assigned',cond:'Good'},
+  {id:'EQ-004',type:'Laser Level',desc:'Rotary · Topcon',holder:'Eric Tran',status:'assigned',cond:'Good'},
+  {id:'EQ-011',type:'Table Saw',desc:'10 in jobsite saw',holder:'Eric Tran',status:'assigned',cond:'Good'},
+  {id:'EQ-005',type:'Generator',desc:'5 kW · Honda',holder:'Marco Silva',status:'assigned',cond:'Good'},
+  {id:'EQ-010',type:'Pressure Washer',desc:'Gas · Honda',holder:'Marco Silva',status:'assigned',cond:'Good'},
+  {id:'EQ-014',type:'Drill Kit',desc:'DeWalt · 4-tool',holder:'Marco Silva',status:'assigned',cond:'Good'},
+  {id:'EQ-006',type:'Scissor Lift',desc:'19 ft electric',holder:'Dan Whitfield',status:'assigned',cond:'Good'},
+  {id:'EQ-013',type:'Plate Compactor',desc:'Gas · reversible',holder:'Dan Whitfield',status:'assigned',cond:'Good'},
+  {id:'EQ-016',type:'Site Heater',desc:'Propane · 125k',holder:'Dan Whitfield',status:'assigned',cond:'Good'},
+  {id:'EQ-008',type:'Total Station',desc:'Survey · Leica',holder:'Priya Nair',status:'assigned',cond:'Good'},
+  {id:'EQ-009',type:'Welder',desc:'MIG · Miller',holder:'Priya Nair',status:'assigned',cond:'Good'},
+  {id:'EQ-007',type:'Dehumidifier',desc:'Commercial LGR',holder:'Yard',status:'available',cond:'Good'},
+  {id:'EQ-012',type:'Air Compressor',desc:'Portable · Rolair',holder:'Yard',status:'available',cond:'Good'},
+  {id:'EQ-015',type:'Wet Saw',desc:'Tile saw · 10 in',holder:'Yard',status:'available',cond:'Good'},
+  {id:'EQ-003',type:'Air Mover',desc:'Axial fan',holder:'Yard',status:'maintenance',cond:'Needs repair',note:'Motor bearing — in shop'},
+];
+let REQS=[]; let reqSeq=1;
+let ACT=[]; let _pendCond=null;
+function logAct(icon,text,toolId){ ACT.unshift({icon,text,tool:toolId,t:clock++}); }
+function tmAgo(t){const d=clock-t;return d<=0?'just now':(d<60?d+'m ago':(Math.floor(d/60)+'h ago'));}
+
+/* seed a little activity + one in-flight request for realism */
+function seed(){
+  logAct('📦','EQ-008 Total Station issued to Priya Nair · UBC CEME','EQ-008'); clock+=180;
+  logAct('🔧','EQ-003 Air Mover flagged Under Maintenance by Terrance','EQ-003'); clock+=90;
+  // Dan has an open request to Marco for the Drill Kit, PM already approved, awaiting Marco
+  const r={id:reqSeq++,tool:'EQ-014',from:'Dan Whitfield',to:'Marco Silva',pmOk:true,superOk:false,state:'pending',giver:false,receiver:false,cond:null,_pmBy:PM};
+  REQS.push(r); tool('EQ-014').status='transit';
+  logAct('📨','Dan Whitfield requested EQ-014 Drill Kit from Marco Silva','EQ-014'); clock+=20;
+  logAct('✅','Anass Adnani (PM) approved EQ-014 request','EQ-014'); clock+=5;
+}
+
+/* ═══════════════ HELPERS ═══════════════ */
+function tool(id){return TOOLS.find(t=>t.id===id);}
+function myRole(){return PEOPLE[me].role;}
+function isApprover(r){ return (me===PM) || (me===r.to && r.to!=='Yard'); }     // PM, or the holding super
+function myApprovedFlag(r){ return me===PM ? r.pmOk : (me===r.to ? r.superOk : false); }
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(window._t);window._t=setTimeout(()=>t.classList.remove('on'),2400);}
+
+function counts(){
+  const c={onsite:0,yard:0,transit:0,maint:0,missing:0};
+  TOOLS.forEach(t=>{if(t.status==='assigned')c.onsite++;else if(t.status==='available')c.yard++;else if(t.status==='transit')c.transit++;else if(t.status==='maintenance')c.maint++;else if(t.status==='retired')c.missing++;});
+  return c;
+}
+function myActions(){
+  let n=0;
+  REQS.forEach(r=>{
+    if(r.state==='pending' && isApprover(r) && !myApprovedFlag(r)) n++;
+    if(r.state==='approved' && r.to===me && !r.giver) n++;
+    if(r.state==='approved' && r.from===me && !r.receiver) n++;
+  });
+  return n;
+}
+function reqActions(){ return REQS.filter(r=>r.state==='approved'&&((r.to===me&&!r.giver)||(r.from===me&&!r.receiver))).length; }
+
+/* ═══════════════ NAV ═══════════════ */
+const NAV=[
+  {id:'dashboard',label:'Dashboard',icon:'<path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>'},
+  {id:'registry',label:'Registry',icon:'<path d="M4 6h16M4 12h16M4 18h16" stroke-width="2" stroke-linecap="round"/>',stroke:1},
+  {id:'requests',label:'Requests',icon:'<path d="M4 4h16v13l-3-2H4z" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 9h8M8 12h5" stroke-width="1.8" stroke-linecap="round"/>',stroke:1,badge:'actions'},
+  {id:'approvals',label:'Approvals',icon:'<path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke-width="1.7"/>',stroke:1,badge:'approvals'},
+  {id:'mine',label:'My Tools',icon:'<path d="M3 7l9-4 9 4-9 4-9-4zM3 7v10l9 4 9-4V7" stroke-width="1.8" stroke-linejoin="round"/>',stroke:1},
+  {id:'maintenance',label:'Maintenance',icon:'<path d="M14 7l3 3-7 7-3-3z" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 7l3-3 3 3-3 3" stroke-width="1.8" stroke-linejoin="round"/>',stroke:1},
+  {id:'activity',label:'Activity',icon:'<path d="M3 12h4l2 6 4-14 2 8h6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',stroke:1},
+  {id:'add',label:'Add Equipment',icon:'<path d="M12 5v14M5 12h14" stroke-width="2" stroke-linecap="round"/>',stroke:1},
+];
+let activeView='dashboard';
+function renderNav(){
+  const approvalsCount=REQS.filter(r=>r.state==='pending'&&isApprover(r)&&!myApprovedFlag(r)).length;
+  const actionsCount=myActions();
+  const html=NAV.map(n=>{
+    let badge='';
+    if(n.badge==='actions'){const rc=reqActions();if(rc)badge=`<span class="ct notif">${rc}</span>`;}
+    if(n.badge==='approvals'&&approvalsCount)badge=`<span class="ct alert">${approvalsCount}</span>`;
+    const ic=`<svg viewBox="0 0 24 24" fill="${n.stroke?'none':'currentColor'}" stroke="${n.stroke?'currentColor':'none'}">${n.icon}</svg>`;
+    return `<div class="nav-item ${n.id===activeView?'on':''}" onclick="nav('${n.id}')">${ic}<span>${n.label}</span>${badge}</div>`;
+  }).join('');
+  document.getElementById('sbNav').innerHTML=html;
+  // mobile nav (subset)
+  const m=['dashboard','registry','requests','approvals','mine'];
+  document.getElementById('mnav').innerHTML=m.map(id=>{
+    const n=NAV.find(x=>x.id===id);
+    let b='';const cn=id==='approvals'?approvalsCount:(id==='requests'?reqActions():0);
+    const bc=id==='requests'?'mb notif':'mb';
+    if(cn)b=`<span class="${bc}">${cn}</span>`;
+    return `<button class="${id===activeView?'on':''}" onclick="nav('${id}')"><svg viewBox="0 0 24 24" width="22" height="22" fill="${n.stroke?'none':'currentColor'}" stroke="${n.stroke?'currentColor':'none'}">${n.icon}</svg><span class="ml">${n.label.split(' ')[0]}</span>${b}</button>`;
+  }).join('');
+}
+const TITLES={dashboard:['Dashboard','Where everything stands right now'],registry:['Tool Registry','Every tool — who holds it, where, what condition'],requests:['Requests & Transfers','What you asked for, and hand-offs in motion'],approvals:['Approvals','Sign off, revoke before lock, and your approved list'],mine:['My Tools','What you’re holding'],maintenance:['Maintenance','Out of circulation until cleared'],activity:['Activity Log','The full audit trail — two names on every move'],add:['Add Equipment','Register a new tool + print its QR label']};
+function nav(id){
+  activeView=id;
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  document.getElementById('v-'+id).classList.add('on');
+  document.getElementById('pageTitle').textContent=TITLES[id][0];
+  document.getElementById('pageSub').textContent=TITLES[id][1];
+  document.getElementById('content').scrollTop=0;
+  renderNav();
+  ({dashboard:renderDashboard,registry:renderRegistry,requests:renderRequests,approvals:renderApprovals,mine:renderMine,maintenance:renderMaintenance,activity:renderActivity,add:renderAdd}[id])();
+}
+
+/* ═══════════════ ACTOR ═══════════════ */
+function openActor(){
+  document.getElementById('actorList').innerHTML=PPL.map(n=>{
+    const p=PEOPLE[n];
+    return `<div class="actor ${p.role} ${n===me?'cur':''}" onclick="setActor('${n}')">
+      <div class="a">${ini(n)}</div>
+      <div><div class="an">${n}</div><div class="ar">${p.title} · ${p.site}</div></div>
+      ${n===me?'<span class="ck">✓</span>':''}</div>`;
+  }).join('');
+  document.getElementById('actorBg').classList.add('on');
+}
+function closeActor(e){ if(!e||e.target.id==='actorBg') document.getElementById('actorBg').classList.remove('on'); }
+function setActor(n){me=n;document.getElementById('actorBg').classList.remove('on');refreshChrome();nav(activeView);toast('Now acting as '+n+' · '+PEOPLE[n].title);}
+function refreshChrome(){
+  document.getElementById('uAva').textContent=ini(me);
+  document.getElementById('uName').textContent=me;
+  document.getElementById('uRole').textContent=PEOPLE[me].title;
+}
+
+/* ═══════════════ DASHBOARD ═══════════════ */
+function renderDashboard(){
+  const c=counts();const acts=myActions();
+  const mineN=TOOLS.filter(t=>t.holder===me).length;
+  const v=document.getElementById('v-dashboard');
+  v.innerHTML=`
+    <div class="hint">👋 <b>${fn(me)}</b> — you're viewing as <b>${PEOPLE[me].title}</b>. Switch role anytime (top-left) to see a super's vs the PM's view. Everything here is clickable.</div>
+    <div class="cards">
+      <div class="card tap" onclick="nav('mine')"><div class="n">${mineN}</div><div class="l">Tools you hold</div></div>
+      <div class="card tap ${acts?'alert':''}" onclick="nav('requests')"><div class="n">${acts}</div><div class="l">Needs your action</div></div>
+      <div class="card tap" onclick="nav('registry')"><div class="n">${c.onsite}</div><div class="l"><span class="dot c-assigned"></span>On site</div></div>
+      <div class="card tap" onclick="filterReg('available')"><div class="n">${c.yard}</div><div class="l"><span class="dot c-available"></span>In yard</div></div>
+      <div class="card tap ${c.transit?'alert':''}" onclick="filterReg('transit')"><div class="n">${c.transit}</div><div class="l"><span class="dot c-transit"></span>In transit</div></div>
+      <div class="card tap ${c.maint?'alert':''}" onclick="nav('maintenance')"><div class="n">${c.maint}</div><div class="l"><span class="dot c-maintenance"></span>Maintenance</div></div>
+    </div>
+    <div class="section-h">Recent activity <span class="cnt">— newest first</span></div>
+    <div class="panel" style="padding:6px 18px;">${ACT.slice(0,6).map(actRow).join('')||'<div style="padding:20px;color:var(--dim);">No activity yet.</div>'}</div>`;
+}
+
+/* ═══════════════ REGISTRY ═══════════════ */
+let regFilter='all';
+function filterReg(f){regFilter=f;nav('registry');}
+function renderRegistry(){
+  const q=(document.getElementById('globalSearch').value||'').toLowerCase().trim();
+  const v=document.getElementById('v-registry');
+  const chips=['all','available','assigned','transit','maintenance','retired'].map(f=>{
+    const lbl=f==='all'?'All':STATUS[f].label;
+    const dot=f==='all'?'':`<span class="d c-${f}"></span>`;
+    return `<button class="chip ${regFilter===f?'on':''}" onclick="regFilter='${f}';renderRegistry()">${dot}${lbl}</button>`;
+  }).join('');
+  const rows=TOOLS.filter(t=>{
+    const okF=regFilter==='all'||t.status===regFilter;
+    const hay=(t.id+' '+t.type+' '+t.desc+' '+t.holder).toLowerCase();
+    return okF&&(!q||hay.includes(q));
+  });
+  v.innerHTML=`
+    <div class="toolbar">${chips}<button class="btn btn-red btn-sm ml-auto" onclick="nav('add')">+ Add equipment</button></div>
+    <div class="panel"><table class="reg-table"><thead><tr><th>ID</th><th>Tool</th><th>Holder</th><th>Location</th><th>Status</th><th>Condition</th></tr></thead><tbody>
+    ${rows.length?rows.map(t=>`<tr onclick="openTool('${t.id}')">
+      <td class="eqid col-eq">${t.id}</td>
+      <td class="col-type">${t.type}${t.holder===me?'<span class="mine-b">YOURS</span>':''}<div class="col-desc" style="display:none;">${t.desc}</div></td>
+      <td class="dim col-holder">${t.holder==='Yard'?'—':t.holder}</td>
+      <td class="col-loc">${siteOf(t.holder)}</td>
+      <td class="col-status"><span class="pill ${STATUS[t.status].cls}"><span class="d"></span>${STATUS[t.status].label}</span></td>
+      <td class="dim col-cond">${t.cond}</td></tr>`).join(''):'<tr><td colspan="6"><div style="padding:30px;text-align:center;color:var(--dim);font-style:italic;">No tools match.</div></td></tr>'}
+    </tbody></table></div>`;
+}
+
+/* ═══════════════ TOOL DRAWER ═══════════════ */
+function openTool(id){
+  const t=tool(id);const mine=t.holder===me;
+  document.getElementById('dwh').innerHTML=`<div><span class="eq">${t.id}</span><h2>${t.type}</h2><div class="ds">${t.desc}</div></div><button class="x" onclick="closeDrawer()">&times;</button>`;
+  const hist=ACT.filter(a=>a.tool===id);
+  document.getElementById('dwb').innerHTML=`
+    <div class="dgrid">
+      <div class="di"><div class="k">Status</div><div class="v"><span class="pill ${STATUS[t.status].cls}"><span class="d"></span>${STATUS[t.status].label}</span></div></div>
+      <div class="di"><div class="k">Condition</div><div class="v">${t.cond}</div></div>
+      <div class="di"><div class="k">Held by</div><div class="v">${mine?'You':(t.holder==='Yard'?'Yard':t.holder)}</div></div>
+      <div class="di"><div class="k">Location</div><div class="v">${siteOf(t.holder)}</div></div>
+    </div>
+    ${t.note?`<div class="di" style="margin-top:12px;"><div class="k">Note</div><div class="v" style="font-weight:500;">${t.note}</div></div>`:''}
+    <div class="blk-l">History — audit trail</div>
+    ${hist.length?`<div class="hist">${hist.map(a=>`<div class="h"><div class="ht">${a.icon} ${a.text}</div><div class="hd">${tmAgo(a.t)}</div></div>`).join('')}</div>`:'<div style="color:var(--dim);font-style:italic;font-size:13px;">No history yet.</div>'}`;
+  // footer action
+  let f='';
+  if(mine){ f=`<button class="btn btn-out" onclick="returnYard('${id}')">Return to yard</button>`; }
+  else if(t.status==='assigned'){ f=`<button class="btn btn-red" onclick="requestTool('${id}')">Request from ${fn(t.holder)}</button><div style="font-size:12px;color:var(--dim);text-align:center;">Needs ${fn(t.holder)} <b>and</b> the PM to approve before it moves.</div>`; }
+  else if(t.status==='available'){ f=`<button class="btn btn-red" onclick="requestTool('${id}')">Check out from yard</button><div style="font-size:12px;color:var(--dim);text-align:center;">Yard items need PM sign-off, then scan on pickup.</div>`; }
+  else { f=`<button class="btn btn-red" disabled>${STATUS[t.status].label} — unavailable</button>`; }
+  document.getElementById('dwf').innerHTML=f;
+  document.getElementById('drawer').classList.add('on');document.getElementById('drawerBg').classList.add('on');
+}
+function closeDrawer(){document.getElementById('drawer').classList.remove('on');document.getElementById('drawerBg').classList.remove('on');}
+
+/* ═══════════════ REQUEST + APPROVAL FLOW ═══════════════ */
+function requestTool(id){
+  const t=tool(id);const fromYard=t.holder==='Yard';
+  const r={id:reqSeq++,tool:id,from:me,to:t.holder,pmOk:false,superOk:fromYard,state:'pending',giver:fromYard,receiver:false,cond:null};
+  REQS.push(r);t.status='transit';
+  logAct('📨',`${fn(me)} requested ${t.id} ${t.type}${fromYard?' from the yard':' from '+fn(t.holder)}`,id);
+  closeDrawer();refreshAll();nav('requests');
+  toast(fromYard?'Sent to the PM for sign-off':'Request sent — '+fn(r.to)+' + PM must approve');
+}
+function approve(rid){
+  const r=REQS.find(x=>x.id===rid);
+  if(me===PM){r.pmOk=true;r._pmBy=me;} else if(me===r.to){r.superOk=true;}
+  logAct('✅',`${fn(me)} (${me===PM?'PM':'site super'}) approved ${r.tool} request`,r.tool);
+  if(r.pmOk&&r.superOk){r.state='approved';logAct('🔒',`${r.tool} dual-locked — cleared to move`,r.tool);}
+  refreshAll();
+  toast(r.state==='approved'?'Both signed off — '+fn(r.from)+' can pick it up':'Approved — awaiting the other sign-off (you can still revoke)');
+}
+function revoke(rid){
+  const r=REQS.find(x=>x.id===rid);
+  if(r.state!=='pending'){toast('Locked — can\'t revoke. Needs a new request.');return;}
+  if(me===PM)r.pmOk=false; else if(me===r.to)r.superOk=false;
+  logAct('↩️',`${fn(me)} revoked their approval on ${r.tool}`,r.tool);
+  refreshAll();toast('Approval revoked');
+}
+function reject(rid){
+  const r=REQS.find(x=>x.id===rid);r.state='declined';
+  tool(r.tool).status=tool(r.tool).holder==='Yard'?'available':'assigned';
+  logAct('⛔',`${fn(me)} rejected ${r.tool} request from ${fn(r.from)}`,r.tool);
+  refreshAll();toast('Rejected — '+fn(r.from)+' notified');
+}
+function giverConfirm(rid){const r=REQS.find(x=>x.id===rid);r.giver=true;logAct('🤝',`${fn(me)} confirmed hand-off of ${r.tool}`,r.tool);finalize(r);refreshAll();toast('Hand-off confirmed');}
+function finalize(r){
+  if(r.giver&&r.receiver){
+    const t=tool(r.tool);t.holder=r.from;
+    if(r.cond==='Damaged'){t.status='maintenance';t.cond='Damaged';t.note='Received damaged by '+fn(r.from)+' from '+fn(r.to);logAct('🔧',`${r.tool} received DAMAGED by ${fn(r.from)} — flagged, both on record`,r.tool);}
+    else{t.status='assigned';t.cond='Good';logAct('📦',`${r.tool} received by ${fn(r.from)} · ${siteOf(r.from)} — Good`,r.tool);}
+    r.state='complete';
+  }
+}
+/* scan + inspect (receiver) */
+function openScan(rid){
+  const r=REQS.find(x=>x.id===rid);const t=tool(r.tool);
+  document.getElementById('dwh').innerHTML=`<div><span class="eq">Receive ${t.id}</span><h2>${t.type}</h2><div class="ds">${t.desc}</div></div><button class="x" onclick="closeDrawer()">&times;</button>`;
+  document.getElementById('dwb').innerHTML=`<div style="font-size:13px;color:var(--mid);margin-bottom:6px;">Scan the QR tag on the tool to receive it.</div>
+    <div class="scanner" onclick="scanHit(${rid})"><div class="sf"><span></span><span></span><span></span><span></span></div><div class="sl"></div><div class="scan-tap">Tap to scan</div></div>`;
+  document.getElementById('dwf').innerHTML='';
+  document.getElementById('drawer').classList.add('on');document.getElementById('drawerBg').classList.add('on');
+}
+function scanHit(rid){
+  const r=REQS.find(x=>x.id===rid);const t=tool(r.tool);
+  document.getElementById('dwb').innerHTML=`<div class="di"><div class="k">Scanned ✓</div><div class="v">${t.id} · ${t.type}</div></div>
+    <div class="blk-l">Inspect before you accept — you own its condition</div>
+    <div class="cond2" id="cond2">
+      <button id="c-good" onclick="pickCond(${rid},'Good')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Good</button>
+      <button id="c-bad" onclick="pickCond(${rid},'Damaged')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 8v5M12 16.5v.4" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/><path d="M12 3l9 16H3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Damaged</button>
+    </div>`;
+  document.getElementById('dwf').innerHTML=`<button class="btn btn-red" id="rcptBtn" disabled onclick="doReceipt(${rid})">Confirm receipt</button>`;
+}
+function pickCond(rid,c){_pendCond=c;document.getElementById('c-good').className=c==='Good'?'gg':'';document.getElementById('c-bad').className=c==='Damaged'?'bb':'';const b=document.getElementById('rcptBtn');b.disabled=false;b.textContent=c==='Good'?'Confirm receipt — Good':'Accept & flag Damaged';}
+function doReceipt(rid){const r=REQS.find(x=>x.id===rid);r.receiver=true;r.cond=_pendCond||'Good';_pendCond=null;finalize(r);closeDrawer();refreshAll();toast(r.cond==='Damaged'?r.tool+' flagged for maintenance — both names on record':r.tool+' is yours · register updated');}
+function returnYard(id){const t=tool(id);t.holder='Yard';t.status='available';logAct('↩️',`${fn(me)} returned ${id} to the yard`,id);closeDrawer();refreshAll();toast(id+' returned to the yard');}
+
+/* ═══════════════ REQUESTS VIEW ═══════════════ */
+function signRow(r){return `<div class="signs">
+  <div class="sign ${r.pmOk?'done':''}"><span class="ring">${r.pmOk?'✓':''}</span>PM sign-off</div>
+  <div class="sign ${r.superOk?'done':''}"><span class="ring">${r.superOk?'✓':''}</span>${r.to==='Yard'?'Yard (n/a)':'Site super'}</div></div>`;}
+function handRow(r){return `<div class="signs">
+  <div class="sign ${r.giver?'done':''}"><span class="ring">${r.giver?'✓':''}</span>Handed over</div>
+  <div class="sign ${r.receiver?'done':''}"><span class="ring">${r.receiver?'✓':''}</span>Received &amp; inspected</div></div>`;}
+function renderRequests(){
+  const v=document.getElementById('v-requests');let h='';
+  const giveHand=REQS.filter(r=>r.state==='approved'&&r.to===me&&!r.giver);
+  const recvHand=REQS.filter(r=>r.state==='approved'&&r.from===me&&!r.receiver);
+  const waitGiver=REQS.filter(r=>r.state==='approved'&&r.from===me&&r.receiver&&!r.giver);
+  const outPending=REQS.filter(r=>r.state==='pending'&&r.from===me);
+  if(giveHand.length)h+=grp('Hand over — confirm once it’s physically passed',giveHand.map(r=>{const t=tool(r.tool);return rqCard(t,`Give <b>${t.type}</b> to <b>${fn(r.from)}</b>`,`Signed off by you + PM`,handRow(r),`<button class="btn btn-dark btn-sm" onclick="giverConfirm(${r.id})">Confirm I handed it over</button>`,true);}).join(''));
+  if(recvHand.length)h+=grp('Pick up — scan when you have it',recvHand.map(r=>{const t=tool(r.tool);return rqCard(t,`Receive <b>${t.type}</b>${r.to==='Yard'?' from the yard':' from '+fn(r.to)}`,`Scan the tag, inspect, confirm`,handRow(r),`<button class="btn btn-red btn-sm" onclick="openScan(${r.id})">Scan to receive</button>`,true);}).join(''));
+  if(waitGiver.length)h+=grp('Waiting on the other side',waitGiver.map(r=>{const t=tool(r.tool);return rqCard(t,`You received <b>${t.type}</b> — waiting for ${fn(r.to)} to confirm hand-off`,'',handRow(r),'',false);}).join(''));
+  if(outPending.length)h+=grp('You requested — waiting on approvals',outPending.map(r=>{const t=tool(r.tool);return rqCard(t,`Asked for <b>${t.type}</b>${r.to==='Yard'?' (yard)':' — held by '+fn(r.to)}`,'🔔 PM + site super reminded until they act',signRow(r),'',false);}).join(''));
+  v.innerHTML=h||emptyMsg('No requests or transfers in motion.','Request a tool from the Registry to see the flow.');
+}
+function rqCard(t,txt,meta,signs,actions,act){return `<div class="rq ${act?'act':''}"><div class="rq-top"><span class="rq-eq">${t.id}</span><div style="flex:1;"><div class="rq-txt">${txt}</div>${meta?`<div class="rq-meta">${meta}</div>`:''}</div>${actions?`<div class="rq-right">${actions}</div>`:''}</div>${signs}</div>`;}
+function grp(label,inner){return `<div class="section-h">${label}</div>${inner}`;}
+function emptyMsg(a,b){return `<div class="empty">${a}<br><span style="font-size:12.5px;">${b}</span></div>`;}
+
+/* ═══════════════ APPROVALS VIEW (the new piece) ═══════════════ */
+let apprTab='todo';
+function renderApprovals(){
+  const v=document.getElementById('v-approvals');
+  const todo=REQS.filter(r=>r.state==='pending'&&isApprover(r)&&!myApprovedFlag(r));
+  const mineApproved=REQS.filter(r=>r.state==='pending'&&isApprover(r)&&myApprovedFlag(r)); // approved by me, not yet locked -> revocable
+  const locked=REQS.filter(r=>(r.state==='approved'||r.state==='complete')&&isApprover(r)&&myApprovedFlag(r));
+  if(myRole()==='super'){
+    // supers only approve when they hold the requested tool; still show their relevant ones
+  }
+  const tabs=`<div class="tabs">
+    <button class="tab ${apprTab==='todo'?'on':''}" onclick="apprTab='todo';renderApprovals()">Needs approval ${todo.length?`<span class="ct">${todo.length}</span>`:''}</button>
+    <button class="tab ${apprTab==='mine'?'on':''}" onclick="apprTab='mine';renderApprovals()">Approved by you${mineApproved.length?` <span class="ct">${mineApproved.length}</span>`:''}</button>
+    <button class="tab ${apprTab==='locked'?'on':''}" onclick="apprTab='locked';renderApprovals()">Locked</button>
+  </div>`;
+  let body='';
+  if(apprTab==='todo'){
+    body=todo.length?todo.map(r=>{const t=tool(r.tool);
+      return rqCard(t,`<b>${fn(r.from)}</b> wants the <b>${t.type}</b>`,`From ${r.to==='Yard'?'the yard':fn(r.to)+' · '+siteOf(r.to)} · you approve as ${me===PM?'PM':'site super'}`,signRow(r),
+        `<button class="btn btn-ok btn-sm" onclick="approve(${r.id})">Approve</button><button class="btn btn-out btn-sm" onclick="reject(${r.id})">Reject</button>`,true);
+    }).join(''):emptyMsg('Nothing needs your approval.','When someone requests a tool you control, it lands here.');
+  } else if(apprTab==='mine'){
+    body=mineApproved.length?`<div class="hint">You've signed off on these but they're <b>not locked yet</b> — the other approver hasn't signed. You can still <b>revoke</b>. Once both sign, it locks and can't be revoked.</div>`+mineApproved.map(r=>{const t=tool(r.tool);
+      return rqCard(t,`You approved <b>${t.type}</b> for <b>${fn(r.from)}</b>`,`Waiting on ${r.pmOk&&!r.superOk?fn(r.to)+' (site super)':'the PM'} to sign`,signRow(r),
+        `<button class="btn btn-ghost btn-sm" onclick="revoke(${r.id})">Revoke approval</button>`,false)+`<div style="margin:-6px 0 12px 0;"></div>`;
+    }).join(''):emptyMsg('Nothing awaiting the second sign-off.','Approvals you make that aren\'t locked yet show here, revocable.');
+  } else {
+    body=locked.length?`<div class="hint">🔒 <b>Dual-locked</b> — both approvers signed. These can no longer be revoked; undoing one means a return or a brand-new request.</div>`+locked.map(r=>{const t=tool(r.tool);
+      const stg=r.state==='complete'?'Delivered':(r.giver&&!r.receiver?'Awaiting receipt':r.receiver&&!r.giver?'Awaiting hand-off':'In transit');
+      return `<div class="rq"><div class="rq-top"><span class="rq-eq">${t.id}</span><div style="flex:1;"><div class="rq-txt"><b>${t.type}</b> → ${fn(r.from)}</div><div class="rq-meta">${stg}</div></div><div class="rq-right"><span class="lock-b">🔒 Locked</span></div></div></div>`;
+    }).join(''):emptyMsg('No locked approvals yet.','Once both parties sign, items lock here.');
+  }
+  v.innerHTML=tabs+body;
+}
+
+/* ═══════════════ MY TOOLS ═══════════════ */
+function renderMine(){
+  const v=document.getElementById('v-mine');
+  const mine=TOOLS.filter(t=>t.holder===me);
+  v.innerHTML=mine.length?`<div class="panel"><table><thead><tr><th>ID</th><th>Tool</th><th>Location</th><th>Status</th><th></th></tr></thead><tbody>${mine.map(t=>`<tr onclick="openTool('${t.id}')"><td class="eqid">${t.id}</td><td>${t.type}</td><td class="dim">${siteOf(t.holder)}</td><td><span class="pill ${STATUS[t.status].cls}"><span class="d"></span>${STATUS[t.status].label}</span></td><td style="text-align:right;"><button class="btn btn-out btn-sm" onclick="event.stopPropagation();returnYard('${t.id}')">Return to yard</button></td></tr>`).join('')}</tbody></table></div>`:emptyMsg('You\'re not holding any tools.','Request one from the Registry.');
+}
+
+/* ═══════════════ MAINTENANCE ═══════════════ */
+function renderMaintenance(){
+  const v=document.getElementById('v-maintenance');
+  const m=TOOLS.filter(t=>t.status==='maintenance'||t.status==='retired');
+  v.innerHTML=`<div class="hint">🔧 Anything needing repair is pulled from circulation and can't be requested until it's cleared and marked safe.</div>`+
+    (m.length?`<div class="panel"><table><thead><tr><th>ID</th><th>Tool</th><th>Status</th><th>Condition</th><th>Note</th><th></th></tr></thead><tbody>${m.map(t=>`<tr onclick="openTool('${t.id}')"><td class="eqid">${t.id}</td><td>${t.type}</td><td><span class="pill ${STATUS[t.status].cls}"><span class="d"></span>${STATUS[t.status].label}</span></td><td>${t.cond}</td><td class="dim">${t.note||'—'}</td><td style="text-align:right;">${(myRole()==='pm'||myRole()==='admin')?`<button class="btn btn-ok btn-sm" onclick="event.stopPropagation();clearMaint('${t.id}')">Mark cleared</button>`:''}</td></tr>`).join('')}</tbody></table></div>`:emptyMsg('Nothing in maintenance.','Clean shop.'));
+}
+function clearMaint(id){const t=tool(id);t.status='available';t.holder='Yard';t.cond='Good';t.note='';logAct('🟢',`${id} cleared from maintenance — back in the yard`,id);refreshAll();toast(id+' cleared — back in the yard');}
+
+/* ═══════════════ ACTIVITY ═══════════════ */
+function actRow(a){return `<div class="act-row"><div class="act-ic">${a.icon}</div><div><div class="act-tx">${a.text}</div><div class="act-tm">${tmAgo(a.t)}${a.tool?' · '+a.tool:''}</div></div></div>`;}
+function renderActivity(){
+  const v=document.getElementById('v-activity');
+  v.innerHTML=`<div class="hint">Every request, approval, revoke, hand-off and receipt is logged — so there are always <b>two names</b> on a tool in transit. This is the accountability trail.</div><div class="panel" style="padding:6px 18px;">${ACT.map(actRow).join('')||'<div style="padding:20px;color:var(--dim);">No activity yet.</div>'}</div>`;
+}
+
+/* ═══════════════ ADD EQUIPMENT ═══════════════ */
+function renderAdd(){
+  const next='EQ-'+String(TOOLS.length+1).padStart(3,'0');
+  const v=document.getElementById('v-add');
+  v.innerHTML=`<div style="max-width:620px;">
+    <div class="hint">New tools get the next ID automatically and start in the yard. Print its QR label so crews can scan it on hand-off.</div>
+    <div class="panel" style="padding:24px;">
+      <div class="frow c2"><div class="fld"><label>Equipment ID</label><input value="${next}" disabled style="opacity:.6;"></div><div class="fld"><label>Type</label><input id="a-type" placeholder="e.g. Impact Drill"></div></div>
+      <div class="fld" style="margin-bottom:14px;"><label>Description</label><input id="a-desc" placeholder="Make / model / detail"></div>
+      <div class="frow c2"><div class="fld"><label>Condition</label><select id="a-cond"><option>Good</option><option>Fair</option><option>Needs repair</option></select></div><div class="fld"><label>Starting location</label><input value="Storage (Yard)" disabled style="opacity:.6;"></div></div>
+      <button class="btn btn-red" style="margin-top:8px;" onclick="addEquip()">Add to register</button>
+    </div></div>`;
+}
+function addEquip(){
+  const type=(document.getElementById('a-type').value||'').trim();
+  if(!type){toast('Give it a type first');return;}
+  const id='EQ-'+String(TOOLS.length+1).padStart(3,'0');
+  TOOLS.push({id,type,desc:(document.getElementById('a-desc').value||'').trim()||'—',holder:'Yard',status:'available',cond:document.getElementById('a-cond').value});
+  logAct('➕',`${fn(me)} added ${id} ${type} to the register`,id);
+  refreshAll();nav('registry');toast(id+' added — now in the yard');
+}
+
+/* ═══════════════ SEARCH / REFRESH / INIT ═══════════════ */
+function goSearch(){ if(activeView!=='registry')nav('registry'); else renderRegistry(); }
+function refreshAll(){renderNav();const r={dashboard:renderDashboard,registry:renderRegistry,requests:renderRequests,approvals:renderApprovals,mine:renderMine,maintenance:renderMaintenance,activity:renderActivity,add:renderAdd}[activeView];if(r)r();}
+(function init(){ seed(); refreshChrome(); renderNav(); nav('dashboard'); })();
+</script>
+</body>
+</html>
